@@ -3,24 +3,24 @@ layout: page
 title: Localisation
 ---
 
-RmlUi fully supports localisation through the interface described in the following.
+APUI fully supports localisation through the interface described in the following.
 
 ### String encoding
 
-RmlUi assumes all data it is given, whether read in from RML or provided procedurally, is in UTF-8 encoding. This means if you're using 8-bit ASCII you don't need to change anything, but allows you to specify multi-byte Unicode characters if required.
+APUI assumes all data it is given, whether read in from RML or provided procedurally, is in UTF-8 encoding. This means if you're using 8-bit ASCII you don't need to change anything, but allows you to specify multi-byte Unicode characters if required.
 
 ### Translation
 
-All raw text that RmlUi reads while parsing RML (i.e., everything other than XML tags) is sent through the `TranslateString()` function on the [system interface](cpp_manual/interfaces/system.html). The function is given the raw string as read, and the application can make any modifications necessary before returning the translated string (and the number of substitutions made) back to RmlUi.
+All raw text that APUI reads while parsing RML (i.e., everything other than XML tags) is sent through the `TranslateString()` function on the [system interface](cpp_manual/interfaces/system.html). The function is given the raw string as read, and the application can make any modifications necessary before returning the translated string (and the number of substitutions made) back to APUI.
 
 A pass-through translator would do the following:
 
 ```cpp
-#include <RmlUi/Core/SystemInterface.h>
+#include <APUI/Core/SystemInterface.h>
 
-class SampleSystemInterface : public Rml::SystemInterface
+class SampleSystemInterface : public apui::SystemInterface
 {
-	int TranslateString(Rml::String& translated, const Rml::String& input) override
+	int TranslateString(apui::String& translated, const apui::String& input) override
 	{
 		translated = input;
 		return 0;
@@ -62,7 +62,7 @@ If we were to localise _Rocket Invaders_, we'd want to move all of the English s
 Assuming the appliation has a `StringTable` class that has loaded the appropriate string table for the language, our sample translator would then become:
 
 ```cpp
-	int TranslateString(Rml::String& translated, const Rml::String& input) override
+	int TranslateString(apui::String& translated, const apui::String& input) override
 	{
 		// Attempt to find the translation in the string table.
 		if (StringTable::GetString(translated, input))
@@ -76,4 +76,4 @@ Assuming the appliation has a `StringTable` class that has loaded the appropriat
 
 Now the strings will be valid for whatever language we specify a string table for. In practice, you might need a more sophisticated translator that could replace multiple tokens within a string.
 
-Note that you can place RML into the translated string, and it will be parsed appropriately. For example, you could replace a token with an `<img>`{:.tag} tag to render an icon for a controller button.
+Note that you can place RML into the translated string, and it will be parsed appropriately. For example, you could replace a token with an `<img>` tag to render an icon for a controller button.

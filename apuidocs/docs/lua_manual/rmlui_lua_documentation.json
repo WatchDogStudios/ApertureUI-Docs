@@ -1365,7 +1365,7 @@
                 "returns": [
                     "ElementStyleProxy"
                 ],
-                "py_description": "An object used to access this element's style information. Individual RCSS properties can be accessed by using the name of the property as a Python property on the object itself (ie, element.style.width = \"40px\").",
+                "py_description": "An object used to access this element's style information. Individual CSS properties can be accessed by using the name of the property as a Python property on the object itself (ie, element.style.width = \"40px\").",
                 "py_arguments": null
             },
             "tag_name": {
@@ -1677,7 +1677,7 @@
         "py_description": "",
         "py_arguments": ""
     },
-    "LuaRmlUi": {
+    "LuaAPUI": {
         "inherits": "",
         "functions": {
             "CreateContext": {
@@ -1733,7 +1733,7 @@
                 "type": "get",
                 "arguments": [],
                 "returns": [
-                    "RmlUiContextsProxy"
+                    "APUIContextsProxy"
                 ],
                 "py_description": "",
                 "py_arguments": ""
@@ -1756,24 +1756,24 @@
         "py_description": "",
         "py_arguments": ""
     },
-    "RmlUiContextsProxy": {
+    "APUIContextsProxy": {
         "inherits": "",
         "functions": {
-            "RmlUiContextsProxy__index": {
+            "APUIContextsProxy__index": {
                 "type": "other",
                 "arguments": [],
                 "returns": [],
                 "py_description": "",
                 "py_arguments": ""
             },
-            "RmlUiContextsProxy__pairs": {
+            "APUIContextsProxy__pairs": {
                 "type": "other",
                 "arguments": [],
                 "returns": [],
                 "py_description": "",
                 "py_arguments": ""
             },
-            "RmlUiContextsProxy__ipairs": {
+            "APUIContextsProxy__ipairs": {
                 "type": "other",
                 "arguments": [],
                 "returns": [],

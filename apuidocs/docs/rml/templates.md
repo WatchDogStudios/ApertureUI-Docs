@@ -7,31 +7,31 @@ next: syntax
 
 ### \<template\>
 
-The `<template>`{:.tag} element has two uses, to define a template and inject a template inline into an existing RML documents.
+The `<template>` element has two uses, to define a template and inject a template inline into an existing RML documents.
 
-When defining a template, `<template>`{:.tag} should be used in place of `<rml>`{:.tag}.
+When defining a template, `<template>` should be used in place of `<rml>`.
 
 _Attributes_
 
-`name`{:.attr} = cdata (CI)
+`name` = cdata (CI)
 : The name of the template. Must be unique. Is used by other RML documents to reference the template.
 
-`content`{:.attr} = idref (CI)
+`content` = idref (CI)
 : The id of the element that the content will be put into.
 
-When injecting a template, all elements inside the `<template>`{:.tag} tag will be placed inside the template's content element.
+When injecting a template, all elements inside the `<template>` tag will be placed inside the template's content element.
 
-`src`{:.attr} = cdata (CS)
+`src` = cdata (CS)
 : For inline templates, the name of the template to inject.
 
 ### \<body\>
 
-The `<body>`{:.tag} element has a `template`{:.attr} attribute that is a shorthand for injecting a template around the body tag.
+The `<body>` element has a `template` attribute that is a shorthand for injecting a template around the body tag.
 
 _Attributes_
 
-`template`{:.attr} = cdata (CS)
-: The name of the template to use. All child elements under the `<body>`{:.tag} element will be loaded into the template.
+`template` = cdata (CS)
+: The name of the template to use. All child elements under the `<body>` element will be loaded into the template.
 
 
 ### Example
@@ -41,7 +41,7 @@ Start by defining a template file `basic.rml`:
 ```html
 <template name="basic" content="content">
 <head>
-	<link type="text/rcss" href="style.rcss"/>
+	<link type="text/css" href="style.css"/>
 </head>
 <body class="window">
 	<h1>Header</h1>

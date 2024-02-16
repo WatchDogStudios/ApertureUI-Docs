@@ -5,13 +5,13 @@ parent: cpp_manual
 next: interfaces
 ---
 
-RmlUi does not read user input directly, instead, it requires the application to feed its contexts with input events. Each context will process the input it is provided with and dispatch events as appropriate.
+APUI does not read user input directly, instead, it requires the application to feed its contexts with input events. Each context will process the input it is provided with and dispatch events as appropriate.
 
 ### Key modifiers
 
 Most of the input functions take the parameter `key_modifier_state`. This is a bitmask of active key modifiers; keys such as Control, Alt, etc, as well as the lock keys. This is used to generate the key modifier parameters on any events that are spawned, so is entirely optional. If you don't want or need the key modifier parameters on your input events, feel free to pass `0` for the `key_modifier_state` into all the input functions you call.
 
-The bitmask should be configured using the enumeration `Rml::Input::KeyModifier`, detailed below:
+The bitmask should be configured using the enumeration `apui::Input::KeyModifier`, detailed below:
 
 ```cpp
 enum KeyModifier
@@ -45,15 +45,15 @@ Call the `ProcessMouseMove()` function on a context to inform the context that t
 bool ProcessMouseMove(int x, int y, int key_modifier_state);
 ```
 
-Note that the x and y coordinates are in pixel offsets from the top-left of the context. If the mouse cursor has moved since the previous call to `ProcessMouseMove()` then the `mousemove`{:.evt} will be submitted to the element being hovered over. Regardless of mouse movement, the hover chain will always be updated to account for any elements that may have changed under the mouse cursor. Then any of the following events may be generated, targeted at the appropriate elements:
+Note that the x and y coordinates are in pixel offsets from the top-left of the context. If the mouse cursor has moved since the previous call to `ProcessMouseMove()` then the `mousemove` will be submitted to the element being hovered over. Regardless of mouse movement, the hover chain will always be updated to account for any elements that may have changed under the mouse cursor. Then any of the following events may be generated, targeted at the appropriate elements:
 
-* `mousemove`{:.evt}
-* `mouseover`{:.evt}
-* `mouseout`{:.evt}
-* `dragstart`{:.evt}
-* `drag`{:.evt}
-* `dragover`{:.evt}
-* `dragout`{:.evt}
+* `mousemove`
+* `mouseover`
+* `mouseout`
+* `dragstart`
+* `drag`
+* `dragover`
+* `dragout`
 
 After the call to `ProcessMouseMove()` the mouse cursor is considered active. When the cursor is active every call to the context's `Update()` function will update the hover states of the elements, regardless of mouse movement. This ensures that any elements that have been moved, removed, or added, have their hover states changed appropriately. See `ProcessMouseLeave()` to [deactivate the mouse cursor](#mouse-cursor-leave) and prevent `Update()` from updating the hover state of elements.
 
@@ -77,20 +77,20 @@ bool ProcessMouseButtonUp(int button_index, int key_modifier_state);
 
 `ProcessMouseButtonDown()` may generate any of the following events:
 
-* `focus`{:.evt}
-* `blur`{:.evt}
-* `mousedown`{:.evt}
-* `dblclick`{:.evt}
-* `mousescroll`{:.evt}
+* `focus`
+* `blur`
+* `mousedown`
+* `dblclick`
+* `mousescroll`
 
-Middle mouse button may initiate [autoscroll mode](contexts.html#autoscroll). In this case, it will first submit a `mousescroll`{:.evt} event targeted at the hover element. If this event is not stopped from propagation, autoscroll will be initiated on the closest scrollable ancestor. However, if the event is stopped, the autoscroll mode will not be initiated.
+Middle mouse button may initiate [autoscroll mode](contexts.html#autoscroll). In this case, it will first submit a `mousescroll` event targeted at the hover element. If this event is not stopped from propagation, autoscroll will be initiated on the closest scrollable ancestor. However, if the event is stopped, the autoscroll mode will not be initiated.
 
 `ProcessMouseButtonUp()` may generate:
 
-* `mouseup`{:.evt}
-* `click`{:.evt}
-* `dragdrop`{:.evt}
-* `dragend`{:.evt}
+* `mouseup`
+* `click`
+* `dragdrop`
+* `dragend`
 
 #### Mouse wheel
 
@@ -104,7 +104,7 @@ If you want to send mouse-wheel events to your documents, call the `ProcessMouse
 bool ProcessMouseWheel(Vector2f wheel_delta, int key_modifier_state);
 ```
 
-`ProcessMouseWheel()` will generate a `mousescroll`{:.evt} event targeted at the hover element. If this event is not stopped from propagation, the nearest scrollable element will be scrolled according to the delta value. However, if the event is stopped, the actual scroll will be cancelled. Normally, scrolling with the mouse wheel initiates smooth scrolling, however, this can be [configured on the context](contexts.html#smooth-scrolling).
+`ProcessMouseWheel()` will generate a `mousescroll` event targeted at the hover element. If this event is not stopped from propagation, the nearest scrollable element will be scrolled according to the delta value. However, if the event is stopped, the actual scroll will be cancelled. Normally, scrolling with the mouse wheel initiates smooth scrolling, however, this can be [configured on the context](contexts.html#smooth-scrolling).
 
 The nearest scrollable element can be controlled using the `overscroll-behavior` property.
 
@@ -132,13 +132,13 @@ The following can provide a hint on whether or not the mouse cursor is currently
 bool IsMouseInteracting() const;
 ```
 
-Note that interaction is determined irrespective of background and opacity. See the [`pointer-events`](../rcss/user_interface.html#pointer-events) property to disable interaction for specific elements.
+Note that interaction is determined irrespective of background and opacity. See the [`pointer-events`](../css/user_interface.html#pointer-events) property to disable interaction for specific elements.
 
 ### Key input
 
-The key input functions use the `KeyIdentifier` enumeration found in `<RmlUi/Core/Input.h>`; refer to that file for the possible values. They are modeled after the Windows virtual key codes (the VK_* enumeration), so should be familiar to Windows developers. Any confusing enumeration names are explained in the comments.
+The key input functions use the `KeyIdentifier` enumeration found in `<APUI/Core/Input.h>`; refer to that file for the possible values. They are modeled after the Windows virtual key codes (the VK_* enumeration), so should be familiar to Windows developers. Any confusing enumeration names are explained in the comments.
 
-RmlUi makes a distinction between key input and text input; key input (specified by the `ProcessKeyDown()` and `ProcessKeyUp()` functions) refers to actual physical key presses, while text input refers to characters being generated from user input. Depending on user locale, it may take more than one physical key stroke to generate a single character of text input. At present, RmlUi offers no translation between key input and text input; that is left to the application.
+APUI makes a distinction between key input and text input; key input (specified by the `ProcessKeyDown()` and `ProcessKeyUp()` functions) refers to actual physical key presses, while text input refers to characters being generated from user input. Depending on user locale, it may take more than one physical key stroke to generate a single character of text input. At present, APUI offers no translation between key input and text input; that is left to the application.
 
 Call the following functions on a context to inform the context of key presses or releases:
 
@@ -147,20 +147,20 @@ Call the following functions on a context to inform the context of key presses o
 // @param[in] key_identifier The key pressed.
 // @param[in] key_modifier_state The state of key modifiers.
 // @return True if the event was not consumed, false if it was.
-bool ProcessKeyDown(Rml::Input::KeyIdentifier key_identifier, int key_modifier_state);
+bool ProcessKeyDown(apui::Input::KeyIdentifier key_identifier, int key_modifier_state);
 
 // Sends a key up event into this context.
 // @param[in] key_identifier The key released.
 // @param[in] key_modifier_state The state of key modifiers.
 // @return True if the event was not consumed, false if it was.
-bool ProcessKeyUp(Rml::Input::KeyIdentifier key_identifier, int key_modifier_state);
+bool ProcessKeyUp(apui::Input::KeyIdentifier key_identifier, int key_modifier_state);
 ```
 
-`ProcessKeyDown()` will generate a `keydown`{:.evt} event targeted at the current focus element (if an element is in focus). `ProcessKeyUp()` will likewise generate the `keyup`{:.evt} event.
+`ProcessKeyDown()` will generate a `keydown` event targeted at the current focus element (if an element is in focus). `ProcessKeyUp()` will likewise generate the `keyup` event.
 
 ### Text input
 
-RmlUi takes text input as `Rml::Character` (32-bit Unicode code points), `char` (ASCII), or UTF-8 strings. To notify RmlUi of a text input occurrence, use the following functions:
+APUI takes text input as `apui::Character` (32-bit Unicode code points), `char` (ASCII), or UTF-8 strings. To notify APUI of a text input occurrence, use the following functions:
 
 ```cpp
 // Sends a single unicode character as text input into this context.
@@ -175,8 +175,8 @@ bool ProcessTextInput(char character);
 bool ProcessTextInput(const String& string);
 ```
 
-These functions will generate a `textinput`{:.evt} event targeted at the context's current focus element (if there is one).
+These functions will generate a `textinput` event targeted at the context's current focus element (if there is one).
 
 ### Sample input processing
 
-The included backends (found under your RmlUi installation at `/Backends/`) contain sample implementations of input processing for multiple supported platforms, including key conversion to RmlUi (see `/Backends/RmlUi_Platform_<...>.cpp`).
+The included backends (found under your APUI installation at `/Backends/`) contain sample implementations of input processing for multiple supported platforms, including key conversion to APUI (see `/Backends/APUI_Platform_<...>.cpp`).

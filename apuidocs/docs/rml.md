@@ -1,10 +1,10 @@
 ---
 layout: page
-title: RML Markup Language
-short_title: RML
+title: HTML Markup Language
+short_title: HTML (APUI RML)
 ---
 
-RML is based around the [HTML5 standard](https://html.spec.whatwg.org/multipage/), and in particular uses the [XML syntax](https://html.spec.whatwg.org/multipage/xhtml.html) for document markup. However, element names are (mostly) open-ended in RML and can be used in any way that is logical for your application. All documents follow strict [XML 1.0 specification](https://www.w3.org/TR/xml/) and where possible all RmlUi elements follow their HTML equivalent.
+HTML (or internally known as RML for legacy reasons) is based around the [HTML5 standard](https://html.spec.whatwg.org/multipage/), and in particular uses the [XML syntax](https://html.spec.whatwg.org/multipage/xhtml.html) for document markup. However, element names are (mostly) open-ended in RML and can be used in any way that is logical for your application. All documents follow strict [XML 1.0 specification](https://www.w3.org/TR/xml/) and where possible all APUI elements follow their HTML equivalent.
 
 RML maintains the core components of HTML5, including CSS. It provides a number of basic elements including input fields, radio buttons and check boxes as well as more complex enhancements such as templates and datagrids.
 
@@ -21,11 +21,11 @@ RML maintains the core components of HTML5, including CSS. It provides a number 
 
 ##### Part II -- Images and forms
 
-{:start="7"}
-7. [Images](rml/images.html) - Embedding images.
-8. [Forms](rml/forms.html) - User-input forms.
-9. [Controls](rml/controls.html) - Tabsets and window handles.
-10. [Data display](rml/data_display.html) - Progress bars.
+
+1. [Images](rml/images.html) - Embedding images.
+2. [Forms](rml/forms.html) - User-input forms.
+3. [Controls](rml/controls.html) - Tabsets and window handles.
+4.  [Data display](rml/data_display.html) - Progress bars.
 
 ### Appendix
 

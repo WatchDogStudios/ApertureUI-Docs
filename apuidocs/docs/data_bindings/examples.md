@@ -5,7 +5,7 @@ parent: data_bindings
 next: expressions
 ---
 
-{% raw %}
+
 
 Make sure to have a look at the `databinding` sample for more examples.
 
@@ -30,7 +30,7 @@ The `data-model` attribute declares that all its children elements here belong t
 
 The data model is first set up in C++. Using the above example, all that is needed is the following code.
 ```cpp
-using namespace Rml;
+using namespace apui;
 
 struct MyData {
 	String title = "Hello World!";
@@ -91,12 +91,12 @@ Now the title is updated as well whenever the input text is changed. Note that w
 <h1 data-if="invaders.size == 0">It's all safe and sound, sir!</h1>
 ```
 
-Notice the comparisons and additions used in some places? These are *data expressions* and can be used in several places. This is built-in to RmlUi and supports the most common operators. In addition, they are extendible by user-provided functions.
+Notice the comparisons and additions used in some places? These are *data expressions* and can be used in several places. This is built-in to APUI and supports the most common operators. In addition, they are extendible by user-provided functions.
 
 Next, let us define the data we want to use for this model.
 
 ```cpp
-using namespace Rml;
+using namespace apui;
 
 struct Invader {
 	String name;
@@ -128,15 +128,15 @@ struct InvadersData {
 } invaders_data;
 ```
 
-Here we have simple plain-old-data (POD) types, but also containers, and even containers of structs. In fact, RmlUi can handle all of this no matter how deep you want to nest this. However, we need to tell RmlUi how to handle the various types. For this, we need to register types before we can bind them.
+Here we have simple plain-old-data (POD) types, but also containers, and even containers of structs. In fact, APUI can handle all of this no matter how deep you want to nest this. However, we need to tell APUI how to handle the various types. For this, we need to register types before we can bind them.
 
-There are three main data variable types supported in RmlUi:
+There are three main data variable types supported in APUI:
 
 1. `Scalar`. A single value which can be read from and usually written to (but not necessarily).
 2. `Array`. A container which we can index into. The underlying type can be any data variable type.
 3. `Struct`. A collection of named members. Members can be any data variable type.
 
-Arithmetic types (eg. `int`, `float`), as well as `Rml::String` are supported without the need to register them. Other types need to be registered first. The following C++ code demonstrates how to register the types for the above data, and bind the variables.
+Arithmetic types (eg. `int`, `float`), as well as `apui::String` are supported without the need to register them. Other types need to be registered first. The following C++ code demonstrates how to register the types for the above data, and bind the variables.
 
 ```cpp
 bool SetupDataBinding(Context* context, DataModelHandle& invaders_model)
@@ -145,9 +145,9 @@ bool SetupDataBinding(Context* context, DataModelHandle& invaders_model)
 	if (!constructor)
 		return false;
 
-	// First, register types so that RmlUi knows how to process them.
+	// First, register types so that APUI knows how to process them.
 
-	// Invader::damage uses std::vector<int>, we need to tell RmlUi that this is an array type.
+	// Invader::damage uses std::vector<int>, we need to tell APUI that this is an array type.
 	constructor.RegisterArray<std::vector<int>>();
 
 	// Structs are registered by adding all its members through the returned handle.
@@ -191,9 +191,9 @@ void Update(DataModelHandle invaders_model)
 	if (t >= t_next_spawn)
 	{
 		const int num_items = 4;
-		static std::array<Rml::String, num_items> names = { "Angry invader", "Harmless invader", "Deceitful invader", "Cute invader" };
-		static std::array<Rml::String, num_items> sprites = { "icon-invader", "icon-flag", "icon-game", "icon-waves" };
-		static std::array<Rml::Colourb, num_items> colors = {{ { 255, 40, 30 }, {20, 40, 255}, {255, 255, 30}, {230, 230, 230} }};
+		static std::array<apui::String, num_items> names = { "Angry invader", "Harmless invader", "Deceitful invader", "Cute invader" };
+		static std::array<apui::String, num_items> sprites = { "icon-invader", "icon-flag", "icon-game", "icon-waves" };
+		static std::array<apui::Colourb, num_items> colors = {{ { 255, 40, 30 }, {20, 40, 255}, {255, 255, 30}, {230, 230, 230} }};
 
 		Invader new_invader;
 		new_invader.name = names[rand() % num_items];
@@ -227,4 +227,4 @@ This update loop spawns new invaders at regular intervals, determined by the `ra
 
 A fleshed out version of this example is located in the included `databinding` sample, users are encouraged to check it out and have some fun with the little game.
 
-{% endraw %}
+

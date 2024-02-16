@@ -3,15 +3,15 @@ layout: page
 title: Data binding
 ---
 
-{% comment %} 
-	The open and close brackets { { ... } } used in RmlUi's data binding syntax interferes with the Liquid templating language in Jekyll. We turn off Liquid processing by enabling raw mode for the entire document.
-{% endcomment %}
 
-{% raw %}
 
-RmlUi features a model-view-controller (MVC) approach through data bindings. This is a powerful approach for responding to changes in the data, or in reverse, updating data based on user actions.
 
-In the approach taken in RmlUi, the MVC terms have the following meaning.
+
+
+
+APUI features a model-view-controller (MVC) approach through data bindings. This is a powerful approach for responding to changes in the data, or in reverse, updating data based on user actions.
+
+In the approach taken in APUI, the MVC terms have the following meaning.
 
 - `Model`  The data model is the interface between the user data through data variables, and the views and controllers assigned to the model.
 - `View`  Data views are used to present a data variable in the document by different means.
@@ -28,7 +28,7 @@ See the following detailed sections:
 
 ---
 
-![Schematic of the control flow in RmlUi's model-view-controller.](data_bindings/model-view-controller.svg)
+![Schematic of the control flow in APUI's model-view-controller.](data_bindings/model-view-controller.svg)
 
 ---
 
@@ -42,15 +42,12 @@ See the following detailed sections:
 
 ##### Element compatibility
 
-- Putting the `data-model` attribute on the `<body>`{:.tag} tag may cause issues when combined with templates.
-- Some special elements internally change the structure of the document. For such elements, data bindings may not work as intended. This includes in particular the `<tabset>`{:.tag}, `<panel>`{:.tag} and `<tab>`{:.tag} elements, notably when combined with the `data-for` view.
-- The `<select>`{:.tag} element may not always properly reflect changes in the underlying `selected`{:.attr} or `value`{:.attr} attributes of its `<option>`{:.tag}s, or the content of the options. For dynamically changing the selected option, use the `data-value` view on the `<select>`{:.tag} element. Note that, initially populating the options using `data-for` should now work.
+- Putting the `data-model` attribute on the `<body>` tag may cause issues when combined with templates.
+- Some special elements internally change the structure of the document. For such elements, data bindings may not work as intended. This includes in particular the `<tabset>`, `<panel>` and `<tab>` elements, notably when combined with the `data-for` view.
+- The `<select>` element may not always properly reflect changes in the underlying `selected` or `value` attributes of its `<option>`s, or the content of the options. For dynamically changing the selected option, use the `data-value` view on the `<select>` element. Note that, initially populating the options using `data-for` should now work.
 
 ##### Authoring notes
 
-- Element attributes starting with `data-` are reserved for data bindings in RmlUi.
+- Element attributes starting with `data-` are reserved for data bindings in APUI.
 - All use of `{{` and `}}` inside RML documents are reserved for data bindings.
 
-{% endraw %}
-
-{% comment %} End raw mode, see the comment at the beginning of the document. {% endcomment %}

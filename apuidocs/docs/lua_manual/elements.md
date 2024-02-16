@@ -12,7 +12,7 @@ next: documents
 
 All properties and methods that are available for elements are described in detail in the API reference. The element-specific interface is similar to the C++ interface, refer there for the full documentation.
 
-The Lua interface for RmlUi elements closely resembles the [DOM element interface](https://developer.mozilla.org/en-US/docs/Web/API/element) of the web, similarly to the C++ element interface.
+The Lua interface for APUI elements closely resembles the [DOM element interface](https://developer.mozilla.org/en-US/docs/Web/API/element) of the web, similarly to the C++ element interface.
 
 #### Proxy Properties
 
@@ -42,7 +42,7 @@ The proxy object can be accessed using indices. Note that the indices are one-ba
 element.child_nodes[2].inner_rml = 'Hello world!'
 ```
 
-`attributes` is accessed like a map with name and value pairs. The following example prints the element's `value`{:.attr} attribute.
+`attributes` is accessed like a map with name and value pairs. The following example prints the element's `value` attribute.
 
 ```lua
 print(element.attributes.value)
@@ -80,4 +80,4 @@ input_element:SetAttribute('type', 'radio')
 input_element:SetAttribute('name', 'graphics')
 input_element:SetAttribute('value', 'ok')
 ```
-***Note:*** The newly created element cannot be modified right away because `CreateElement` returns `ElementPtr` and that cannot use `SetAttribute`. We can work around this by using the return value of `AppendChild`. See [this issue](https://github.com/mikke89/RmlUi/issues/390) for more information.
+***Note:*** The newly created element cannot be modified right away because `CreateElement` returns `ElementPtr` and that cannot use `SetAttribute`. We can work around this by using the return value of `AppendChild`. See [this issue](https://github.com/mikke89/APUI/issues/390) for more information.

@@ -6,20 +6,20 @@ next: fonts
 ---
 
 
-The following code snippet is a rough template on how you would initialize and run RmlUi within your application or game. Its main purpose is to show the order of API calls to get a basic user interface up and running. More complex topics such as multithreading and separating the update and rendering logic is out of scope for this example.
+The following code snippet is a rough template on how you would initialize and run APUI within your application or game. Its main purpose is to show the order of API calls to get a basic user interface up and running. More complex topics such as multithreading and separating the update and rendering logic is out of scope for this example.
 
 
 ```cpp
 // To ensure fast compilation times, you may want to replace the below "include-all" headers with specific files.
-#include <RmlUi/Core.h>
-#include <RmlUi/Debugger.h>
+#include <APUI/Core.h>
+#include <APUI/Debugger.h>
 
-class MyRenderInterface : public Rml::RenderInterface
+class MyRenderInterface : public apui::RenderInterface
 {
 	/* ... */
 }
 
-class MySystemInterface : public Rml::SystemInterface
+class MySystemInterface : public apui::SystemInterface
 {
 	/* ... */
 }
@@ -31,36 +31,36 @@ int main(int argc, char** argv)
 	
 	/* ... */
 
-	// Instantiate the interfaces to RmlUi.
+	// Instantiate the interfaces to APUI.
 	MyRenderInterface render_interface;
 	MySystemInterface system_interface;
 
 	// Begin by installing the custom interfaces.
-	Rml::SetRenderInterface(&render_interface);
-	Rml::SetSystemInterface(&system_interface);
+	apui::SetRenderInterface(&render_interface);
+	apui::SetSystemInterface(&system_interface);
 
-	// Now we can initialize RmlUi.
-	Rml::Initialise();
+	// Now we can initialize APUI.
+	apui::Initialise();
 	
 	// Create a context next.
-	Rml::Context* context = Rml::CreateContext("main", Rml::Vector2i(window_width, window_height));
+	apui::Context* context = apui::CreateContext("main", apui::Vector2i(window_width, window_height));
 	if (!context)
 	{
-		Rml::Shutdown();
+		apui::Shutdown();
 		return -1;
 	}
 
 	// If you want to use the debugger, initialize it now.
-	Rml::Debugger::Initialise(context);
+	apui::Debugger::Initialise(context);
 
 	// Fonts should be loaded before any documents are loaded.
-	Rml::LoadFontFace("my_font_file.otf");
+	apui::LoadFontFace("my_font_file.otf");
 
 	// Now we are ready to load our document.
-	Rml::ElementDocument* document = context->LoadDocument("my_document.rml");
+	apui::ElementDocument* document = context->LoadDocument("my_document.rml");
 	if (!document)
 	{
-		Rml::Shutdown();
+		apui::Shutdown();
 		return -1;
 	}
 
@@ -81,13 +81,13 @@ int main(int argc, char** argv)
 
 		// Toggle the debugger with a key binding.
 		if (my_input->KeyPressed(KEY_F8))
-			Rml::Debugger::SetVisible(!Rml::Debugger::IsVisible());
+			apui::Debugger::SetVisible(!apui::Debugger::IsVisible());
 
 		// This is a good place to update your game or application.
 		my_application->Update();
 
 		// Update any elements to reflect changed data.
-		if (Rml::Element* el = document->GetElementById("score"))
+		if (apui::Element* el = document->GetElementById("score"))
 			el->SetInnerRML("Current score: " + my_application->GetScoreAsString());
 
 		// Update the context to reflect any changes resulting from input events, animations, modified and
@@ -111,16 +111,16 @@ int main(int argc, char** argv)
 		my_renderer->PresentRenderBuffer();
 	}
 
-	// Shutting down RmlUi releases all its resources, including elements, documents, and contexts.
-	Rml::Shutdown();
+	// Shutting down APUI releases all its resources, including elements, documents, and contexts.
+	apui::Shutdown();
 
-	// It is now safe to destroy the custom interfaces previously passed to RmlUi.
+	// It is now safe to destroy the custom interfaces previously passed to APUI.
 
 	return 0;
 }
 
 ```
 
-In a real application, you typically want to separate the render and update loops. Regardless, you may consider updating the RmlUi context at the rendering updates, as this provides the lowest input lag which is important to make the user interface feel good.
+In a real application, you typically want to separate the render and update loops. Regardless, you may consider updating the APUI context at the rendering updates, as this provides the lowest input lag which is important to make the user interface feel good.
 
 The shown update loop will run as fast as possible. However, it might be desirable to reduce CPU usage and power consumption when the application is idle. This is possible using [on-demand rendering, or power saving mode](contexts.html#on-demand-rendering).

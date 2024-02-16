@@ -5,7 +5,7 @@ parent: lua_manual
 next: fonts
 ---
 
-When using the Lua plugin, Lua code can be embedded into RML files. Inline responses to events are executed as Lua code. Functions, structures and variables can be declared or included with the `<script>`{:.tag} tag, then referenced from the inline code.
+When using the Lua plugin, Lua code can be embedded into RML files. Inline responses to events are executed as Lua code. Functions, structures and variables can be declared or included with the `<script>` tag, then referenced from the inline code.
 
 ### Inline event responses
 
@@ -35,7 +35,7 @@ See the [element](elements.html), [document](documents.html) and [event](events.
 
 ### Embedding Lua into RML
 
-Lua code can be embedded into an RML document with the `<script>`{:.tag} tag. Similarly to Javascript, the script can be included from a separate file with the `src`{:.attr} attribute, or otherwise declared inline as loose content within the `<script>`{:.tag} tag. Any code embedded in this manner will be compiled with the document and will be available to inline event handlers in the RML. For example, the following document declares a Lua function in the `<script>`{:.tag} tag and calls it from an element's `click`{:.evt} handler.
+Lua code can be embedded into an RML document with the `<script>` tag. Similarly to Javascript, the script can be included from a separate file with the `src` attribute, or otherwise declared inline as loose content within the `<script>` tag. Any code embedded in this manner will be compiled with the document and will be available to inline event handlers in the RML. For example, the following document declares a Lua function in the `<script>` tag and calls it from an element's `click` handler.
 
 ```html
 <rml>
@@ -65,4 +65,4 @@ The following sample imports the `test.lua` file instead of declaring the script
 </rml>
 ```
 
-A document can include multiple `<script>`{:.tag} tags.
+A document can include multiple `<script>` tags.

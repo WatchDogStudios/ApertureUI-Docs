@@ -5,11 +5,11 @@ parent: cpp_manual
 next: scrollbars
 ---
 
-The included element packages contain custom elements for form controls (radio buttons, range sliders, etc), data tables, tabbed windows, and other useful RML elements. You are free to use the elements as-is in your application, or use the elements as a starting point for more specialised controls in your application. The elements are located in the `Include/RmlUi/Core/Elements/` and `Source/Core/Elements/` directories.
+The included element packages contain custom elements for form controls (radio buttons, range sliders, etc), data tables, tabbed windows, and other useful RML elements. You are free to use the elements as-is in your application, or use the elements as a starting point for more specialised controls in your application. The elements are located in the `Include/APUI/Core/Elements/` and `Source/Core/Elements/` directories.
 
 The provided elements can serve as great examples of creating new elements and writing custom XML parsing. Have you created an element which could be useful for others? Perhaps you would like to contribute to the library by making a pull request on the [main repository]({{page.lib_site}}).
 
-The following element packages are included with the core RmlUi library:
+The following element packages are included with the core APUI library:
 
 - [Form controls](element_packages/form.html): a comprehensive set of form controls.
 - [Tab sets](element_packages/tab_set.html): elements for partitioning content into panels.

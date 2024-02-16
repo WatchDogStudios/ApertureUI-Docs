@@ -66,8 +66,8 @@ When a CData tag is encountered in a document, all subsequent text is considered
 
 |   CData tags  |
 | ------------- |
-| `<style>`{:.tag}     |
-| `<script>`{:.tag}    |
+| `<style>`     |
+| `<script>`    |
 
 
 ### Structural data attributes
@@ -76,15 +76,15 @@ When a node with a structural data attribute is encountered, then all descendant
 
 | Structural data attributes  |
 | --------------------------  |
-| `data-for`{:.attr}          |
+| `data-for`          |
 
 Note that a valid subtree is still required, and that the subtree will be considered when finding the node's end tag.
 
 ##### Example
 
-{% raw %}
 
-In the following, [data bindings](../data_bindings.html) are used to dynamically display a list of elements. During RML parsing, only a single node is created, for the `div`{:.tag} tag. All its inner contents, including the `h1`{:.tag} and `p`{:.tag} tags, are submitted as a single data child.
+
+In the following, [data bindings](../data_bindings.html) are used to dynamically display a list of elements. During RML parsing, only a single node is created, for the `div` tag. All its inner contents, including the `h1` and `p` tags, are submitted as a single data child.
 
 ```html
 <div data-for="invader : invaders">
@@ -95,4 +95,4 @@ In the following, [data bindings](../data_bindings.html) are used to dynamically
 
 This allows the `data-for` view to store its inner contents without generating them immediately, so that it can later dynamically create a list of the provided elements as needed.
 
-{% endraw %}
+

@@ -5,7 +5,7 @@ parent: data_bindings
 next: model
 ---
 
-{% raw %}
+
 
 ### Data variables
 
@@ -26,7 +26,7 @@ invaders.size
 a.very[5].long.data[99].address
 ```
 
-Arithmetic types (eg. `int`, `float`), as well as `Rml::String` are supported without the need to register them. Other types need to be registered first. It is also possible to bind a variable using getter and setter functions, then the data variable acts as a scalar type. See details for registering types in the data model documentation. 
+Arithmetic types (eg. `int`, `float`), as well as `apui::String` are supported without the need to register them. Other types need to be registered first. It is also possible to bind a variable using getter and setter functions, then the data variable acts as a scalar type. See details for registering types in the data model documentation. 
 
 
 ### Data expressions
@@ -41,7 +41,7 @@ The syntax resembles C++, and should be familiar for most programmers. The follo
 |   2       |  \* /           | Multiplication and division.      |
 |   3       |  +              | Addition or string concatenation. |
 |   3       |  -              | Subtraction.                      |
-|   4       | == != < <= > => | Relational comparisons.           |
+|   4       | == != < < = > => | Relational comparisons.           |
 |   5       | && \|\|         | Logical AND, OR.                  |
 |   5       | \|              | Transform.                        |
 |   5       | a?b:c           | Ternary conditional.              |
@@ -56,7 +56,7 @@ The following types can be used in the expressions.
    - String. Eg. `'Play!'`. Always written using single quotes.
 3. Keyword. `true` or `false`.
 
-Operators read their arguments either as a `bool`, a `double`, or a `String`. Conversions are done implicitly when needed using the type conversion facilities in RmlUi.
+Operators read their arguments either as a `bool`, a `double`, or a `String`. Conversions are done implicitly when needed using the type conversion facilities in APUI.
 
 #### Transform functions
 
@@ -116,4 +116,4 @@ For now, assignment expressions can only be used in the [`data-event` controller
 | `true || false ? (true && 3==1+2 ? 'Absolutely!' : 'well..') : 'no'`    | `Absolutely!`         |
 
 
-{% endraw %}
+

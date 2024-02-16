@@ -5,7 +5,7 @@ parent: cpp_manual
 next: lottie
 ---
 
-RmlUi ships with a visual debugger plugin that you can use and modify to aid you in development. You can try it out on all the included samples, such as the _Rocket Invaders from Mars_ application, by pressing `F8`.
+APUI ships with a visual debugger plugin that you can use and modify to aid you in development. You can try it out on all the included samples, such as the _Rocket Invaders from Mars_ application, by pressing `F8`.
 
 ### Tools
 
@@ -13,7 +13,7 @@ The tools included with the debugger are the following.
 
 #### Event log
 
-The debugger puts in its own system interface layer to intercept the logging messages going out of RmlUi. The log beacon (a little exclamation mark) will become visible in the top-right corner of its context when a new log message has been sent. You can open the log by clicking on the beacon or opening the debugger and clicking on the `Event Log` button.
+The debugger puts in its own system interface layer to intercept the logging messages going out of APUI. The log beacon (a little exclamation mark) will become visible in the top-right corner of its context when a new log message has been sent. You can open the log by clicking on the beacon or opening the debugger and clicking on the `Event Log` button.
 
 #### Outline renderer
 
@@ -40,32 +40,32 @@ The element info dialog has some settings that can be toggled:
 
 All settings are enabled by default.
 
-As these tools are all open source, we encourage you to add more features if you find the debugger doesn't give you the information you need. You can find the source for the debugger plugin in the `Source/Debugger/` directory within your RmlUi installation.
+As these tools are all open source, we encourage you to add more features if you find the debugger doesn't give you the information you need. You can find the source for the debugger plugin in the `Source/Debugger/` directory within your APUI installation.
 
 ### Initialisation
 
-To use RmlDebugger, include `<RmlUi/Debugger.h>` in your application and link with `RmlDebugger`.
+To use RmlDebugger, include `<APUI/Debugger.h>` in your application and link with `RmlDebugger`.
 
-To start the debugger, call `Rml::Debugger::Initialise()` with the context you want the debugger menu rendered into.
+To start the debugger, call `apui::Debugger::Initialise()` with the context you want the debugger menu rendered into.
 
 ```cpp
 // Initialises the debug plugin. The debugger will be loaded into the given context.
-// @param[in] context The RmlUi context to load the debugger into.
+// @param[in] context The APUI context to load the debugger into.
 // @return True if the debugger was successfully initialised
-bool Initialise(Rml::Context* context);
+bool Initialise(apui::Context* context);
 ```
 
 The debugger's context is not necessarily the context being debugged, only the context it renders its elements into. When the debugger is initialised, however, it automatically begins debugging its context.
 
 ### Debugging another context
 
-To debug another context, call the `Rml::Debugger::SetContext()` method.
+To debug another context, call the `apui::Debugger::SetContext()` method.
 
 ```cpp
 // Sets the context to be debugged.
 // @param[in] context The context to be debugged.
 // @return True if the debugger is initialised and the context was switched, false otherwise.
-bool SetContext(Rml::Context* context);
+bool SetContext(apui::Context* context);
 ```
 
 The debugger will then be ready for debugging elements in the new context.
@@ -86,7 +86,7 @@ bool IsVisible();
 
 ### Shutting down or restarting
 
-The debugger can be shutdown manually if desired using `Rml::Debugger::Shutdown()`.
+The debugger can be shutdown manually if desired using `apui::Debugger::Shutdown()`.
 
 ```cpp
 // Shuts down the debugger.
@@ -94,4 +94,4 @@ The debugger can be shutdown manually if desired using `Rml::Debugger::Shutdown(
 void Shutdown();
 ```
 
-The shutdown will automatically be handled during the call to `Rml::Shutdown()` so typically it does not need to be called. However, it can be useful it you want to re-initialise the debugger in another host context. After the shutdown it is possible to call `Rml::Debugger::Initialise()`  to start the debugger again.
+The shutdown will automatically be handled during the call to `apui::Shutdown()` so typically it does not need to be called. However, it can be useful it you want to re-initialise the debugger in another host context. After the shutdown it is possible to call `apui::Debugger::Initialise()`  to start the debugger again.

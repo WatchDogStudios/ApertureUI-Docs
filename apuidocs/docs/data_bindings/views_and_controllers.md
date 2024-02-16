@@ -4,7 +4,7 @@ title: Data views and controllers
 parent: data_bindings
 ---
 
-{% raw %}
+
 
 Data views and controllers connect the document with the data in a given data model. *Data views* are used to present a data variable in the document by different means. On the other hand, *data controllers* are used to respond to changes in the document, typically as a result of user input. When a controller is triggered, it sets a data variable in its data model.
 
@@ -14,7 +14,7 @@ Data views and controllers are declared in the document by the element attribute
 
 The modifier may or may not be required depending on the data view/controller. Some data bindings attach both a view and controller from the same attribute, enabling two-way bindings.
 
-The following table lists all built-in data views and controllers in RmlUi, along with their declaration.
+The following table lists all built-in data views and controllers in APUI, along with their declaration.
 
 
 | Name                         | Type       | Attribute                    | Value                                           | Notes |
@@ -39,9 +39,9 @@ The following table lists all built-in data views and controllers in RmlUi, alon
 
 
 #### Attribute
-{:#data-attr.data-desc}
+
 `data-attr-[attribute_name]="[data_expression]"`
-{:.data-attr}
+
 
 Sets the element's attribute `[attribute_name]` to the evaluated expression.
 
@@ -50,9 +50,9 @@ Sets the element's attribute `[attribute_name]` to the evaluated expression.
 ```
 
 #### Attribute-if
-{:#data-attrif.data-desc}
+
 `data-attrif-[attribute_name]="[data_expression]"`
-{:.data-attr}
+
 
 Sets the element's attribute `[attribute_name]` when the expression evaluates to `true`, otherwise removes the given attribute from the element.
 
@@ -64,9 +64,9 @@ Useful for element behavior which depends on whether or not the attribute is pre
 
 
 #### Class
-{:#data-class.data-desc}
+
 `data-class-[class_name]="[data_expression]"`
-{:.data-attr}
+
 
 Enables the class `[class_name]` on the element if the expression evaluates to `true`, otherwise it disables the class.
 
@@ -76,9 +76,9 @@ Enables the class `[class_name]` on the element if the expression evaluates to `
 
 
 #### Style
-{:#data-style.data-desc}
+
 `data-style-[property_name]="[data_expression]"`
-{:.data-attr}
+
 
 Sets the property `[property_name]` of the element's style to the evaluated expression.
 
@@ -88,9 +88,9 @@ Sets the property `[property_name]` of the element's style to the evaluated expr
 
 
 #### If
-{:#data-if.data-desc}
+
 `data-if="[data_expression]"`
-{:.data-attr}
+
 
 Sets the `display` property of the element to `none` if the expression evaluates to `false`, otherwise it removes the `display` property from the element's inline style.
 
@@ -104,9 +104,9 @@ Sets the `display` property of the element to `none` if the expression evaluates
 
 
 #### Visible
-{:#data-visible.data-desc}
+
 `data-visible="[data_expression]"`
-{:.data-attr}
+
 
 Sets the `visibility` property of the element to `hidden` if the expression evaluates to `false`, otherwise it removes the `visibility` property from the element's inline style.
 
@@ -122,9 +122,9 @@ As opposed to the `data-if` view, the `data-visible` view ensures that the eleme
 
 
 #### For
-{:#data-for.data-desc}
+
 `data-for="[iterator_name], [index_name] : [data_address]"`
-{:.data-attr}
+
 
 Repeats the element and its children *n* times for each item in the data variable designated by the `data_address`. The variable must be a data array type.
 
@@ -166,9 +166,9 @@ where `i` and `subject` become aliases to the array index and entry, respectivel
 
 
 #### Rml
-{:#data-rml.data-desc}
+
 `data-rml="[data_expression]"`
-{:.data-attr}
+
 
 Sets the element's inner RML to the evaluated expression.
 
@@ -179,9 +179,9 @@ Sets the element's inner RML to the evaluated expression.
 
 
 #### Text
-{:#data-text.data-desc}
+
 `N/A`
-{:.data-attr}
+
 
 Evaluates any data expression inside double curly brackets {{ }} encountered in the element's text.
 
@@ -194,9 +194,9 @@ This data view is automatically added whenever double curly brackets are encount
 
 
 #### Alias
-{:#data-alias.data-desc}
+
 `data-alias-[alias_name]="[data_address]"`
-{:.data-attr}
+
 
 Creates a new alias variable at the given scope, allowing the stated data address to be referred to by its alias name.
 
@@ -225,27 +225,27 @@ This template can then be used with different variables as follows:
 
 
 #### Value
-{:#data-value.data-desc}
-`data-value="[data_address]"`
-{:.data-attr}
 
-Synchronizes the element's `value`{:.attr} attribute to the value of the data variable located at `data_address`. This variable must be a scalar type. This is generally useful for `input`{:.tag} elements.
+`data-value="[data_address]"`
+
+
+Synchronizes the element's `value` attribute to the value of the data variable located at `data_address`. This variable must be a scalar type. This is generally useful for `input` elements.
 
 ```html
 <input type="range" min="0" max="100" step="1" data-value="rating"/>
 ```
 
-A new value is assigned to the specified data variable whenever a `change`{:.evt} event occurs on the current element. The element's `value`{:.attr} attribute is updated whenever the data variable changes on the client side.
+A new value is assigned to the specified data variable whenever a `change` event occurs on the current element. The element's `value` attribute is updated whenever the data variable changes on the client side.
  
 *Note.* Data expressions and assignment expressions are not supported for this attribute. Instead, use the `data-attr-value` view and `data-event-change` controller for more flexibility.
 
 
 #### Checked
-{:#data-checked.data-desc}
-`data-checked="[data_address]"`
-{:.data-attr}
 
-Binds a checkbox or radio button's `checked` state to the variable located at `data_address`. This variable must be a scalar type. Typically combined with `<input type="checkbox"/>`{:.tag} and `<input type="radio"/>`{:.tag} elements.
+`data-checked="[data_address]"`
+
+
+Binds a checkbox or radio button's `checked` state to the variable located at `data_address`. This variable must be a scalar type. Typically combined with `<input type="checkbox"/>` and `<input type="radio"/>` elements.
 
 ```html
 <input type="radio" name="animal" value="dog" data-checked="animal"/> Dog
@@ -253,19 +253,19 @@ Binds a checkbox or radio button's `checked` state to the variable located at `d
 <input type="checkbox" name="meals" value="pasta" data-checked="pasta"/> Pasta
 ```
 
-For checkboxes, the underlying data type should be a `bool`, where `true` means checked and `false` means unchecked. For radio buttons, the underlying type should be an `Rml::String` type where its value corresponds to the `value` attribute of the currently selected radio button.
+For checkboxes, the underlying data type should be a `bool`, where `true` means checked and `false` means unchecked. For radio buttons, the underlying type should be an `apui::String` type where its value corresponds to the `value` attribute of the currently selected radio button.
 
-A new value is assigned to the specified data variable whenever a `change`{:.evt} event occurs on the current element. The element's `checked`{:.attr} attribute is added or removed whenever the data variable changes on the client side.
+A new value is assigned to the specified data variable whenever a `change` event occurs on the current element. The element's `checked` attribute is added or removed whenever the data variable changes on the client side.
  
 *Note.* Data expressions and assignment expressions are not supported for this attribute. Instead, use the `data-attrif-checked` view and `data-event-change` controller for more flexibility.
 
 
 #### Event
-{:#data-event.data-desc}
-`data-event-[event_type]="[assignment_expression]"`
-{:.data-attr}
 
-The event controller is triggered whenever the `[event_type]` event occurs on the current element. All event types in RmlUi are supported. Upon triggering, the associated *assignment expression* is evaluated.
+`data-event-[event_type]="[assignment_expression]"`
+
+
+The event controller is triggered whenever the `[event_type]` event occurs on the current element. All event types in APUI are supported. Upon triggering, the associated *assignment expression* is evaluated.
 
 An assignment expression is specified as one of the following two statements.
 
@@ -293,7 +293,7 @@ The special variable `ev` can be used inside the expressions to retrieve values 
 The referenced `add_mouse_pos` event callback is triggered when the element is clicked, which can be implemented in C++ as follows.
 
 ```cpp
-using namespace Rml;
+using namespace apui;
 
 std::vector<Vector2f> positions;
 
@@ -305,4 +305,4 @@ void AddMousePos(DataModelHandle model_handle, Event& ev, const VariantList& arg
 ```
 
 
-{% endraw %}
+

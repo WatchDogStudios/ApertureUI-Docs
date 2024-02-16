@@ -9,7 +9,7 @@ An element is the smallest subdivision of functionality within a [document](docu
 
 ### Size
 
-Elements are made up of zero or more boxes, each of which has a rectangular content area surrounded by three areas of varying thicknesses; padding, borders and margin (see the [box model documentation](../rcss/box_model.html) for more details).
+Elements are made up of zero or more boxes, each of which has a rectangular content area surrounded by three areas of varying thicknesses; padding, borders and margin (see the [box model documentation](../css/box_model.html) for more details).
 
 You can query the current size of an element with the `GetBox()` and `GetNumBoxes()` functions:
 
@@ -17,7 +17,7 @@ You can query the current size of an element with the `GetBox()` and `GetNumBoxe
 // Returns one of the boxes describing the size of the element.
 // @param[in] index The index of the desired box.
 // @return The requested box.
-const Rml::Box& GetBox(int index = 0) const;
+const apui::Box& GetBox(int index = 0) const;
 
 // Returns the number of boxes making up this element's geometry.
 // @return the number of boxes making up this element's geometry.
@@ -33,7 +33,7 @@ Elements measure their position as a pixel offset from a containing ancestor ele
 ```cpp
 // Returns the element from which all offset calculations are currently computed.
 // @return This element's offset parent.
-Rml::Element* GetOffsetParent();
+apui::Element* GetOffsetParent();
 ```
 
 To retrieve the element's offset, use `GetRelativeOffset()` or `GetAbsoluteOffset()`:
@@ -43,13 +43,13 @@ To retrieve the element's offset, use `GetRelativeOffset()` or `GetAbsoluteOffse
 // offset parent's top-left border corner.
 // @param[in] area The desired area position.
 // @return The relative offset.
-Rml::Vector2f GetRelativeOffset(Rml::Box::Area area = Box::CONTENT) const;
+apui::Vector2f GetRelativeOffset(apui::Box::Area area = Box::CONTENT) const;
 
 // Returns the position of the top-left corner of one of the areas of this element's primary box, relative to
 // the element root.
 // @param[in] area The desired area position.
 // @return The absolute offset.
-Rml::Vector2f GetAbsoluteOffset(Rml::Box::Area area = Box::CONTENT) const;
+apui::Vector2f GetAbsoluteOffset(apui::Box::Area area = Box::CONTENT) const;
 ```
 
 `GetRelativeOffset()` will return the offset from the element's offset parent's top-left border to one of the areas of the element's primary box. `GetAbsoluteOffset()` will return the offset from the top-left corner of the context the element is part of.
@@ -58,7 +58,7 @@ You can also use the [DOM functions](#dom-interface) `GetClientLeft()` and `GetC
 
 ### Pseudo-classes
 
-Elements may have one or more pseudo-classes active on them at any one time. Pseudo-classes represent minor, temporary changes of state (such as input focus or mouse hovering) that can be used to change the value of RCSS properties.
+Elements may have one or more pseudo-classes active on them at any one time. Pseudo-classes represent minor, temporary changes of state (such as input focus or mouse hovering) that can be used to change the value of CSS properties.
 
 To check if a pseudo-class is set on a particular element, you can use either the `IsPseudoClassSet()` or `GetActivePseudoClasses()` function.
 
@@ -66,11 +66,11 @@ To check if a pseudo-class is set on a particular element, you can use either th
 // Checks if a specific pseudo-class has been set on the element.
 // @param[in] pseudo_class The name of the pseudo-class to check for.
 // @return True if the pseudo-class is set on the element, false if not.
-bool IsPseudoClassSet(const Rml::String& pseudo_class) const;
+bool IsPseudoClassSet(const apui::String& pseudo_class) const;
 
 // Gets a list of the current active pseudo-classes.
 // @return The list of active pseudo-classes.
-const Rml::PseudoClassList& GetActivePseudoClasses() const;
+const apui::PseudoClassList& GetActivePseudoClasses() const;
 ```
 
 `IsPseudoClassSet()` will check for the prescence of a particular pseudo-class on the element, while `GetActivePseudoClasses()` will return an STL set containing all pseudo-classes.
@@ -81,22 +81,22 @@ To set or remove a pseudo-class, call `SetPseudoClass()`.
 // Sets or removes a pseudo-class on the element.
 // @param[in] pseudo_class The pseudo class to activate or deactivate.
 // @param[in] activate True if the pseudo-class is to be activated, false to be deactivated.
-void SetPseudoClass(const Rml::String& pseudo_class, bool activate);
+void SetPseudoClass(const apui::String& pseudo_class, bool activate);
 ```
 
-Applications can make use of any pseudo-classes they wish for their own styling needs. However, RmlUi maintains several pseudo-classes internally and it is not recommended you set or clear them yourself. These classes are:
+Applications can make use of any pseudo-classes they wish for their own styling needs. However, APUI maintains several pseudo-classes internally and it is not recommended you set or clear them yourself. These classes are:
 
-* `hover`{:.cls}: Set when the mouse cursor is positioned over the element.
-* `active`{:.cls}: Set when the primary mouse button is depressed, and was positioned over the element when it was pressed.
-* `focus`{:.cls}: Set if an element has input focus. Usually this occurs when the element is clicked on.
-* `checked`{:.cls}: Set on a selected [radio button or checkbox](element_packages/form.html#radio-button-and-checkbox), or [drop-down list control item](element_packages/form.html#drop-down-select-box).
-* `disabled`{:.cls}: Set on a disabled [form control](element_packages/form.html).
+* `hover`: Set when the mouse cursor is positioned over the element.
+* `active`: Set when the primary mouse button is depressed, and was positioned over the element when it was pressed.
+* `focus`: Set if an element has input focus. Usually this occurs when the element is clicked on.
+* `checked`: Set on a selected [radio button or checkbox](element_packages/form.html#radio-button-and-checkbox), or [drop-down list control item](element_packages/form.html#drop-down-select-box).
+* `disabled`: Set on a disabled [form control](element_packages/form.html).
 
 ### DOM interface
 
-RmlUi elements support the majority of [Gecko's HTML DOM element interface](https://developer.mozilla.org/en-US/docs/Web/API/element), so web developers should be familiar with most of an element's functionality.
+APUI elements support the majority of [Gecko's HTML DOM element interface](https://developer.mozilla.org/en-US/docs/Web/API/element), so web developers should be familiar with most of an element's functionality.
 
-| RmlUi functions | Brief description | Equivalent DOM property |
+| APUI functions | Brief description | Equivalent DOM property |
 |------------------|-------------------|-------------------------|
 | `GetAbsoluteLeft()` | The distance from the context's left edge and the element's left border.
 | `GetAbsoluteTop()` | The distance from the context's top edge and the element's top border.
@@ -127,15 +127,15 @@ RmlUi elements support the majority of [Gecko's HTML DOM element interface](http
 | `GetProperty()`, `SetProperty()` | An object representing the declarations of an element's style attributes. | style
 | `GetTagName()` | The name of the tag for the given element. | tagName
 
-Supported methods have simply had their initial letter capitalised to match the rest of the RmlUi API.
+Supported methods have simply had their initial letter capitalised to match the rest of the APUI API.
 
-| RmlUi function | Brief description | Equivalent DOM method |
+| APUI function | Brief description | Equivalent DOM method |
 |-----------------|-------------------|-----------------------|
 | `AddEventListener()` | Register an event handler to a specific event type on the element. | addEventListener()
 | `AppendChild()` | Insert a node as the last child node of this element. The newly parented node must first be detached from its existing parent. | appendChild()
 | `Blur()` | Removes keyboard focus from the current element. | blur()
 | `Click()` | Simulates a click on the current element. | click()
-| `Closest()` | Retrieve the first ancestor element matching the provided RCSS selector(s). | closest()
+| `Closest()` | Retrieve the first ancestor element matching the provided CSS selector(s). | closest()
 | `DispatchEvent()` | Dispatch an event to this node in the DOM. | dispatchEvent()
 | `Focus()` | Gives keyboard focus to the current element. | focus()
 | `GetAttribute()` | Retrieve the value of the named attribute from the current node. | getAttribute()
@@ -145,9 +145,9 @@ Supported methods have simply had their initial letter capitalised to match the 
 | `HasAttribute()` | Check if the element has the specified attribute, or not. | hasAttribute()
 | `HasChildNodes()` | Check if the element has any child nodes, or not. | hasChildNodes()
 | `InsertBefore()` | Inserts the first node before the second, child, node in the DOM. The newly parented node must first be detached from its existing parent. | insertBefore()
-| `QuerySelector()` | Retrieve the first descendant element matching the provided RCSS selector(s). | querySelector()
-| `QuerySelectorAll()` | Retrieve a set of all descendant elements matching the provided RCSS selector(s). | querySelectorAll()
-| `Matches()` | Check if the current element matches the given RCSS selector(s). | matches()
+| `QuerySelector()` | Retrieve the first descendant element matching the provided CSS selector(s). | querySelector()
+| `QuerySelectorAll()` | Retrieve a set of all descendant elements matching the provided CSS selector(s). | querySelectorAll()
+| `Matches()` | Check if the current element matches the given CSS selector(s). | matches()
 | `RemoveAttribute()` | Remove the named attribute from the current node. | removeAttribute()
 | `RemoveChild()` | Removes a child node from the current element, returning it as a unique pointer. | removeChild()
 | `RemoveEventListener()` | Removes an event listener from the element. | removeEventListener()
@@ -166,7 +166,7 @@ Due to the complexity of the HTML/CSS model, it is a highly challenging task to 
 
 ### Dynamically creating elements
 
-Elements should not be created with the `new` operator; in order to be properly constructed counted and released, they need to be created either through a document (using the `CreateElement()` or `CreateTextNode()` function) or through the RmlUi factory (`Rml::Factory`) using the factory's static `InstanceElement()` function.
+Elements should not be created with the `new` operator; in order to be properly constructed counted and released, they need to be created either through a document (using the `CreateElement()` or `CreateTextNode()` function) or through the APUI factory (`apui::Factory`) using the factory's static `InstanceElement()` function.
 
 #### Ownership of elements
 
@@ -189,11 +189,11 @@ To create an element through a document use one of the following functions:
 ```cpp
 // Creates the named element.
 // @param[in] name The tag name of the element.
-Rml::ElementPtr CreateElement(const Rml::String& name);
+apui::ElementPtr CreateElement(const apui::String& name);
 
 // Create a text element with the given text content.
 // @param[in] text The text content of the text element.
-Rml::ElementPtr CreateTextNode(const Rml::String& text);
+apui::ElementPtr CreateTextNode(const apui::String& text);
 ```
 
 `CreateElement()` takes a single parameter, name, the tag name of the new element. This will be used to both look up the instancer and tag the element. Like instancing the element through the factory, the new element will be returned if it was created successfully, or `nullptr` if not.
@@ -225,10 +225,10 @@ Creating an element through the factory allows more control. The `InstanceElemen
 // @param[in] tag The tag of the element to be instanced.
 // @param[in] attributes The attributes to instance the element with.
 // @return The instanced element, or nullptr if the instancing failed.
-static Rml::ElementPtr InstanceElement(Rml::Element* parent,
-                                              const Rml::String& instancer,
-                                              const Rml::String& tag,
-                                              const Rml::XMLAttributes& attributes);
+static apui::ElementPtr InstanceElement(apui::Element* parent,
+                                              const apui::String& instancer,
+                                              const apui::String& tag,
+                                              const apui::XMLAttributes& attributes);
 ```
 
 The function's parameters are:
@@ -238,23 +238,23 @@ The function's parameters are:
 * `tag`: The tag the new element should have.
 * `attributes`: Any attributes you want the new element to be constructed with. This is a dictionary type. The attributes will be passed into the instancer and set on the element if instancing was successful. 
 
-For example, the following will instance a `<div>`{:.tag} element:
+For example, the following will instance a `<div>` element:
 
 ```cpp
-Rml::ElementPtr div_element = Rml::Factory::InstanceElement(nullptr,
+apui::ElementPtr div_element = apui::Factory::InstanceElement(nullptr,
                                                                             "div",
                                                                             "div",
-                                                                            Rml::XMLAttributes());
+                                                                            apui::XMLAttributes());
 ```
 
-The following will instance a radio button element using the library's `input` instancer, but gives it a tag of `radio`{:.tag}:
+The following will instance a radio button element using the library's `input` instancer, but gives it a tag of `radio`:
 
 ```cpp
-Rml::XMLAttributes attributes;
+apui::XMLAttributes attributes;
 attributes.Set("type", "radio");
 attributes.Set("name", "graphics");
 attributes.Set("value", "OK");
-Rml::ElementPtr radio_element = Rml::Factory::InstanceElement(div_element,
+apui::ElementPtr radio_element = apui::Factory::InstanceElement(div_element,
                                                                               "input",
                                                                               "radio",
                                                                               attributes);
@@ -269,7 +269,7 @@ Raw element pointers are non-owning, so are not meant to be deleted directly. If
 /// Remove a child element from this element.
 /// @param[in] The element to remove.
 /// @returns A unique pointer to the element if found, discard the result to immediately destroy.
-Rml::ElementPtr RemoveChild(Element* element);
+apui::ElementPtr RemoveChild(Element* element);
 ```
 The remove returns a unique pointer to the removed child. Discard the result to let it be released immediately. Otherwise, the element can now be appended to another element by moving the returned `ElementPtr`.
 

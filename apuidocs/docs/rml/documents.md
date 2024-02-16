@@ -7,13 +7,13 @@ next: style_sheets
 
 ### \<rml\>
 
-All RmlUi documents begin with the `<rml>`{:.tag} element. The element should contain two children, `<head>`{:.tag} and `<body>`{:.tag}, as shown in the following basic structure of a document.
+All APUI documents begin with the `<rml>` element. The element should contain two children, `<head>` and `<body>`, as shown in the following basic structure of a document.
 
 ```html
 <rml>
 	<head>
 		<title>...</title>
-		<link type="text/rcss" href="style.rcss"/>
+		<link type="text/css" href="style.css"/>
 		...
 	</head>
 	<body>
@@ -24,27 +24,27 @@ All RmlUi documents begin with the `<rml>`{:.tag} element. The element should co
 
 ### \<head\>
 
-The `<head>`{:.tag} element contains information about the current document, such as its title, style and template information is references. No information in the header is rendered.
+The `<head>` element contains information about the current document, such as its title, style and template information is references. No information in the header is rendered.
 
 ### \<title\>
 
-The `<title>`{:.tag} element contains the title of the document. This is often used for the specifying the contents of the title bar of a game window.
+The `<title>` element contains the title of the document. This is often used for the specifying the contents of the title bar of a game window.
 
 ### \<link\>
 
-The `<link>`{:.tag} element is used to specify additional resources the document requires.
+The `<link>` element is used to specify additional resources the document requires.
 
 _Attributes_
 
-`type`{:.attr} = cdata (CI)
+`type` = cdata (CI)
 : Type of link, which should be one of:
-* text/rcss - [RmlUi Style Sheet Specification](../rcss.html)
-* text/template - [RmlUi Template](templates.html)
-* text/script - RmlUi script
+* text/css - [APUI Style Sheet Specification](../css.html)
+* text/template - [APUI Template](templates.html)
+* text/script - APUI script
 
-`href`{:.attr} = cdata (CS)
+`href` = cdata (CS)
 : Specifies the source URI, relative to the document being parsed.
 
 ### \<body\>
 
-The body of a document contains the document's content. All elements within the `<body>`{:.tag} tag is laid out and rendered by RmlUi based on the active style sheets. 
+The body of a document contains the document's content. All elements within the `<body>` tag is laid out and rendered by APUI based on the active style sheets. 

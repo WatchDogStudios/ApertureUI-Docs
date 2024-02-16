@@ -5,12 +5,12 @@ status: deprecated
 status-desc: datagrid has been deprecated in favor of data bindings
 ---
 
-This tutorial expects that you've got a solid grounding in C++ and know the basics of [RML](../rml.html) and [RCSS](../rcss.html), and know the basics of datagrids (ie, completed the first [datagrid tutorial](datagrid.html)).
+This tutorial expects that you've got a solid grounding in C++ and know the basics of [RML](../rml.html) and [CSS](../css.html), and know the basics of datagrids (ie, completed the first [datagrid tutorial](datagrid.html)).
 
 ---
 ***NOTE***
 
-The datagrid and related functionality has been deprecated as of RmlUi 4.0. Instead, users are encouraged to use [data bindings](../data_bindings.html) possibly combined with [RCSS tables](../rcss/tables.html). Similar functionality as presented in this tutorial, using a tree structure but instead implemented with data bindings, can be seen in the `treeview` sample.
+The datagrid and related functionality has been deprecated as of APUI 4.0. Instead, users are encouraged to use [data bindings](../data_bindings.html) possibly combined with [CSS tables](../css/tables.html). Similar functionality as presented in this tutorial, using a tree structure but instead implemented with data bindings, can be seen in the `treeview` sample.
 
 ---
 
@@ -33,14 +33,14 @@ const int NUM_ALIEN_TYPES = 3;
 
 ...
 
-void SubmitScore(const Rml::String& name, const Rml::Colourb& colour, int wave, int score, int alien_kills[]);
+void SubmitScore(const apui::String& name, const apui::Colourb& colour, int wave, int score, int alien_kills[]);
 
 ...
 
 struct Score
 {
-	Rml::String name;
-	Rml::Colourb colour;
+	apui::String name;
+	apui::Colourb colour;
 	int score;
 	int wave;
 
@@ -57,15 +57,15 @@ The alien_kills array stores how many of each type of alien the player killed to
 So first of all we need to make the data source aware of the child rows. The best way to do this is to add more tables to the `HighScores` data source: one table for each row. So in the `GetRow()` function, when we're checking what the columns are, we need to add one more check in - the check for the child data source. I added this code in after the "wave" check:
 
 ```cpp
-else if (columns[i] == Rml::DataSource::CHILD_SOURCE)
+else if (columns[i] == apui::DataSource::CHILD_SOURCE)
 {
-	row.push_back(Rml::String(24, "high_scores.player_%d", row_index));
+	row.push_back(apui::String(24, "high_scores.player_%d", row_index));
 }
 ```
 
 This tells the calling datagrid that this row's child data source is `high_scores` (the same source that we're editing) and the table is called `player_X`. So now at the top of the `GetRow()` and `GetNumRows()` functions we now have to check for that table as well.
 
-You may be wondering where the `Rml::DataSource::CHILD_SOURCE` variable came from! It's one of three predefined variables that can be used as column names and in the fields attribute in the col definition. The other two are `DEPTH` and `NUM_CHILDREN`. `DEPTH` returns the depth of the row and can be used by data formatters to draw something different for each row. `NUM_CHILDREN` returns the number of children under each row, and is most often used to know when to draw a '+' button to expand the row. We'll be using `NUM_CHILDREN` later.
+You may be wondering where the `apui::DataSource::CHILD_SOURCE` variable came from! It's one of three predefined variables that can be used as column names and in the fields attribute in the col definition. The other two are `DEPTH` and `NUM_CHILDREN`. `DEPTH` returns the depth of the row and can be used by data formatters to draw something different for each row. `NUM_CHILDREN` returns the number of children under each row, and is most often used to know when to draw a '+' button to expand the row. We'll be using `NUM_CHILDREN` later.
 
 #### Adding the player tables
 
@@ -125,21 +125,21 @@ else
 			}
 			else if (columns[i] == "score")
 			{
-				row.push_back(Rml::String(8, "%d", ALIEN_SCORES[row_index]));
+				row.push_back(apui::String(8, "%d", ALIEN_SCORES[row_index]));
 			}
 			else if (columns[i] == "colour")
 			{
-				Rml::String colour_string;
-				Rml::TypeConverter< Rml::Colourb, Rml::String >::Convert(Rml::Colourb(255, 255, 255), colour_string);
+				apui::String colour_string;
+				apui::TypeConverter< apui::Colourb, apui::String >::Convert(apui::Colourb(255, 255, 255), colour_string);
 				row.push_back(colour_string);
 			}
 			else if (columns[i] == "wave")
 			{
 				int num_kills = scores[player_index].alien_kills[alien_kills_array_index];
 				if (num_kills == 1)
-					row.push_back(Rml::String("1 kill"));
+					row.push_back(apui::String("1 kill"));
 				else
-					row.push_back(Rml::String(16, "%d kills", num_kills));
+					row.push_back(apui::String(16, "%d kills", num_kills));
 			}
 		}
 	}
@@ -166,7 +166,7 @@ Open the tutorial.rml file in the data folder, and look at where the datagrid is
 </datagrid>
 ```
 
-Of course we've no formatter called `expand_button`, we'll have to create that later. The `#num_children` field corresponds to the `Rml::DataSource::NUM_CHILDREN` string - we use this to ask the data source about its number of children. I took 10% width out of the Pilot column to make room. So, fire this up and see what we get:
+Of course we've no formatter called `expand_button`, we'll have to create that later. The `#num_children` field corresponds to the `apui::DataSource::NUM_CHILDREN` string - we use this to ask the data source about its number of children. I took 10% width out of the Pilot column to make room. So, fire this up and see what we get:
 
 ![datagrid_tree_1.gif](datagrid_tree_1.gif)
 
@@ -174,16 +174,16 @@ As you can see, we haven't got our `expand_button` formatter yet so it falls bac
 
 #### Creating the data formatter
 
-Naturally, the next step is to create the data formatter! This one is pretty simple - all it does it read the first entry of the raw_data array to see how many children there are. If there is at least one child, then we return a `<datagridexpand>`{:.tag} element, otherwise we return nothing:
+Naturally, the next step is to create the data formatter! This one is pretty simple - all it does it read the first entry of the raw_data array to see how many children there are. If there is at least one child, then we return a `<datagridexpand>` element, otherwise we return nothing:
 
 ```cpp
-void ExpandButtonFormatter::FormatData(Rml::String& formatted_data, const Rml::StringList& raw_data)
+void ExpandButtonFormatter::FormatData(apui::String& formatted_data, const apui::StringList& raw_data)
 {
 	// Data format:
 	// raw_data[0] is the number of children that this row has. 0 means no button, more than 0 mean a button.
 
 	int num_children = 0;
-	Rml::TypeConverter< Rml::String, int >::Convert(raw_data[0], num_children);
+	apui::TypeConverter< apui::String, int >::Convert(raw_data[0], num_children);
 	
 	if (num_children > 0)
 	{
@@ -196,13 +196,13 @@ void ExpandButtonFormatter::FormatData(Rml::String& formatted_data, const Rml::S
 }
 ```
 
-The `<datagridexpand>`{:.tag} element is an element that listens to the `click`{:.evt} events and toggles the visibility of the child rows of its parent row. In the RML there's been styling added to make it look like a +/- button - you'll have to style one yourself just like a button if you plan on using trees in your own application.
+The `<datagridexpand>` element is an element that listens to the `click` events and toggles the visibility of the child rows of its parent row. In the RML there's been styling added to make it look like a +/- button - you'll have to style one yourself just like a button if you plan on using trees in your own application.
 
 Don't forget to call the formatter the right name, and to instance the formatter in `main.cpp`. Once that's done, fire it up and you'll see the expand buttons beside each row, and be able to expand the child rows:
 
 ### Step 4: Styling
 
-All that remains is upgrading the defender decorator to support displaying different images. The project's already been set up in a way so that if we give the defender element the classes of `alien_1`{:.cls}, `alien_2`{:.cls} or `alien_3`{:.cls} then it'll display with the image of that alien instead of the defender. We should probably rename that element too, as it's a bit of misnomer now, but we'll leave that till later. :) If we make a new field - type - and pass that into the defender decorator as well, we can get then defender to allocate the right class to get it to display the corresponding image. So, in `tutorial.rml`:
+All that remains is upgrading the defender decorator to support displaying different images. The project's already been set up in a way so that if we give the defender element the classes of `alien_1`, `alien_2` or `alien_3` then it'll display with the image of that alien instead of the defender. We should probably rename that element too, as it's a bit of misnomer now, but we'll leave that till later. :) If we make a new field - type - and pass that into the defender decorator as well, we can get then defender to allocate the right class to get it to display the corresponding image. So, in `tutorial.rml`:
 
 ```html
 <col fields="colour,type" formatter="ship" width="20%">Ship:</col>
@@ -222,29 +222,29 @@ And in the same function, for the `player_X` table:
 ```cpp
 else if (columns[i] == "type")
 {
-	row.push_back(Rml::String(8, "%d", alien_kills_array_index + 1));
+	row.push_back(apui::String(8, "%d", alien_kills_array_index + 1));
 }
 ```
 
 And then finally the formatter needs updating to use the new field we're sending through to it:
 
 ```cpp
-void HighScoresShipFormatter::FormatData(Rml::String& formatted_data, const Rml::StringList& raw_data)
+void HighScoresShipFormatter::FormatData(apui::String& formatted_data, const apui::StringList& raw_data)
 {
 	// Data format:
 	// raw_data[0] is the colour, in "%d, %d, %d, %d" format.
 	// raw_data[1] is the type. 0 means a defender, else N means alien type N.
 
-	Rml::Colourb ship_colour;
-	Rml::TypeConverter< Rml::String, Rml::Colourb >::Convert(raw_data[0], ship_colour);
-	Rml::String colour_string(32, "%d,%d,%d", ship_colour.red, ship_colour.green, ship_colour.blue);
+	apui::Colourb ship_colour;
+	apui::TypeConverter< apui::String, apui::Colourb >::Convert(raw_data[0], ship_colour);
+	apui::String colour_string(32, "%d,%d,%d", ship_colour.red, ship_colour.green, ship_colour.blue);
 
 	int ship_type;
-	Rml::TypeConverter< Rml::String, int >::Convert(raw_data[1], ship_type);
-	Rml::String class_string = "";
+	apui::TypeConverter< apui::String, int >::Convert(raw_data[1], ship_type);
+	apui::String class_string = "";
 	if (ship_type > 0)
 	{
-		class_string = Rml::String(32, "class=\"alien_%d\"", ship_type);
+		class_string = apui::String(32, "class=\"alien_%d\"", ship_type);
 	}
 
 	formatted_data = "<defender " + class_string + " style=\"color: rgb(" + colour_string + ");\" />";

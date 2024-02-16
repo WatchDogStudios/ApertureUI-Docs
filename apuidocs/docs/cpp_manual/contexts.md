@@ -5,7 +5,7 @@ parent: cpp_manual
 next: events
 ---
 
-RmlUi contexts are independent collections of documents. All documents exist within a single context. Contexts are rendered, updated and given input independently of each other at the application's discretion.
+APUI contexts are independent collections of documents. All documents exist within a single context. Contexts are rendered, updated and given input independently of each other at the application's discretion.
 
 ### Uses of multiple contexts
 
@@ -17,19 +17,19 @@ A second or subsequent context could be used to store alternative 'desktops' tha
 
 #### In-world interfaces
 
-Computer terminals or consoles in a 3D game world could themselves be RmlUi contexts. As they wouldn't necessarily be viewed parallel to the screen, mouse input would need to be projected onto the surface. When the context was rendered, it would need to be transformed correctly to fit onto the surface or rendered onto a texture.
+Computer terminals or consoles in a 3D game world could themselves be APUI contexts. As they wouldn't necessarily be viewed parallel to the screen, mouse input would need to be projected onto the surface. When the context was rendered, it would need to be transformed correctly to fit onto the surface or rendered onto a texture.
 
 ### Creating a context
 
-To create a new context, use the `Rml::CreateContext()` function.
+To create a new context, use the `apui::CreateContext()` function.
 
 ```cpp
 // Creates a new element context.
 // @param[in] name The new name of the context. This must be unique.
 // @param[in] dimensions The initial dimensions of the new context.
 // @return The new context, or nullptr if the context could not be created.
-Rml::Context* CreateContext(const Rml::String& name,
-                                     const Rml::Vector2i& dimensions);
+apui::Context* CreateContext(const apui::String& name,
+                                     const apui::Vector2i& dimensions);
 ```
 
 The context needs a unique string name and initial dimensions. The dimensions are used to generate relative lengths (for example, if a document has a percentage dimension), and sets the extents for the mouse cursor within the context.
@@ -40,7 +40,7 @@ To fetch a previously-constructed context, use the `GetContext()` function.
 // Fetches a previously constructed context by name.
 // @param[in] name The name of the desired context.
 // @return The desired context, or nullptr if no context exists with the given name.
-Rml::Context* GetContext(const Rml::String& name);
+apui::Context* GetContext(const apui::String& name);
 ```
 
 ### Releasing a context
@@ -51,9 +51,9 @@ A context can be manually removed by calling the following function.
 // Removes and destroys a context.
 // @param[in] name The name of the context to remove.
 // @return True if name is a valid context, false otherwise.
-bool RemoveContext(const Rml::String& name);
+bool RemoveContext(const apui::String& name);
 ```
-All remaining contexts are destroyed during the call to `Rml::Shutdown()`.
+All remaining contexts are destroyed during the call to `apui::Shutdown()`.
 
 ### Update and rendering
 
@@ -83,10 +83,10 @@ Documents are loaded through contexts. To load a document from an RML file into 
 // Load a document into the context.
 // @param[in] document_path The path to the document to load.
 // @return The loaded document, or nullptr if no document was loaded.
-ElementDocument* LoadDocument(const Rml::String& document_path);
+ElementDocument* LoadDocument(const apui::String& document_path);
 ```
 
-The `document_path` parameter will be given to RmlUi's [file interface](interfaces/file.html) to be open and read. If the document is loaded successfully, it will be added to the context and returned. Call `Show()` on the document to make it visible.
+The `document_path` parameter will be given to APUI's [file interface](interfaces/file.html) to be open and read. If the document is loaded successfully, it will be added to the context and returned. Call `Show()` on the document to make it visible.
 
 You can also load documents directly from a memory stream, this can be useful if you want to receive documents over the network or similar.
 
@@ -107,7 +107,7 @@ To create a new, empty document you can populate dynamically, use the `CreateDoc
 ElementDocument* CreateDocument(const String& instancer_name = "body");
 ```
 
-The context will attempt to instance an element using the instancer specified by the caller, 'body' by default. If an `Rml::ElementDocument` is instanced, it will be added to the context and returned.
+The context will attempt to instance an element using the instancer specified by the caller, 'body' by default. If an `apui::ElementDocument` is instanced, it will be added to the context and returned.
 
 ### Scrolling
 
@@ -117,15 +117,15 @@ The context can initiate scrolling in multiple ways:
 - `ProcessMouseButtonDown()` can activate [autoscroll mode](#autoscroll) when the middle mouse button is submitted.
 - Further, an element's scrollbar can be dragged, or its scroll position programmatically set.
 
-See the [input documentation](input.html#mouse-buttons) for more details on these functions. In some situations, a scroll action initiates [smooth scrolling](#smooth-scrolling). An element's closest scrollable ancestor is decided by scroll chaining, which can be controlled using the [`overflow-behavior` property](../rcss/user_interface.html#overscroll-behavior).
+See the [input documentation](input.html#mouse-buttons) for more details on these functions. In some situations, a scroll action initiates [smooth scrolling](#smooth-scrolling). An element's closest scrollable ancestor is decided by scroll chaining, which can be controlled using the [`overflow-behavior` property](../css/user_interface.html#overscroll-behavior).
 
 #### Autoscroll mode
-{:#autoscroll}
+
 
 Autoscroll mode is activated by pressing or holding the middle mouse button. This scrolls the document with a controllable velocity based on the mouse cursor's distance from its initial activation position.
 
 #### Smooth scrolling
-{:#smooth-scrolling}
+
 
 Smooth scrolling makes a given scroll action animate smoothly towards its destination. Smooth scrolling can be activated in several situations:
 
@@ -146,7 +146,7 @@ By default, smooth scrolling is enabled. It can be disabled by setting the `scro
 
 ### Mouse cursor
 
-Each context can propagate the mouse cursor name to the user through the [system interface](interfaces/system.html). The cursor name is set on an element through the  [`cursor` property](../rcss/user_interface.html#cursor). When the cursor name changes, the new name is sent though the interface. The client can then change the displayed cursor using the cursor facilities on their platform.
+Each context can propagate the mouse cursor name to the user through the [system interface](interfaces/system.html). The cursor name is set on an element through the  [`cursor` property](../css/user_interface.html#cursor). When the cursor name changes, the new name is sent though the interface. The client can then change the displayed cursor using the cursor facilities on their platform.
 
 The submitted cursor name is chosen in the following order.
 
@@ -156,21 +156,21 @@ The submitted cursor name is chosen in the following order.
 4. Otherwise, an empty string is submitted.
 
 #### Built-in cursor names
-{:#builtin-cursors}
+
 
 The following built-in cursor names are submitted to the system interface under specific conditions.
 
 |        Cursor name        | Description   |
 |---------------------------|---------------|
-| `rmlui-scroll-idle`       | Autoscroll mode active, but scrolling is idle.                 |
-| `rmlui-scroll-up`         | Autoscroll mode active, scrolling in the given direction.      |
-| `rmlui-scroll-down`       | "                                                              |
-| `rmlui-scroll-left`       | "                                                              |
-| `rmlui-scroll-right`      | "                                                              |
-| `rmlui-scroll-up-left`    | "                                                              |
-| `rmlui-scroll-up-right`   | "                                                              |
-| `rmlui-scroll-down-left`  | "                                                              |
-| `rmlui-scroll-down-right` | "                                                              |
+| `apui-scroll-idle`       | Autoscroll mode active, but scrolling is idle.                 |
+| `apui-scroll-up`         | Autoscroll mode active, scrolling in the given direction.      |
+| `apui-scroll-down`       | "                                                              |
+| `apui-scroll-left`       | "                                                              |
+| `apui-scroll-right`      | "                                                              |
+| `apui-scroll-up-left`    | "                                                              |
+| `apui-scroll-up-right`   | "                                                              |
+| `apui-scroll-down-left`  | "                                                              |
+| `apui-scroll-down-right` | "                                                              |
 
 
 #### Multiple contexts
@@ -185,12 +185,12 @@ void EnableMouseCursor(bool enable);
 By default it is enabled.
 
 ### Media themes
-{:#themes}
 
-Media themes can be used to activate or deactivate parts of a style sheet in combination with [media queries](../rcss/media_queries.html), using the `theme` media feature.
+
+Media themes can be used to activate or deactivate parts of a style sheet in combination with [media queries](../css/media_queries.html), using the `theme` media feature.
 
 ```cpp
-/// Activate or deactivate a media theme. Themes can be used in RCSS media queries.
+/// Activate or deactivate a media theme. Themes can be used in CSS media queries.
 /// @param theme_name[in] The name of the theme to (de)activate.
 /// @param activate True to activate the given theme, false to deactivate.
 void ActivateTheme(const String& theme_name, bool activate);
@@ -209,16 +209,16 @@ Event listeners can be attached to a context (rather than an element) to receive
 // @param[in] event The name of the event to attach to.
 // @param[in] listener Listener object to be attached.
 // @param[in] in_capture_phase True if the listener is to be attached to the capture phase, false for the bubble phase.
-void AddEventListener(const Rml::String& event,
-                      Rml::EventListener* listener,
+void AddEventListener(const apui::String& event,
+                      apui::EventListener* listener,
                       bool in_capture_phase = false);
 
 // Removes an event listener from the context's root element.
 // @param[in] event The name of the event to detach from.
 // @param[in] listener Listener object to be detached.
 // @param[in] in_capture_phase True to detach from the capture phase, false from the bubble phase.
-void RemoveEventListener(const Rml::String& event,
-                         Rml::EventListener* listener,
+void RemoveEventListener(const apui::String& event,
+                         apui::EventListener* listener,
                          bool in_capture_phase = false);
 ```
 
@@ -226,17 +226,17 @@ Note as for all raw pointers, they are non-owning. Thus, it is the user's respon
 
 ### Input
 
-See the section on [input](input.html) for detail on sending user input from your application into RmlUi contexts.
+See the section on [input](input.html) for detail on sending user input from your application into APUI contexts.
 
 ### On-demand rendering (power saving mode)
-{:#on-demand-rendering}
+
 
 In the graphics world we can roughly divide applications into two groups. 
 
 1. Applications that aim to pump out as many frames as possible, as fast as possible, such as games.
 2. Other applications that only redraw their window when their contents change, to reduce CPU usage and power consumption.
 
-RmlUi provides utilities to handle either of these cases, to suit the target application's requirements. Users of RmlUi control their own update loop, thus, doing it the first way is as simple as running the context update and rendering in a loop, without delay. On the other hand, the second approach requires some support from the library side, because the application needs to know e.g. when animations are happening or when a text cursor should blink.
+APUI provides utilities to handle either of these cases, to suit the target application's requirements. Users of APUI control their own update loop, thus, doing it the first way is as simple as running the context update and rendering in a loop, without delay. On the other hand, the second approach requires some support from the library side, because the application needs to know e.g. when animations are happening or when a text cursor should blink.
 
 #### Loop update triggers
 
@@ -246,7 +246,7 @@ During on-demand rendering, the application needs to update the user interface i
 2. When platform events are received.
 3. When the application wants to make their own changes to the document.
 
-This feature is intended to assist in the first case. The second case depends on the user's platform, and is outside the responsibility of the library itself, but there are many examples in the [included backends](https://github.com/mikke89/RmlUi/tree/master/Backends). The last case is fully up to the user, it is their own responsibility to know when they need to make their own changes to the interface, and to decide how to proceed.
+This feature is intended to assist in the first case. The second case depends on the user's platform, and is outside the responsibility of the library itself, but there are many examples in the [included backends](https://github.com/mikke89/APUI/tree/master/Backends). The last case is fully up to the user, it is their own responsibility to know when they need to make their own changes to the interface, and to decide how to proceed.
 
 #### Update delay utilities
 
@@ -258,7 +258,7 @@ Opting in to on-demand rendering requires explicit support by the code that driv
 void RequestNextUpdate(double delay);
 ```
 
-This function is used by RmlUi and custom elements to set the delay until the user interface should be rendered again, unless platform events are received in-between. This is not a direct setter, it takes the minimum value of the already stored and the passed-in value.
+This function is used by APUI and custom elements to set the delay until the user interface should be rendered again, unless platform events are received in-between. This is not a direct setter, it takes the minimum value of the already stored and the passed-in value.
 
 The rendering loop can then use the following function to retrieve the value in the range zero to infinity.
 
@@ -270,7 +270,7 @@ double GetNextUpdateDelay() const;
 
 A returned value of zero means the rendering loop should not block for events, that is, render the next frame as soon as possible. This happens for example if an animation is playing. A non-zero, finite value means a delay in seconds until the update and render loop should be invoked again. Infinity means there is no reason to redraw the content at all unless a platform event is received. This is the usual case if there are no custom elements or running animations. 
 
-You can see this in action by tweaking the `power_save` flag passed to `Backend::Process()` function in the [provided samples](https://github.com/mikke89/RmlUi/blob/master/Samples/basic/loaddocument/src/main.cpp). This is implemented in most of the [included backends](https://github.com/mikke89/RmlUi/tree/master/Backends), take a look at the `RmlUi_Backend_….cpp` files to see how this functionality is integrated there.
+You can see this in action by tweaking the `power_save` flag passed to `Backend::Process()` function in the [provided samples](https://github.com/mikke89/APUI/blob/master/Samples/basic/loaddocument/src/main.cpp). This is implemented in most of the [included backends](https://github.com/mikke89/APUI/tree/master/Backends), take a look at the `APUI_Backend_….cpp` files to see how this functionality is integrated there.
 
 ### Custom contexts
 
@@ -278,21 +278,21 @@ Contexts are created, like elements and decorators, through instancers. You can 
 
 #### Creating a custom context
 
-A custom context is a class derived from `Rml::Context`. There are no virtual methods on `Rml::Context`, so it cannot be specialised.
+A custom context is a class derived from `apui::Context`. There are no virtual methods on `apui::Context`, so it cannot be specialised.
 
 #### Creating a custom context instancer
 
-A custom context instancer needs to be registered with the RmlUi factory in order to override the default instancer. A custom context instancer needs to be derived from `Rml::ContextInstancer`, and implement the required virtual methods:
+A custom context instancer needs to be registered with the APUI factory in order to override the default instancer. A custom context instancer needs to be derived from `apui::ContextInstancer`, and implement the required virtual methods:
 
 ```cpp
 // Instances a context.
 // @param[in] name Name of this context.
 // @return The instanced context.
-virtual Rml::ContextPtr InstanceContext(const Rml::String& name) = 0;
+virtual apui::ContextPtr InstanceContext(const apui::String& name) = 0;
 
 // Releases a context previously created by this context.
 // @param[in] context The context to release.
-virtual void ReleaseContext(Rml::Context* context) = 0;
+virtual void ReleaseContext(apui::Context* context) = 0;
 
 // Releases this context instancer
 virtual void Release() = 0;
@@ -302,20 +302,20 @@ virtual void Release() = 0;
 
 `ReleaseContext()` will be called whenever a context is released. The context instancer should destroy the context and free and resources allocated for it.
 
-`Release()` will be called when RmlUi is shut down. The instancer should delete itself if it was dynamically allocated.
+`Release()` will be called when APUI is shut down. The instancer should delete itself if it was dynamically allocated.
 
 #### Registering an instancer
 
-To register a custom instancer with RmlUi, call `RegisterContextInstancer()` on the RmlUi factory after RmlUi has been initialised.
+To register a custom instancer with APUI, call `RegisterContextInstancer()` on the APUI factory after APUI has been initialised.
 
 ```cpp
-// The custom_instancer must be kept alive until after the call to Rml::Shutdown()
+// The custom_instancer must be kept alive until after the call to apui::Shutdown()
 auto custom_instancer = std::make_unique<CustomContextInstancer>();
-Rml::Factory::RegisterContextInstancer(custom_instancer.get());
+apui::Factory::RegisterContextInstancer(custom_instancer.get());
 ```
 
-Like for other instancers, it is the user's responsibility to manage the lifetime of the instancer. Thus, it must be kept alive until after the call to `Rml::Shutdown()`, and then cleaned up by the user.
+Like for other instancers, it is the user's responsibility to manage the lifetime of the instancer. Thus, it must be kept alive until after the call to `apui::Shutdown()`, and then cleaned up by the user.
 
 #### Enumerating Contexts
 
-All active contexts can be enumerated via the `Rml::GetNumContexts()` and `Rml::GetContext(int index)` function calls. 
+All active contexts can be enumerated via the `apui::GetNumContexts()` and `apui::GetContext(int index)` function calls. 

@@ -1,9 +1,9 @@
-# This source file is part of RmlUi, the HTML/CSS Interface Middleware
+# This source file is part of APUI, the HTML/CSS Interface Middleware
 #
-# For the latest information, see http://github.com/mikke89/RmlUi
+# For the latest information, see http://github.com/mikke89/APUI
 #
 # Copyright (c) 2008-2010 CodePoint Ltd, Shift Technology Ltd
-# Copyright (c) 2019 The RmlUi Team, and contributors
+# Copyright (c) 2019 The APUI Team, and contributors
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -24,13 +24,13 @@
 # THE SOFTWARE.
 
 
-# This script was used to extract data from rmlui_lua_documentation.json and convert
+# This script was used to extract data from apui_lua_documentation.json and convert
 # it to a readable markdown format in api_reference.md. The markdown file was later manually altered wherever
 # required however.
 
 import json
 
-with open("rmlui_lua_documentation.json") as json_file:
+with open("apui_lua_documentation.json") as json_file:
     docs = json.load(json_file)
     docs = json.loads(json.dumps(docs, sort_keys=True))
 
@@ -64,7 +64,7 @@ for global_table_name in docs:
     addition = '''
 ## <a href='#{table_name}' name='{table_name}'>{table_name}</a>
 
-Inherits: `{inherited}`{{: .lua-type }}
+Inherits: `{inherited}`{}
 
 {description}
 
@@ -100,7 +100,7 @@ Inherits: `{inherited}`{{: .lua-type }}
 
     # Make functions summary table
     function_doc_format = "| [{function_name}](#{class_name}-{function_name}){{: .lua-function }}{arguments} | {return_value} |\n"
-    properties_doc_format = "| [{name}](#{class_name}-{name}){{: .lua-function }} | `{type}`{{: .lua-type }} |\n"
+    properties_doc_format = "| [{name}](#{class_name}-{name}){{: .lua-function }} | `{type}`{} |\n"
 
     functions_table = ""
     properties_table = ""
@@ -142,16 +142,16 @@ Inherits: `{inherited}`{{: .lua-type }}
         argument_types = [] 
         for argument in global_table["functions"][function_name]["arguments"]:
             argument_types.append(str(argument["type"]))
-        arguments = '('+', '.join(["`" + name+'`{: .lua-type } '+arg for name,arg in zip(argument_types, arguments[1:-1].split(", "))]) + ')'
+        arguments = '('+', '.join(["`" + name+'` '+arg for name,arg in zip(argument_types, arguments[1:-1].split(", "))]) + ')'
         global_table["functions"][function_name]["arguments"] = arguments
         
         # Conjoin return values
         return_values = ""
         for return_value in global_table["functions"][function_name]["returns"]:
             type_name = str(return_value).replace("push", "")
-            return_values += "`" + type_name + "`{: .lua-type }<br>"
+            return_values += "`" + type_name + "`<br>"
         if return_values == "":
-            return_values = "`nil`" + "{: .lua-type }"
+            return_values = "`nil`" + ""
 
         if function_name.find("new") != -1:
             function_name = "new"
@@ -180,11 +180,11 @@ Inherits: `{inherited}`{{: .lua-type }}
             property_name = function_name
             type_name = ""
             if len(global_table["functions"][function_name]["returns"]) == 0:
-                type_name = "`nil`{: .lua-type }"
+                type_name = "`nil`"
             else:
                 raw_type_names = "["
                 for return_type in global_table["functions"][function_name]["returns"]:
-                    raw_type_names += ", `" + str(return_type) + "`{: .lua-type }"
+                    raw_type_names += ", `" + str(return_type) + "`"
                 raw_type_names = raw_type_names.replace("[,", "")
                 type_name = raw_type_names.replace("push", "")
             property_descriptions += property_descriptions_format.format(
@@ -204,7 +204,7 @@ Inherits: `{inherited}`{{: .lua-type }}
         else:
             raw_type_names = "["
             for return_type in global_table["functions"][function_name]["returns"]:
-                raw_type_names += ", `" + str(return_type) + "`{: .lua-type }"
+                raw_type_names += ", `" + str(return_type) + "`"
             raw_type_names = raw_type_names.replace("[,", "")
             type_name = raw_type_names.replace("push", "")
         name = function_name.replace(global_table_name, "")

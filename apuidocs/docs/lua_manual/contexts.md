@@ -36,24 +36,24 @@ document = context.documents.highscores
 
 #### Creating contexts
 
-Contexts can be created in Lua with the `CreateContext()` function on the `rmlui` global. This function takes the name of the context as a string and the dimensions as a `Vector2i` type.
+Contexts can be created in Lua with the `CreateContext()` function on the `apui` global. This function takes the name of the context as a string and the dimensions as a `Vector2i` type.
 
 ```lua
-new_context = rmlui:CreateContext('hud', Vector2i.new(1024, 768))
+new_context = apui:CreateContext('hud', Vector2i.new(1024, 768))
 ```
 
 #### Accessing contexts
 
-Existing contexts can be accessed in Lua via the contexts member on the `rmlui` global. They can then be accessed via name or index.
+Existing contexts can be accessed in Lua via the contexts member on the `apui` global. They can then be accessed via name or index.
 
 ```lua
-context = rmlui.contexts['hud']
+context = apui.contexts['hud']
 ```
 
 List all contexts:
 
 ```lua
-for i,context in ipairs(rmlui.contexts) do
+for i,context in ipairs(apui.contexts) do
 	print('Context ' .. i .. ': ' .. context.name)
 end
 ```

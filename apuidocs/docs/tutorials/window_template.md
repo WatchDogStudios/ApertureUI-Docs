@@ -3,9 +3,9 @@ layout: page
 title: Window Templating Tutorial
 ---
 
-This tutorial will take you step-by-step through the development of the RML and RCSS of the window template we used for _Rocket Invaders from Mars_. By the end of this tutorial you'll be able to create complex, flexible templates for your own application.
+This tutorial will take you step-by-step through the development of the RML and CSS of the window template we used for _Rocket Invaders from Mars_. By the end of this tutorial you'll be able to create complex, flexible templates for your own application.
 
-To go through this tutorial you'll need an understanding of [RML](../rml.html) and [RCSS](../rcss.html).
+To go through this tutorial you'll need an understanding of [RML](../rml.html) and [CSS](../css.html).
 
 ### Step 1: Taking a look
 
@@ -13,9 +13,9 @@ Compile the template tutorial (at `/Samples/tutorials/template/`) and run the pr
 
 ![window_template_1.gif](window_template_1.gif)
 
-All the the program does is load and show the document defined in `data/tutorial.rml`. The RML itself file references `data/tutorial.rcss` and `/Samples/assets/invader.tga`. All we're interested in is the RML file and the RCSS file; open them both and take a look.
+All the the program does is load and show the document defined in `data/tutorial.rml`. The RML itself file references `data/tutorial.css` and `/Samples/assets/invader.tga`. All we're interested in is the RML file and the CSS file; open them both and take a look.
 
-All we've got to start with in the RML is a simple document with no child elements. It has a class of 'window' which, as you'll see in the RCSS, is what is giving it the glassy background decorator. The style declared in the document's header tag specifies a fixed width and height for the document (so it has some dimensions), and gives it auto margins to centre it within the context. As for the RCSS, we've got nothing more than the a font specification and a tiled-box decorator for drawing the background. And that's it! Simple, but not very useful as a window template yet.
+All we've got to start with in the RML is a simple document with no child elements. It has a class of 'window' which, as you'll see in the CSS, is what is giving it the glassy background decorator. The style declared in the document's header tag specifies a fixed width and height for the document (so it has some dimensions), and gives it auto margins to centre it within the context. As for the CSS, we've got nothing more than the a font specification and a tiled-box decorator for drawing the background. And that's it! Simple, but not very useful as a window template yet.
 
 ### Step 2: Adding a title bar
 
@@ -28,7 +28,7 @@ We're going to look at adding the title bar first. What we need for this is:
 
 #### Defining the title elements
 
-Add a `<div>`{:.tag} element into the body, and give it an ID of `title-bar`. The `<div>`{:.tag} is a block-level element, as defined in the base style sheet, so by default it will size itself horizontally to take up the entire length of its parent element, the window. We could put the decorator straight into this element, but then it will be as long as the window; we only want it as long as the title text. So inside the `<div>`{:.tag} element, add a `<span>`{:.tag} element, and give it an ID of `title`. Add a dummy title string inside the span, so we can easily get some text up there. By now, you should have this:
+Add a `<div>` element into the body, and give it an ID of `title-bar`. The `<div>` is a block-level element, as defined in the base style sheet, so by default it will size itself horizontally to take up the entire length of its parent element, the window. We could put the decorator straight into this element, but then it will be as long as the window; we only want it as long as the title text. So inside the `<div>` element, add a `<span>` element, and give it an ID of `title`. Add a dummy title string inside the span, so we can easily get some text up there. By now, you should have this:
 
 ```html
 <body class="window">
@@ -40,7 +40,7 @@ Add a `<div>`{:.tag} element into the body, and give it an ID of `title-bar`. Th
 
 Fire up the application; not much to look at yet, but we'll get there!
 
-The title text is rendering with the body text; we'll need something much bigger and bolder. In the RCSS file, add a new rule for the title span, assigning it a font size of 22, and a weight of bold. And why not a black text shadow while we're here? The rule should look something like this:
+The title text is rendering with the body text; we'll need something much bigger and bolder. In the CSS file, add a new rule for the title span, assigning it a font size of 22, and a weight of bold. And why not a black text shadow while we're here? The rule should look something like this:
 
 ```css
 div#title-bar span
@@ -61,7 +61,7 @@ If you open up the file `/Samples/assets/invader.tga`., you'll see it contains s
 ```css
 @spritesheet theme 
 {
-	src: ../../../assets/invader.tga;
+	src: ../../static/../assets/invader.tga;
 
 	/* ... */
 	
@@ -93,7 +93,7 @@ Run the application again and see what we've got.
 
 ![window_template_2.gif](window_template_2.gif)
 
-Well that looks pretty crap! Because the `<span>`{:.tag} element is inline, its height is derived from the height of its content; in this case, the dummy title text. The decorator squishes itself down to fit into the element. We can't throw a height RCSS property in there either, as inline elements (except in a few cases) cannot have their heights set directly. So what do we do? Padding! Margins, padding and borders can all be set on inline elements and, while they don't affect the vertical positioning of the element, they do affect the size of the element and influence the position of child elements. So we can use padding to set the element to the right size and position the text right in the middle of the title bar.
+Well that looks pretty crap! Because the `<span>` element is inline, its height is derived from the height of its content; in this case, the dummy title text. The decorator squishes itself down to fit into the element. We can't throw a height CSS property in there either, as inline elements (except in a few cases) cannot have their heights set directly. So what do we do? Padding! Margins, padding and borders can all be set on inline elements and, while they don't affect the vertical positioning of the element, they do affect the size of the element and influence the position of child elements. So we can use padding to set the element to the right size and position the text right in the middle of the title bar.
 
 Add some padding along the top of the span to begin with:
 
@@ -153,9 +153,9 @@ div#title-bar
 }
 ```
 
-That in itself won't do much, but now we can play around with its position to the pixel with the `top`{:.attr} and `left`{:.attr} properties.
+That in itself won't do much, but now we can play around with its position to the pixel with the `top` and `left` properties.
 
-If you don't set the `top`{:.attr} or `left`{:.attr} (or `right`{:.attr} or `bottom`{:.attr}) to change the height of an absolutely positioned element, it will stay where the layout engine positioned it, but be removed from flow so it will not affect the layout of future elements. If you do change its position, with the `top`{:.attr} property for example, its top edge will be aligned against the top padded edge of its offset parent (in our case, the window), offset by the amount of the property.
+If you don't set the `top` or `left` (or `right` or `bottom`) to change the height of an absolutely positioned element, it will stay where the layout engine positioned it, but be removed from flow so it will not affect the layout of future elements. If you do change its position, with the `top` property for example, its top edge will be aligned against the top padded edge of its offset parent (in our case, the window), offset by the amount of the property.
 
 We need to shift the element up, so we use the 'top' property to do this. If we declare `top: 0px;`, it will be aligned at the very top of the window; so, exactly where it is now. To move it up, specify a negative number. 40 pixels seems to do the trick.
 
@@ -169,7 +169,7 @@ div#title-bar
 
 #### Adding a handle
 
-We still need a handle so we can drag the window around. This is easy; RmlUi ships with a `<handle>`{:.tag} element that can do just that (or resize an element). In the RML, wrap the contents of the `title-bar` element with a `<handle>`{:.tag} element. You can set its move target with the `move_target`{:.attr} attribute; set it to `#document` so it knows to move its parent document when it is dragged. You should end up with this:
+We still need a handle so we can drag the window around. This is easy; APUI ships with a `<handle>` element that can do just that (or resize an element). In the RML, wrap the contents of the `title-bar` element with a `<handle>` element. You can set its move target with the `move_target` attribute; set it to `#document` so it knows to move its parent document when it is dragged. You should end up with this:
 
 ```html
 <div id="title-bar">
@@ -190,7 +190,7 @@ Now we've got a title bar, we need somewhere to place the actual page content. W
 * an empty block element we can put our page content into
 * a vertical scrollbar in case the contents of the page overflow 
 
-Add the block content element now; within the `<body>`{:.tag} tag, just below the `title-bar` element. Give it an ID of `content` so we can identify it.
+Add the block content element now; within the `<body>` tag, just below the `title-bar` element. Give it an ID of `content` so we can identify it.
 
 ```html
 	<div id="title-bar">
@@ -202,7 +202,7 @@ Add the block content element now; within the `<body>`{:.tag} tag, just below th
 	</div>
 ```
 
-Why do we do this, rather than put the content directly into the `<body>`{:.tag} element? When we come to convert this document into a reusable document template, we'll need an empty element that all of a document's content is put into.
+Why do we do this, rather than put the content directly into the `<body>` element? When we come to convert this document into a reusable document template, we'll need an empty element that all of a document's content is put into.
 
 Put some dummy content text into the new element and see what we've got.
 
@@ -215,9 +215,9 @@ So we've got a couple of issues already:
 
 #### Using z-index
 
-All elements have a default `z-index`{:.attr} of `0`, so normally they would be rendered in the order they are declared in the document. This means elements declared further down in the RML are usually rendered on top of earlier elements. However, floating and positioned elements jump to the front of the queue and are always rendered after normal elements with a similar `z-index`{:.attr}.
+All elements have a default `z-index` of `0`, so normally they would be rendered in the order they are declared in the document. This means elements declared further down in the RML are usually rendered on top of earlier elements. However, floating and positioned elements jump to the front of the queue and are always rendered after normal elements with a similar `z-index`.
 
-So to bring the content window above the title bar, create a new rule for the content element and assign it a `z-index`{:.attr} of `1`.
+So to bring the content window above the title bar, create a new rule for the content element and assign it a `z-index` of `1`.
 
 ```css
 div#content
@@ -230,9 +230,9 @@ Much better.
 
 #### Padding the content area
 
-We need to push the document's content area so it appears entirely inside the window border. The decorator we have on the `<body>`{:.tag} element will render over the entire padded area of the element, so if padding is added it will force all content away from the edges of the decorated area.
+We need to push the document's content area so it appears entirely inside the window border. The decorator we have on the `<body>` element will render over the entire padded area of the element, so if padding is added it will force all content away from the edges of the decorated area.
 
-Add some padding to the `<body>`{:.tag} rule and take a look at the result. We found that 10px top / bottom and 15px right / left padding worked out pretty well. Our rule looks like this:
+Add some padding to the `<body>` rule and take a look at the result. We found that 10px top / bottom and 15px right / left padding worked out pretty well. Our rule looks like this:
 
 ```css
 body.window
@@ -273,9 +273,9 @@ Take a look at the result; the overflowing content is hidden, but we can't get t
 
 ### Step 4: Adding a scrollbar
 
-To tell RmlUi a scrollbar is required on the content element, we can change the `overflow` property from `hidden` to either `auto` or `scroll`. `scroll` will put a scrollbar around the element all the time, even if it isn't required; `auto` will only put a scrollbar on an axis with overflow.
+To tell APUI a scrollbar is required on the content element, we can change the `overflow` property from `hidden` to either `auto` or `scroll`. `scroll` will put a scrollbar around the element all the time, even if it isn't required; `auto` will only put a scrollbar on an axis with overflow.
 
-RmlUi also supports different overflow properties per axis, so you can (for example) set vertical overflow to 'scroll' and horizontal overflow to `hidden` if you wish.
+APUI also supports different overflow properties per axis, so you can (for example) set vertical overflow to 'scroll' and horizontal overflow to `hidden` if you wish.
 
 Change the `overflow` property on the content element to `auto` or `scroll` and check out the result.
 
@@ -285,7 +285,7 @@ Change the `overflow` property on the content element to `auto` or `scroll` and 
 
 Well that doesn't look right! So what's happened here? When an element needs to generate a vertical scrollbar, it creates a block-level child element with a tag of 'scrollbarvertical' and anchors it to the right edge of the element. As it is block-level, its width defaults to `auto` so it occupies the entire content area of its parent, the content element. So there's no space for the text! Not only that, but we haven't attached a decorator to the scrollbar elements so we can't actually see it yet.
 
-Elements that RmlUi dynamically creates, like the scrollbar, can be styled through RCSS like normal elements. All we need to do is create a rule that will match the element `scrollbarvertical`{:.tag}. First thing to do? Set its width so it doesn't occupy the whole element. The scrollbar graphics we've designed for _Rocket Invaders from Mars_ are designed to be 27 pixels wide. This RCSS rule will resize the scrollbar:
+Elements that APUI dynamically creates, like the scrollbar, can be styled through CSS like normal elements. All we need to do is create a rule that will match the element `scrollbarvertical`. First thing to do? Set its width so it doesn't occupy the whole element. The scrollbar graphics we've designed for _Rocket Invaders from Mars_ are designed to be 27 pixels wide. This CSS rule will resize the scrollbar:
 
 ```css
 scrollbarvertical
@@ -336,9 +336,9 @@ Next up, we will add the rest of the sprites used in this tutorial to the sprite
 
 The scrollbar itself has four child elements that can be individually sized and decorated. These are tagged:
 
-* `slidertrack`{:.tag}, the track that runs from the top to the bottom of the scrollbar underneath the bar.
-* `sliderbar`{:.tag}, the bar (or knob, thumb, etc) that lies on top of the track and can be dragged up and down.
-* `sliderarrowinc`{:.tag}, `sliderarrowdec`{:.tag}, the buttons you can click to move the bar up or down the track. 
+* `slidertrack`, the track that runs from the top to the bottom of the scrollbar underneath the bar.
+* `sliderbar`, the bar (or knob, thumb, etc) that lies on top of the track and can be dragged up and down.
+* `sliderarrowinc`, `sliderarrowdec`, the buttons you can click to move the bar up or down the track. 
 
 We'll start by decorating the track. We use a `tiled-vertical` decorator to let it stretch properly in the vertical direction. We already defined the sprites, so we can simply declare the decorator.
 
@@ -371,7 +371,7 @@ Now the window should be looking like this:
 
 #### Adding the arrows
 
-So where are the arrows? If you don't resize them yourself, they'll stay hidden. If we want to add them, first step is resizing them. Add a rule to resize `sliderarrowinc`{:.tag} and `sliderarrowdec`{:.tag} elements to 27 x 24 pixels:
+So where are the arrows? If you don't resize them yourself, they'll stay hidden. If we want to add them, first step is resizing them. Add a rule to resize `sliderarrowinc` and `sliderarrowdec` elements to 27 x 24 pixels:
 
 ```css
 scrollbarvertical sliderarrowdec,
@@ -400,7 +400,7 @@ And hey presto, we've got arrows! The scrollbar automatically resizes the slider
 
 #### Fitting the scrollbar
 
-How do we now resize the scrollbar so it fits in nicely with the window? We can give the scrollbar element itself negative margins, which cause it to push outside of its parent's content area. If you take a take a screenshot of the application and paste it into your paint program, you can see exactly how many pixels it needs to be shifted to the right, and extended on the top and bottom. We worked out 6 pixels up and down, 11 pixels to the left. Add these properties as negative margins to the `scrollbarvertical`{:.tag} rule:
+How do we now resize the scrollbar so it fits in nicely with the window? We can give the scrollbar element itself negative margins, which cause it to push outside of its parent's content area. If you take a take a screenshot of the application and paste it into your paint program, you can see exactly how many pixels it needs to be shifted to the right, and extended on the top and bottom. We worked out 6 pixels up and down, 11 pixels to the left. Add these properties as negative margins to the `scrollbarvertical` rule:
 
 ```css
 scrollbarvertical
@@ -432,7 +432,7 @@ scrollbarvertical sliderbar:hover
 Now we've got a complete window document. But what we really want is a window template, so we can easily create new documents that reuse the layout.
 Creating the template
 
-Make a copy of the RML file and call it `template.rml`. To change it from a document into a template, change the top `<rml>`{:.tag} tag to `<template>`{:.tag}. The `<template>`{:.tag} tag needs a couple of bits of information; the name of the template, set by the `name`{:.attr} attribute, and the ID of the element where the document's content should go, set by the 'content' attribute. The final tag should look like:
+Make a copy of the RML file and call it `template.rml`. To change it from a document into a template, change the top `<rml>` tag to `<template>`. The `<template>` tag needs a couple of bits of information; the name of the template, set by the `name` attribute, and the ID of the element where the document's content should go, set by the 'content' attribute. The final tag should look like:
 
 ```html
 <template name="window" content="content">
@@ -443,8 +443,8 @@ Delete the title and the style declaration in the template header; we won't need
 ```html
 <template name="window" content="content">
 <head>
-	<link type="text/css" href="../../assets/rkt.rcss"/>
-	<link type="text/css" href="tutorial.rcss"/>
+	<link type="text/css" href="../../static/assets/rkt.css"/>
+	<link type="text/css" href="tutorial.css"/>
 </head>
 <body class="window">
 	<div id="title-bar">
@@ -462,11 +462,11 @@ Adapting the document
 
 Now we want to change the document we've been working on to use the new template. Open the `tutorial.rml` file.
 
-The link to the RCSS file is no longer required, as the template will load it. So that should go. However, we need to add another link to the template. Add a new link of type `text/template`, with the href pointing to `template.rml`.
+The link to the CSS file is no longer required, as the template will load it. So that should go. However, we need to add another link to the template. Add a new link of type `text/template`, with the href pointing to `template.rml`.
 
 Both the title and style declaration stay; these are unique to this document.
 
-The `<body>`{:.tag} tag needs to be changed so it knows which template to inject itself into. Do this with the `template`{:.attr} attribute, and set it to the name of the template. In our case, we called the template `window`. Now delete the window elements inside the 'body' element, except for the actual content. You should end up with something like this:
+The `<body>` tag needs to be changed so it knows which template to inject itself into. Do this with the `template` attribute, and set it to the name of the template. In our case, we called the template `window`. Now delete the window elements inside the 'body' element, except for the actual content. You should end up with something like this:
 
 ```html
 <rml>
@@ -489,17 +489,17 @@ The `<body>`{:.tag} tag needs to be changed so it knows which template to inject
 </rml>
 ```
 
-And we're done. When the document is loaded, it will load the template and inject the contents of its `<body>`{:.tag} into the `content`{:.tag} element of the template. Any new windows you make can use the same template. If you ever want to reskin your window, or maybe design an entirely new one, you only have to alter the template file!
+And we're done. When the document is loaded, it will load the template and inject the contents of its `<body>` into the `content` element of the template. Any new windows you make can use the same template. If you ever want to reskin your window, or maybe design an entirely new one, you only have to alter the template file!
 
 ### Step 6: Setting the title
 
 We still have one last thing to implement; the title of the document isn't set on the title bar. We'll show you how to do this through the C++ API, but you can also easily do this through a scripting interface.
 
-The document is loaded on line 68 of main.cpp. Before the document is rendered, we want to get the `<span>`{:.tag} element containing the dummy title and set its inner RML content to the title of the document we just loaded. To fetch the element, call the `GetElementById()`. Once you have the element, you can remove all of its children and set new RML content with `SetInnerRML()`. The document itself has the `GetTitle()` function to fetch the title.
+The document is loaded on line 68 of main.cpp. Before the document is rendered, we want to get the `<span>` element containing the dummy title and set its inner RML content to the title of the document we just loaded. To fetch the element, call the `GetElementById()`. Once you have the element, you can remove all of its children and set new RML content with `SetInnerRML()`. The document itself has the `GetTitle()` function to fetch the title.
 
 ```cpp
 	// Load and show the tutorial document.
-	Rml::ElementDocument* document = context->LoadDocument("data/tutorial.rml");
+	apui::ElementDocument* document = context->LoadDocument("data/tutorial.rml");
 	if (document)
 	{
 		document->GetElementById("title")->SetInnerRML(document->GetTitle());
@@ -507,4 +507,4 @@ The document is loaded on line 68 of main.cpp. Before the document is rendered, 
 	}
 ```
 
-In a real-world application, you can automate this by putting a `load`{:.evt} event into the document template and setting the title in the event handler. 
+In a real-world application, you can automate this by putting a `load` event into the document template and setting the title in the event handler. 

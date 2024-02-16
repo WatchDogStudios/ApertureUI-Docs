@@ -5,11 +5,11 @@ parent: cpp_manual
 next: element_packages
 ---
 
-RmlUi distinguishes between normal elements that are part of the DOM and visible to all subsystems, and hidden (or non-DOM) elements that (by default) can only be found if explicitly asked for. Hidden elements are typically used by custom elements; for example, the [drop-down select element](element_packages/form.html#drop-down-select-box) creates hidden elements for its arrow button, the value field and the selection box.
+APUI distinguishes between normal elements that are part of the DOM and visible to all subsystems, and hidden (or non-DOM) elements that (by default) can only be found if explicitly asked for. Hidden elements are typically used by custom elements; for example, the [drop-down select element](element_packages/form.html#drop-down-select-box) creates hidden elements for its arrow button, the value field and the selection box.
 
 ### Differences in hidden elements
 
-The subsystems of RmlUi that ignore hidden elements are:
+The subsystems of APUI that ignore hidden elements are:
 
 * Automatic layout.
 * RML serialisation; ie, `GetInnerRML()` will not generate RML for hidden elements. 
@@ -18,13 +18,13 @@ important subsystems that still recognise hidden elements are:
 
 * Input events.
 * Update and rendering.
-* RCSS properties. 
+* CSS properties. 
 
-Custom elements that make use of hidden elements can therefore control their size and positioning exactly, while still getting all the flexibility of the RCSS property system. Helper methods are made available for layout.
+Custom elements that make use of hidden elements can therefore control their size and positioning exactly, while still getting all the flexibility of the CSS property system. Helper methods are made available for layout.
 
 ### Adding a hidden element
 
-Hidden elements are created just like other elements, either through the [RmlUi factory](elements.html#dynamically-creating-elements) or `CreateElement()` on a [document](documents.html#creating-new-elements).
+Hidden elements are created just like other elements, either through the [APUI factory](elements.html#dynamically-creating-elements) or `CreateElement()` on a [document](documents.html#creating-new-elements).
 
 To parent an element to another as a hidden element, call `AppendChild()` as normal but set the second parameter to `false`.
 
@@ -61,15 +61,15 @@ Custom elements typically size and position their hidden elements internally whe
 
 #### Sizing
 
-Hidden elements can be sized by calling the `SetBox()` function. `SetBox()` takes a `Rml::Box` structure, which contains sizes for a two-dimensional content area and per-edge padding, borders and margin (see the RCSS documentation for more information on the [box model]({{"pages/rcss/box_model.html"|relative_url}})).
+Hidden elements can be sized by calling the `SetBox()` function. `SetBox()` takes a `apui::Box` structure, which contains sizes for a two-dimensional content area and per-edge padding, borders and margin (see the CSS documentation for more information on the [box model]({{"pages/css/box_model.html"|relative_url}})).
 
 ```cpp
 // Sets the box describing the size of the element, and removes all others.
 // @param[in] box The new dimensions box for the element.
-void SetBox(const Rml::Box& box);
+void SetBox(const apui::Box& box);
 ```
 
-You can either construct the box yourself, or use the static `BuildBox()` function on `Rml::ElementUtilities`:
+You can either construct the box yourself, or use the static `BuildBox()` function on `apui::ElementUtilities`:
 
 ```cpp
 // Generates the box for an element.
@@ -77,10 +77,10 @@ You can either construct the box yourself, or use the static `BuildBox()` functi
 // @param[in] containing_block The dimensions of the content area of the block containing the element.
 // @param[in] element The element to build the box for.
 // @param[in] inline_element True if the element is placed in an inline context, false if not.
-static void BuildBox(Box& box, Rml::Vector2f containing_block, Element* element, bool inline_element = false);
+static void BuildBox(Box& box, apui::Vector2f containing_block, Element* element, bool inline_element = false);
 ```
 
-`BuildBox()` will generate the values of a `Rml::Box` from the `width`, `max-width`, `min-width`, and `height`, `max-height` and `min-height` properties set on an element. The parameters are:
+`BuildBox()` will generate the values of a `apui::Box` from the `width`, `max-width`, `min-width`, and `height`, `max-height` and `min-height` properties set on an element. The parameters are:
 
 * `box`: The box to be generated.
 * `containing_block`: The element's containing block. This is typically the size of the content area of the containing element, but does not have to be.
@@ -90,17 +90,17 @@ static void BuildBox(Box& box, Rml::Vector2f containing_block, Element* element,
 The following code will generate and set the box on a hidden element from within its parent:
 
 ```cpp
-Rml::Box box;
-Rml::ElementUtilities::BuildBox(box, GetBox().GetContentArea(), hidden_element);
+apui::Box box;
+apui::ElementUtilities::BuildBox(box, GetBox().GetContentArea(), hidden_element);
 hidden_element->SetBox(box);
 ```
 
 But if you want to force the hidden element to be a certain size, instead you might do:
 
 ```cpp
-Rml::Box box;
-box.SetContent(Rml::Vector2f(100, 150));
-box.SetEdge(Rml::Box::BORDER, Rml::Box::TOP, 1);
+apui::Box box;
+box.SetContent(apui::Vector2f(100, 150));
+box.SetEdge(apui::Box::BORDER, apui::Box::TOP, 1);
 hidden_element->SetBox(box);
 ```
 
@@ -113,21 +113,21 @@ To set the position of a hidden element, use the `SetOffset()` function. This se
 // @param[in] offset The offset (in pixels) of our primary box's top-left border corner from our offset parent's top-left border corner.
 // @param[in] offset_parent The element this element is being positioned relative to.
 // @param[in] offset_fixed True if the element is fixed in place (and will not scroll), false if not.
-void SetOffset(Rml::Vector2f offset,
-               Rml::Element* offset_parent,
+void SetOffset(apui::Vector2f offset,
+               apui::Element* offset_parent,
                bool offset_fixed = false);
 ```
 
-However, `Rml::ElementUtilities` has a number of functions to aid in positioning a hidden element. `PositionElement()` resizes an element (using `BuildBox()`) and positions it within its parent. As positioning border-corner to border-corner can be quite confusing, this function treats the offset as between the content areas of the elements.
+However, `apui::ElementUtilities` has a number of functions to aid in positioning a hidden element. `PositionElement()` resizes an element (using `BuildBox()`) and positions it within its parent. As positioning border-corner to border-corner can be quite confusing, this function treats the offset as between the content areas of the elements.
 
 ```cpp
 // Sizes an element, and positions it within its parent offset from the borders of its content area.
 // @param element[in] The element to size and position.
 // @param offset[in] The offset from the parent's borders.
 // @param anchor[in] Defines which corner or edge the border is to be positioned relative to.
-static bool PositionElement(Rml::Element* element,
-                            Rml::Vector2f offset,
-                            Rml::ElementUtilities::PositionAnchor anchor);
+static bool PositionElement(apui::Element* element,
+                            apui::Vector2f offset,
+                            apui::ElementUtilities::PositionAnchor anchor);
 ```
 
 There is also an override for `PositionElement()` for positioning an element offset from a specific corner or edge of its parent, not just the top-left corner. The third parameter, `anchor`, can be one or more of the `PositionAnchor` enumeration OR'ed together:
@@ -149,19 +149,19 @@ enum PositionAnchor
 
 #### Invoking the layout engine
 
-RmlUi's internal layout engine can be run on a hidden element to format the element's visible descendants. To do so, call the static `FormatElement()` function on `Rml::ElementUtilities`.
+APUI's internal layout engine can be run on a hidden element to format the element's visible descendants. To do so, call the static `FormatElement()` function on `apui::ElementUtilities`.
 
 ```cpp
 // Formats the contents of an element.
 // @param[in] element The element to lay out.
 // @param[in] containing_block The size of the element's containing block.
-static bool FormatElement(Rml::Element* element,
-                          const Rml::Vector2f& containing_block);
+static bool FormatElement(apui::Element* element,
+                          const apui::Vector2f& containing_block);
 ```
 
 ### Formatting hidden text elements
 
-It possible to append text elements as hidden elements. In this case, you will need to use the `Rml::ElementText` API to get the element to generate and position strings of characters.
+It possible to append text elements as hidden elements. In this case, you will need to use the `apui::ElementText` API to get the element to generate and position strings of characters.
 
 #### Generating lines of text
 
@@ -177,7 +177,7 @@ Once a text element has had raw text set on it (through the `SetText()` function
 // @param[in] right_spacing_width The width (in pixels) of the spacing that must be remaining on the right of the line if this is the final line.
 // @param[in] trim_whitespace_prefix If we're collapsing whitespace, whether or not to remove all prefixing whitespace or collapse it down to a single space.
 // @return True if the line reached the end of the element's text, false if not.
-bool GenerateLine(Rml::String& line,
+bool GenerateLine(apui::String& line,
                   int& line_length,
                   float& line_width,
                   int line_begin,
@@ -201,14 +201,14 @@ The function will return true if the generated line is the last line required to
 The following code sample will generate all of the lines required for a text node, each line being allowed a maximum width of 200 pixels:
 
 ```cpp
-Rml::ElementText* text_element = document->CreateTextNode("sample text");
+apui::ElementText* text_element = document->CreateTextNode("sample text");
 
 int line_begin = 0;
 bool last_line = false;
 
 while (!last_line)
 {
-	Rml::String line;
+	apui::String line;
 	int line_length = 0;
 	float line_width = 0;
 
@@ -217,7 +217,7 @@ while (!last_line)
 }
 ```
 
-The `GenerateString()` will format whitespace and endlines as appropriate for the value of the `white-space` RCSS property on the element. To change how it processes whitespace, change the `white-space` property.
+The `GenerateString()` will format whitespace and endlines as appropriate for the value of the `white-space` CSS property on the element. To change how it processes whitespace, change the `white-space` property.
 
 Just generating lines of text from the element won't position them or get them rendering however.
 
@@ -236,13 +236,13 @@ Then call `AddLines()` for each generated line.
 // Adds a new line into the text element.
 // @param[in] line_position The position of this line, as an offset from element.
 // @param[in] line The contents of the line.
-void AddLine(Rml::Vector2f line_position, const Rml::String& line) = 0;
+void AddLine(apui::Vector2f line_position, const apui::String& line) = 0;
 ```
 
 The following code sample extends the previous sample by placing each line of text as it is generated:
 
 ```cpp
-Rml::ElementText* text_element = document->CreateTextNode("sample text");
+apui::ElementText* text_element = document->CreateTextNode("sample text");
 
 int line_begin = 0;
 bool last_line = false;
@@ -250,15 +250,15 @@ float position = 0;
 
 while (!last_line)
 {
-	Rml::String line;
+	apui::String line;
 	int line_length = 0;
 	float line_width = 0;
 
 	last_line = text_element->GenerateString(line, line_length, line_width, line_begin, 200, 0, line_begin > 0);
 	line_begin += line_length;
 
-	text_element->AddLine(line, Rml::Vector2f(position, 0));
-	position += (float) Rml::ElementUtilities::GetLineHeight(text_element);
+	text_element->AddLine(line, apui::Vector2f(position, 0));
+	position += (float) apui::ElementUtilities::GetLineHeight(text_element);
 }
 ```
 

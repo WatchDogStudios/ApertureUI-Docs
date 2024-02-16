@@ -7,14 +7,14 @@ next: data_display
 
 ### \<handle\>
 
-The `<handle>`{:.tag} element can be used to move or change the size of elements.
+The `<handle>` element can be used to move or change the size of elements.
 
 _Attributes_
 
-`move_target`{:.attr} = idref (CI)
+`move_target` = idref (CI)
 : If specified, the handle will move the element specified by the ID when dragged. Can be `#document` to reference the current document, or `#parent` to reference the parent element.
 
-`size_target`{:.attr} = idref (CI)
+`size_target` = idref (CI)
 : If specified, the handle will size the element specified by the ID when dragged. Can be `#document` to reference the current document, or `#parent` to reference the parent element.
 
 During drag operations, the handle element will size the target element by adjusting its `width` and `height` properties, while it will move the target by adjusting its `top` and `left` properties.
@@ -39,14 +39,14 @@ During drag operations, the handle element will size the target element by adjus
 
 ### \<tabset\>
 
-A `<tabset>`{:.tag} element contains `<tab>`{:.tag} elements and `<panel>`{:.tag} elements.
+A `<tabset>` element contains `<tab>` elements and `<panel>` elements.
 
 See also the [tab set documentation]({{"pages/cpp_manual/element_packages/tab_set.html"|relative_url}}) in the C++ manual.
 
 #### \<tab\>
 
-Each `<tab>`{:.tag} element acts as a button, that when clicked will hide the currently visible panel and show its corresponding panel.
+Each `<tab>` element acts as a button, that when clicked will hide the currently visible panel and show its corresponding panel.
 
 #### \<panel\>
 
-A `<panel>`{:.tag} element is the body of the tabset. The visibility of the panel is controlled by the tab elements in the parent tabset.
+A `<panel>` element is the body of the tabset. The visibility of the panel is controlled by the tab elements in the parent tabset.

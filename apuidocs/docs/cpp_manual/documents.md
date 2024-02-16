@@ -9,16 +9,16 @@ Documents are container [elements](elements.html). They are designed to represen
 
 ### Identification
 
-Documents have a title, defined in RML by contents of the `<title>`{:.tag} tag within the document header. By default the title does not do anything, but can be used to populate the contents of a title bar (as in the _Rocket Invaders from Mars_ demo). The function `GetTitle()` will return the document's title, `SetTitle()` will set it.
+Documents have a title, defined in RML by contents of the `<title>` tag within the document header. By default the title does not do anything, but can be used to populate the contents of a title bar (as in the _Rocket Invaders from Mars_ demo). The function `GetTitle()` will return the document's title, `SetTitle()` will set it.
 
 ```cpp
 // Sets the document's title.
 // @param[in] title The new title of the document.
-void SetTitle(Rml::String& title);
+void SetTitle(apui::String& title);
 
 // Returns the title of this document.
 // @return The document's title.
-const Rml::String& GetTitle() const;
+const apui::String& GetTitle() const;
 ```
 
 If a document was loaded from an RML file, the function `GetSourceURL()` will return the path of the source RML.
@@ -26,7 +26,7 @@ If a document was loaded from an RML file, the function `GetSourceURL()` will re
 ```cpp
 // Returns the source address of this document.
 // @return The source of this document, usually a file name.
-const Rml::String& GetSourceURL() const;
+const apui::String& GetSourceURL() const;
 ```
 
 ### Documents and contexts
@@ -38,7 +38,7 @@ The function `GetContext()` will return the document's context.
 ```cpp
 // Returns the document's context.
 // @return The context this document exists within.
-Rml::Context* GetContext();
+apui::Context* GetContext();
 ```
 
 #### Layering
@@ -71,7 +71,7 @@ When a document is loaded into a context, it begins hidden (it has a `visibility
 // @param[in] focus_flag Flags controlling the focus, see the 'FocusFlag' description for details.
 void Show(ModalFlag modal_flag = ModalFlag::None, FocusFlag focus_flag = FocusFlag::Auto);
 ```
-By default, the `Show()` function will make the document visible and switch keyboard focus to the document and if possible the first control element with an `autofocus`{:.attr} attribute set. The focus behavior as well as the modal state can be controlled with two separate flags. The flags are specified as follows:
+By default, the `Show()` function will make the document visible and switch keyboard focus to the document and if possible the first control element with an `autofocus` attribute set. The focus behavior as well as the modal state can be controlled with two separate flags. The flags are specified as follows:
 ```cpp
 /**
 	 ModalFlag used for controlling the modal state of the document.
@@ -118,16 +118,16 @@ Calling `Close()` on a document will remove the document from its context and de
 void Close();
 ```
 
-Documents aren't actually destroyed until the next call to `Context::Update()` or `Rml::Shutdown()`, so event listeners attached to the document or any of its children must be kept alive until then.
+Documents aren't actually destroyed until the next call to `Context::Update()` or `apui::Shutdown()`, so event listeners attached to the document or any of its children must be kept alive until then.
 
 ### Creating new elements
 
-Similarly to HTML documents, RmlUi documents are capable of creating new elements and text nodes. You can use the `CreateElement()` function to create a new element of a certain type:
+Similarly to HTML documents, APUI documents are capable of creating new elements and text nodes. You can use the `CreateElement()` function to create a new element of a certain type:
 
 ```cpp
 // Creates the named element.
 // @param[in] name The tag name of the element.
-Rml::ElementPtr CreateElement(const Rml::String& name);
+apui::ElementPtr CreateElement(const apui::String& name);
 ```
 
 The name parameter is the desired tag name of the new element. Note that as you cannot specify an independent instancer name or RML attributes to pass to the instancer, this method is not as flexible as creating an element through the factory, but is useful for easily creating simple elements.
@@ -137,26 +137,26 @@ Call `CreateTextNode()` to create a new text element with a given text string:
 ```cpp
 // Create a text element with the given text content.
 // @param[in] text The text content of the text element.
-Rml::ElementPtr CreateTextNode(const Rml::String& text);
+apui::ElementPtr CreateTextNode(const apui::String& text);
 ```
 
-The text parameter will be interpreted as a UTF-8 encoded string. The element returned will be derived from `Rml::ElementText`.
+The text parameter will be interpreted as a UTF-8 encoded string. The element returned will be derived from `apui::ElementText`.
 
 Note that neither of these functions actually attaches the new element to the document in any way. See the description of [elements](elements.html#using-a-document) for details on how to do this.
 
 ### Custom documents
 
-All documents are instanced like normal elements from the 'body' tag. The process for creating a custom document type is identical to that for [creating a custom element](custom_elements.html), except you should derive from `Rml::ElementDocument` instead of `Rml::Element`, and only register the element instancer against the `<body>`{:.tag} tag.
+All documents are instanced like normal elements from the 'body' tag. The process for creating a custom document type is identical to that for [creating a custom element](custom_elements.html), except you should derive from `apui::ElementDocument` instead of `apui::Element`, and only register the element instancer against the `<body>` tag.
 
-If you register an instancer for the `<body>`{:.tag} tag that returns an element not derived from `Rml::ElementDocument`, documents will fail to load.
+If you register an instancer for the `<body>` tag that returns an element not derived from `apui::ElementDocument`, documents will fail to load.
 
-There is one virtual function that is particular to `Rml::ElementDocument`:
+There is one virtual function that is particular to `apui::ElementDocument`:
 
 ```cpp
 // Load a script into the document.
 // @param[in] stream Stream of code to process.
 // @param[in] source_name Name of the the script the source comes from, useful for debug information.
-virtual void LoadScript(Rml::Stream* stream, const Rml::String& source_name);
+virtual void LoadScript(apui::Stream* stream, const apui::String& source_name);
 ```
 
-`LoadScript()` is generally only used to integrate a scripting language into RmlUi. It is called on a document for every `<script>`{:.tag} tag with the script content. The default implementation does nothing; custom documents can do whatever they need to here to load, compile and bind the scripts for their elements. 
+`LoadScript()` is generally only used to integrate a scripting language into APUI. It is called on a document for every `<script>` tag with the script content. The default implementation does nothing; custom documents can do whatever they need to here to load, compile and bind the scripts for their elements. 

@@ -5,8 +5,8 @@ title: C++ Manual
 
 ### Getting started
 
-1. [Building RmlUi with CMake](cpp_manual/building_with_cmake.html)
-2. [Integrating RmlUi into your application](cpp_manual/integrating.html)
+1. [Building APUI with CMake](cpp_manual/building_with_cmake.html)
+2. [Integrating APUI into your application](cpp_manual/integrating.html)
 3. [Core overview](cpp_manual/core_overview.html) 
 
 ### Application integration
@@ -38,7 +38,7 @@ title: C++ Manual
 7. [Documents](cpp_manual/documents.html)
 8. [Contexts](cpp_manual/contexts.html)
 9. [Events](cpp_manual/events.html)
-10. [Style sheets and properties](cpp_manual/rcss.html)
+10. [Style sheets and properties](cpp_manual/css.html)
 11. [Animations and transforms](cpp_manual/animations_transforms.html)
 12. [Decorators](cpp_manual/decorators.html)
 

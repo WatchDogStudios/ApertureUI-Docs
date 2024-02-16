@@ -6,14 +6,14 @@ grandparent: cpp_manual
 next: data_grid
 ---
 
-The `<progress>`{:.tag} element can display progress bars and gauges. The bar or gauge will be filled according to the provided value.
+The `<progress>` element can display progress bars and gauges. The bar or gauge will be filled according to the provided value.
 
 You can find the RML documentation for the progress element [here]({{"pages/rml/data_display.html#progress"|relative_url}}).
 
 
 ### Interface
 
-The `Rml::ElementProgress` class (found in `<RmlUi/Core/Elements/ElementProgress.h>`) defines the interface to the progress element.
+The `apui::ElementProgress` class (found in `<APUI/Core/Elements/ElementProgress.h>`) defines the interface to the progress element.
 
 The progress value and maximum value can be set through the C++ interface.
 
@@ -34,19 +34,19 @@ Otherwise, the value and the other attributes can be set using the `Element::Set
 
 ### Styling
 
-The `progress`{:.tag} element generates a non-dom `fill`{:.tag} child element which can be used to style the filled part of the bar. The `fill`{:.tag} element can use normal properties such as `background-color`, `border`, and `decorator` to style it. The `fill`{:.tag} element will automatically be positioned and sized to cover the content region of the parent `progress`{:.tag} element, then scaled down according to its `value` and `direction` attributes.
+The `progress` element generates a non-dom `fill` child element which can be used to style the filled part of the bar. The `fill` element can use normal properties such as `background-color`, `border`, and `decorator` to style it. The `fill` element will automatically be positioned and sized to cover the content region of the parent `progress` element, then scaled down according to its `value` and `direction` attributes.
 
-Alternatively, use the `fill-image` property to style the filled part of the progress bar. This property enables one to set an image which will be clipped according to the progress `value`. The `fill-image` property is the only way to style circular progress bars (`clockwise` and `counter-clockwise` directions). The `fill`{:.tag} element is still available but it will always be fixed in size independent of the `value` attribute.
+Alternatively, use the `fill-image` property to style the filled part of the progress bar. This property enables one to set an image which will be clipped according to the progress `value`. The `fill-image` property is the only way to style circular progress bars (`clockwise` and `counter-clockwise` directions). The `fill` element is still available but it will always be fixed in size independent of the `value` attribute.
 
 
-#### RCSS property
-{:#fill-image}
+#### CSS property
+
 
 `fill-image`
 
 Value: | \<string\>
 Initial: | *empty*
-Applies to: | `progress`{:.tag} element
+Applies to: | `progress` element
 Inherited: | no
 Percentages: | N/A
 
@@ -57,7 +57,7 @@ The value \<string\> refers to a sprite name or an image url.
 
 ### Examples
 
-The following RCSS styles three different progress bars.
+The following CSS styles three different progress bars.
 ```css
 @spritesheet progress_bars
 {

@@ -15,7 +15,7 @@ If you need special functionality on an element that you can't easily manage thr
 
 ### Creating a custom element
 
-All custom elements are classes derived (not necessarily directly) from `Rml::Element`. The constructor for Element takes one parameter, the tag of the element; a derived element's constructor can either pass a constant string down to the base constructor, or take a string themselves to pass down.
+All custom elements are classes derived (not necessarily directly) from `apui::Element`. The constructor for Element takes one parameter, the tag of the element; a derived element's constructor can either pass a constant string down to the base constructor, or take a string themselves to pass down.
 
 The virtual functions that can be overridden in a custom element are:
 
@@ -28,12 +28,12 @@ virtual float GetBaseline() const;
 // @param[out] dimensions The dimensions to size, if appropriate.
 // @param[out] ratio The intrinsic ratio (width/height), if appropriate.
 // @return True if the element has intrinsic dimensions, false otherwise.
-virtual bool GetIntrinsicDimensions(Rml::Vector2f& dimensions, float& ratio);
+virtual bool GetIntrinsicDimensions(apui::Vector2f& dimensions, float& ratio);
 
 // Called when an emitted event propagates to this element, for event types with default actions.
 // Note: See 'EventSpecification' for the events that call this function and during which phase.
 // @param[in] event The event to process.
-virtual void ProcessDefaultAction(Rml::Event& event);
+virtual void ProcessDefaultAction(apui::Event& event);
 
 // Called during the update loop after children are updated.
 virtual void OnUpdate();
@@ -42,24 +42,24 @@ virtual void OnRender();
 
 // Called when attributes on the element are changed.
 // @param[in] changed_attributes The attributes changed on the element.
-virtual void OnAttributeChange(const Rml::AttributeNameList& changed_attributes);
+virtual void OnAttributeChange(const apui::AttributeNameList& changed_attributes);
 // Called when properties on the element are changed.
 // @param[in] changed_properties The properties changed on the element.
-virtual void OnPropertyChange(const Rml::PropertyIdSet& changed_properties);
+virtual void OnPropertyChange(const apui::PropertyIdSet& changed_properties);
 
 // Called when a child node has been added up to two levels below us in the hierarchy.
 // @param[in] child The element that has been added. This may be this element.
-virtual void OnChildAdd(Rml::Element* child);
+virtual void OnChildAdd(apui::Element* child);
 // Called when a child node has been removed up to two levels below us in the hierarchy.
 // @param[in] child The element that has been removed. This may be this element.
-virtual void OnChildRemove(Rml::Element* child);
+virtual void OnChildRemove(apui::Element* child);
 
 // Gets the markup and content of the element.
 // @param[out] content The content of the element.
-virtual void GetInnerRML(Rml::String& content) const;
+virtual void GetInnerRML(apui::String& content) const;
 // Returns the RML of this element and all children.
 // @param[out] content The content of this element and those under it, in XML form.
-virtual void GetRML(Rml::String& content);
+virtual void GetRML(apui::String& content);
 ```
 
 #### Layout
@@ -71,7 +71,7 @@ A custom element can override the `GetIntrinsicDimensions()` function if it want
 // @param[out] dimensions The dimensions to size, if appropriate.
 // @param[out] ratio The intrinsic ratio (width/height), if appropriate.
 // @return True if the element has intrinsic dimensions, false otherwise.
-virtual bool GetIntrinsicDimensions(Rml::Vector2f& dimensions, float& ratio);
+virtual bool GetIntrinsicDimensions(apui::Vector2f& dimensions, float& ratio);
 ```
 
 If a custom element is to be a replaced element, it should override this function and return true. The actual intrinsic dimensions of the element should be put into the dimensions parameter. If the element has an intrinsic ratio, this can be set on the ratio parameter, either in addition or instead of the dimensions parameter. This function will be called every time the element is laid out, so the parameters can be dynamic values. The default element returns false.
@@ -97,7 +97,7 @@ Note that the element may receive events targeted at one of its children. Be sur
 ```cpp
 // Called when an emitted event propagates to this element, for event types with default actions.
 // @param[in] event The event to process.
-virtual void ProcessDefaultAction(Rml::Event& event);
+virtual void ProcessDefaultAction(apui::Event& event);
 ```
 
 #### Hooks into update and render loops
@@ -134,7 +134,7 @@ A custom element can override the `OnAttributeChange()` or `OnPropertyChange()` 
 ```cpp
 // Called when attributes on the element are changed.
 // @param[in] changed_attributes The attributes changed on the element.
-virtual void OnAttributeChange(const Rml::AttributeNameList& changed_attributes);
+virtual void OnAttributeChange(const apui::AttributeNameList& changed_attributes);
 ```
 
 `OnPropertyChange()` is called whenever the value of a property (or group of properties) is changed. The names of the changed properties are passed into the function in the `changed_properties` variable, which is a set of `PropertyId`s.
@@ -142,7 +142,7 @@ virtual void OnAttributeChange(const Rml::AttributeNameList& changed_attributes)
 ```cpp
 // Called when properties on the element are changed.
 // @param[in] changed_properties The properties changed on the element.
-virtual void OnPropertyChange(const Rml::PropertyIdSet& changed_properties);
+virtual void OnPropertyChange(const apui::PropertyIdSet& changed_properties);
 ```
 
 **Important**: If you override either of these functions, you must remember to call the base class's corresponding function! As with `ProcessDefaultAction()`, the base element responds to many attribute and property changes, and all manner of strange behaviour may result if you don't do this.
@@ -154,11 +154,11 @@ A custom element can override the `OnChildAdd()` or `OnChildRemove()` functions 
 ```cpp
 // Called when a child node has been added up to two levels below us in the hierarchy.
 // @param[in] child The element that has been added. This may be this element.
-virtual void OnChildAdd(Rml::Element* child);
+virtual void OnChildAdd(apui::Element* child);
 
 // Called when a child node has been removed up to two levels below us in the hierarchy.
 // @param[in] child The element that has been removed. This may be this element.
-virtual void OnChildRemove(Rml::Element* child);
+virtual void OnChildRemove(apui::Element* child);
 ```
 
 #### RML generation
@@ -172,18 +172,18 @@ A custom element can override the `GetRML()` and `GetInnerRML()` function if the
 ```cpp
 // Gets the markup and content of the element.
 // @param[out] content The content of the element.
-virtual void GetInnerRML(Rml::String& content) const;
+virtual void GetInnerRML(apui::String& content) const;
 
 // Returns the RML of this element and all children.
 // @param[out] content The content of this element and those under it, in XML form.
-virtual void GetRML(Rml::String& content);
+virtual void GetRML(apui::String& content);
 ```
 
 ### Creating a custom element instancer
 
-In order to have a custom element created through the RmlUi factory, an instancer for the element needs to be registered with the factory against the appropriate RML tag names. An element instancer is responsible for creating and destroying its elements when required, and also destroying itself when RmlUi is shut down.
+In order to have a custom element created through the APUI factory, an instancer for the element needs to be registered with the factory against the appropriate RML tag names. An element instancer is responsible for creating and destroying its elements when required, and also destroying itself when APUI is shut down.
 
-A custom element instancer needs to be derived from `Rml::ElementInstancer`, and implement the required pure virtual methods:
+A custom element instancer needs to be derived from `apui::ElementInstancer`, and implement the required pure virtual methods:
 
 ```cpp
 // Instances an element given the tag name and attributes.
@@ -191,20 +191,20 @@ A custom element instancer needs to be derived from `Rml::ElementInstancer`, and
 // @param[in] tag The tag of the element to instance.
 // @param[in] attributes Dictionary of attributes.
 // @return A unique pointer to the instanced element.
-virtual Rml::ElementPtr InstanceElement(Rml::Element* parent,
-                                              const Rml::String& tag,
-                                              const Rml::XMLAttributes& attributes) = 0;
+virtual apui::ElementPtr InstanceElement(apui::Element* parent,
+                                              const apui::String& tag,
+                                              const apui::XMLAttributes& attributes) = 0;
 
 // Releases an element instanced by this instancer.
 // @param[in] element The element to release.
-virtual void ReleaseElement(Rml::Element* element) = 0;
+virtual void ReleaseElement(apui::Element* element) = 0;
 ```
 
 `InstanceElement()` will be called whenever the factory is called upon to instance an element with a tag that the instancer was registered against. The parameters to the function are:
 
 * `parent`: The element that the new element will be parented to if it is created successfully; you do not need to actually do the parenting! This will only be non-null if the element is instanced from RML.
 * `tag`: The string that whoever is creating the element wants the element's tag to be; due to the way elements are constructed through the factory, this may not be one of the tags the instancer was registered against. It is recommended you pass this through to the element to be its tag name, but this is not required.
-* `attributes`: The attributes defined on the element's tag in RML or passed into the factory. You do not need to set these attributes on the element yourself; that will be done automatically if the instancing is successful. You only need to use these if element instancing is dependent on the values (for example, the instancer for `input`{:.tag} elements instances different types depending on the value of the `type`{:.attr} attribute). 
+* `attributes`: The attributes defined on the element's tag in RML or passed into the factory. You do not need to set these attributes on the element yourself; that will be done automatically if the instancing is successful. You only need to use these if element instancing is dependent on the values (for example, the instancer for `input` elements instances different types depending on the value of the `type` attribute). 
 
 If `InstanceElement()` is successful, return the new element wrapped in an `ElementPtr` (unique element). Otherwise, return nullptr to indicate an instancing error.
 
@@ -212,39 +212,39 @@ If `InstanceElement()` is successful, return the new element wrapped in an `Elem
 
 #### Registering an instancer
 
-To register a custom instancer with RmlUi, call the `RegisterElementInstancer()` function on the RmlUi factory (`Rml::Factory`) after RmlUi has been initialised.
+To register a custom instancer with APUI, call the `RegisterElementInstancer()` function on the APUI factory (`apui::Factory`) after APUI has been initialised.
 
 ```cpp
-// Make sure custom_instancer is kept alive until after the call to Rml::Shutdown
+// Make sure custom_instancer is kept alive until after the call to apui::Shutdown
 auto custom_instancer = std::make_unique<ElementInstancerCustom>();
-Rml::Factory::RegisterElementInstancer("custom", custom_instancer.get());
+apui::Factory::RegisterElementInstancer("custom", custom_instancer.get());
 ```
 
 The first parameter to `RegisterElementInstancer()` is the tag name the instancer is bound to. In the above example, the custom instancer will be called to instance an element whenever an element with the tag 'custom' is encountered while parsing an RML stream, or as otherwise required by the factory. You can register an instancer as many times as you like with the factory against different tag names.
 
-The library takes a non-owning pointer to the instancer. Thus, the instancer must be kept alive until after the call to `Rml::Shutdown`, and then cleaned up by the user.
+The library takes a non-owning pointer to the instancer. Thus, the instancer must be kept alive until after the call to `apui::Shutdown`, and then cleaned up by the user.
 
 #### Using a generic instancer
 
-If a custom element does not require any special behaviour from its instancer, the easiest way to generate an instancer for it is to use the templated `ElementInstancerGeneric`. Instead of deriving your own instancer class, simply construct a new `Rml::ElementInstancerGeneric` templated to the type of the custom element you'd like to instance, and register it with the factory as you would a normal instancer.
+If a custom element does not require any special behaviour from its instancer, the easiest way to generate an instancer for it is to use the templated `ElementInstancerGeneric`. Instead of deriving your own instancer class, simply construct a new `apui::ElementInstancerGeneric` templated to the type of the custom element you'd like to instance, and register it with the factory as you would a normal instancer.
 
 ```cpp
-// Make sure custom_instancer is kept alive until after the call to Rml::Shutdown
-auto custom_instancer = std::make_unique< Rml::ElementInstancerGeneric< CustomElement > >();
-Rml::Factory::RegisterElementInstancer("custom", custom_instancer.get());
+// Make sure custom_instancer is kept alive until after the call to apui::Shutdown
+auto custom_instancer = std::make_unique< apui::ElementInstancerGeneric< CustomElement > >();
+apui::Factory::RegisterElementInstancer("custom", custom_instancer.get());
 ```
 
 The only requirement on the element type that it is templated to is that the constructor take a string (the tag name) like the base element.
 
 ### Custom XML node handling
 
-For some complex custom elements, the RML required to generate the element is not indicative of the actual internal hierarchy. For example, columns in a data grid element are specified by `<col>`{:.tag} tags immediately beneath the `<datagrid>`{:.tag} tag. If the standard XML parsing was being executed, an element would be instanced and parented to the data grid for each column tag - but this isn't what is wanted. So a custom XML node handler is used for data grids that processes the column tag differently.
+For some complex custom elements, the RML required to generate the element is not indicative of the actual internal hierarchy. For example, columns in a data grid element are specified by `<col>` tags immediately beneath the `<datagrid>` tag. If the standard XML parsing was being executed, an element would be instanced and parented to the data grid for each column tag - but this isn't what is wanted. So a custom XML node handler is used for data grids that processes the column tag differently.
 
 Node handlers are registered against RML tag names. When an RML file is being parsed, the XML parser maintains a stack of node handlers. Whenever a new tag is encountered, the parser checks if a specific node handler is registered against that tag; if so, that handler is pushed onto the stack and takes over the parsing until its associated tag is closed. If no handler is associated with a particular element, the current node handler continues parsing.
 
 #### Creating a custom XML node handler
 
-Custom node handlers derive from the `Rml::XMLNodeHandler` class and implement the pure virtual functions:
+Custom node handlers derive from the `apui::XMLNodeHandler` class and implement the pure virtual functions:
 
 ```cpp
 // Called when a new element tag is opened.
@@ -252,21 +252,21 @@ Custom node handlers derive from the `Rml::XMLNodeHandler` class and implement t
 // @param name The XML tag name.
 // @param attributes The tag attributes.
 // @return The new element, may be NULL if no element was created.
-virtual Rml::Element* ElementStart(Rml::XMLParser* parser,
-                                            const Rml::String& name,
-                                            const Rml::XMLAttributes& attributes) = 0;
+virtual apui::Element* ElementStart(apui::XMLParser* parser,
+                                            const apui::String& name,
+                                            const apui::XMLAttributes& attributes) = 0;
 
 // Called when an element is closed.
 // @param parser The parser executing the parse.
 // @param name The XML tag name.
-virtual bool ElementEnd(Rml::XMLParser* parser,
-                        const Rml::String& name) = 0;
+virtual bool ElementEnd(apui::XMLParser* parser,
+                        const apui::String& name) = 0;
 
 // Called for element data.
 // @param parser The parser executing the parse.
 // @param data The element data.
-virtual bool ElementData(Rml::XMLParser* parser,
-                         const Rml::String& data) = 0;
+virtual bool ElementData(apui::XMLParser* parser,
+                         const apui::String& data) = 0;
 ```
 
 `ElementStart()`, `ElementEnd()` and `ElementData()` are called on the node handler for the appropriate XML parse events that occur while it is the active node handler. A self-closing tag will result in a call to `ElementEnd()` immediately after `ElementStart()`. `ElementData()` is called when loose non-whitespace data is encountered between two tags.
@@ -277,10 +277,10 @@ Each of these functions is passed a pointer to the XML parser running the parse.
 struct ParseFrame
 {
 	// Tag being parsed.
-	Rml::String tag;
+	apui::String tag;
 
 	// Element representing this frame.
-	Rml::Element* element;
+	apui::Element* element;
 
 	// Handler used for this frame.
 	XMLNodeHandler* node_handler;
@@ -298,7 +298,7 @@ If the node handler wants to change the node handler for the new element, it can
 // Pushes an element handler onto the parse stack for parsing child elements.
 // @param[in] tag The tag the handler was registered with.
 // @return True if an appropriate handler was found and pushed onto the stack, false if not.
-bool PushHandler(const Rml::String& tag);
+bool PushHandler(const apui::String& tag);
 
 // Pushes the default element handler onto the parse stack.
 void PushDefaultHandler();
@@ -307,15 +307,15 @@ void PushDefaultHandler();
 If it doesn't call either of these methods, it will remain the node handler for any child elements it creates.
 Registering a custom node handler
 
-Register a custom node handler with RmlUi's XML parser with the static `RegisterNodeHandler()` function on `Rml::XMLParser`. You can register the same handler multiple times with the parser against different tag names. `RegisterNodeHandler()` takes shared ownership of the handler, thus, users do not need to store their own copy when they are done.
+Register a custom node handler with APUI's XML parser with the static `RegisterNodeHandler()` function on `apui::XMLParser`. You can register the same handler multiple times with the parser against different tag names. `RegisterNodeHandler()` takes shared ownership of the handler, thus, users do not need to store their own copy when they are done.
 
 ```cpp
 // Registers a custom node handler to be used to a given tag.
 // @param[in] tag The tag the custom parser will handle.
 // @param[in] handler The custom handler.
 // @return The registered XML node handler.
-static Rml::XMLNodeHandler* RegisterNodeHandler(const Rml::String& tag,
-                                                         SharedPtr<Rml::XMLNodeHandler> handler);
+static apui::XMLNodeHandler* RegisterNodeHandler(const apui::String& tag,
+                                                         SharedPtr<apui::XMLNodeHandler> handler);
 ```
 
 #### Samples

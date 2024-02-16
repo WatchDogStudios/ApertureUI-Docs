@@ -4,11 +4,11 @@ sidebar_position: 1
 
 # Aperture UI - Introduction
 
-Let's get started with 
+Let's get started with Installing ApertureUI.
 
 ## Getting Started
 
-Get started by [Installing a Release]().
+Get started by [Installing a Release](https://apertureui.tech/publicdownloads).
 
 Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
 
@@ -22,6 +22,7 @@ Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new
 Generate a new Docusaurus site using the **classic template**.
 
 The classic template will automatically be added to your project after you run the command:
+
 
 ```bash
 npm init docusaurus@latest my-website classic

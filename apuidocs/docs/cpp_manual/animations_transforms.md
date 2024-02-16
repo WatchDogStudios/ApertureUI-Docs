@@ -5,9 +5,9 @@ parent: cpp_manual
 next: decorators
 ---
 
-RmlUi has rich support for transforms and animations. This guide describes how to control these features from C++ side.
+APUI has rich support for transforms and animations. This guide describes how to control these features from C++ side.
 
-See also the [RCSS documentation](../rcss/animations_transitions_transforms.html) on animations, transitions and transforms for more details and usage of these features from RCSS.
+See also the [CSS documentation](../css/animations_transitions_transforms.html) on animations, transitions and transforms for more details and usage of these features from CSS.
 
 
 ### Transforms
@@ -34,7 +34,7 @@ A custom transformation matrix can be provided using the `Transforms::Matrix3D` 
 ### Animations
 
 
-Support for animations are mainly described in the [RCSS documentation](../rcss/animations_transitions_transforms.html). From C++, an animation can be started on an element by calling the following function.
+Support for animations are mainly described in the [CSS documentation](../css/animations_transitions_transforms.html). From C++, an animation can be started on an element by calling the following function.
 
 ```c++
 // Start an animation of the given property on this element.
@@ -51,7 +51,7 @@ bool Element::Animate(
 );
 ```
 
-This will start an animation of the property specified by `property_name`. The animation will start by using the current value of the given property on the element, or from `start_value` if provided. And then it will smoothly interpolate towards the `target_value`. The `duration` is given in seconds. A tweening function `tween` can be provided to control the interpolation time progression, see the RCSS documentation for details. The animation will repeat for `num_iterations` times, or infinite time when specified as -1. The `delay` argument, given in seconds, sets a delay before the property starts to animate.
+This will start an animation of the property specified by `property_name`. The animation will start by using the current value of the given property on the element, or from `start_value` if provided. And then it will smoothly interpolate towards the `target_value`. The `duration` is given in seconds. A tweening function `tween` can be provided to control the interpolation time progression, see the CSS documentation for details. The animation will repeat for `num_iterations` times, or infinite time when specified as -1. The `delay` argument, given in seconds, sets a delay before the property starts to animate.
 
 The value of an animated property is updated during `Context::Update`.
 

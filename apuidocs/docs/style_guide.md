@@ -3,7 +3,7 @@ layout: page
 title: Style guide for the core elements
 ---
 
-RmlUi features several functional elements that need to be sized and decorated with RCSS properties, such as scrollbars, sliders and drop-down boxes. This document will go over all these elements and give recommendations on how you should style them.
+APUI features several functional elements that need to be sized and decorated with CSS properties, such as scrollbars, sliders and drop-down boxes. This document will go over all these elements and give recommendations on how you should style them.
 
 ### Scrollbars
 
@@ -11,31 +11,31 @@ Any element with scrolling overflow (a value of `scroll` or `auto` on either of 
 
 #### Generated elements
 
-The scrollbar elements are tagged `scrollbarhorizontal`{:.tag} or `scrollbarvertical`{:.tag}, depending on their orientation. They are hidden elements parented directly to the scrolling element. Each scrollbar element contains four child elements:
+The scrollbar elements are tagged `scrollbarhorizontal` or `scrollbarvertical`, depending on their orientation. They are hidden elements parented directly to the scrolling element. Each scrollbar element contains four child elements:
 
-* `sliderarrowdec`{:.tag}: The button at the top (or left) of the scrollbar which can be clicked to scroll further up (or to the left) the element.
-* `sliderarrowinc`{:.tag}: The button at the bottom (or right) of the scrollbar which can be clicked to scroll further down (or to the right) the element.
-* `slidertrack`{:.tag}: The track that runs between the two arrow buttons.
-* `sliderbar`{:.tag}: The bar that runs on the track. It represents the size and position of the visible segment of the element's content. It can be dragged to scroll the visible window around. 
+* `sliderarrowdec`: The button at the top (or left) of the scrollbar which can be clicked to scroll further up (or to the left) the element.
+* `sliderarrowinc`: The button at the bottom (or right) of the scrollbar which can be clicked to scroll further down (or to the right) the element.
+* `slidertrack`: The track that runs between the two arrow buttons.
+* `sliderbar`: The bar that runs on the track. It represents the size and position of the visible segment of the element's content. It can be dragged to scroll the visible window around. 
 
 ![style_guide_1.gif](style_guide_1.gif)
 
 When both horizontal and vertical scrollbars are present on an element, they are both shortened by the amount necessary to avoid an intersection. Another element is created and placed in this intersection point, placed and sized appropriately. This corner element is tagged scrollbarcorner and exists only for decoration purposes.
 
-#### Applying RCSS properties
+#### Applying CSS properties
 
-All of these elements can be styled through RCSS to be sized, positioned and rendered appropriately. The recommended method for configuring a scrollbar is given below (note that this is for a vertical scrollbar; for a horizontal, swap width and height):
+All of these elements can be styled through CSS to be sized, positioned and rendered appropriately. The recommended method for configuring a scrollbar is given below (note that this is for a vertical scrollbar; for a horizontal, swap width and height):
 
-1. Set the `width` property of the `scrollbarvertical`{:.tag} element to the appropriate value for your interface design. This should be enough to encompass the arrows, track and bar.
-2. Set the `width` and `height` properties of the `sliderarrowdec`{:.tag} and `sliderarrowinc`{:.tag} elements as appropriate. Set them to `0` if you don't want buttons.
-3. Set the `width` property of the `slidertrack`{:.tag} as appropriate. The `height` value will be ignored for the track and will always be set internally. Use `margin-left` to position the track within the scrollbar.
-4. Set the `width` property of the `sliderbar`{:.tag} as appropriate. The height of the bar will be generated internally, but you can override this with the `height` property, or use the `min-height` and `max-height` properties to influence it.
+1. Set the `width` property of the `scrollbarvertical` element to the appropriate value for your interface design. This should be enough to encompass the arrows, track and bar.
+2. Set the `width` and `height` properties of the `sliderarrowdec` and `sliderarrowinc` elements as appropriate. Set them to `0` if you don't want buttons.
+3. Set the `width` property of the `slidertrack` as appropriate. The `height` value will be ignored for the track and will always be set internally. Use `margin-left` to position the track within the scrollbar.
+4. Set the `width` property of the `sliderbar` as appropriate. The height of the bar will be generated internally, but you can override this with the `height` property, or use the `min-height` and `max-height` properties to influence it.
 5. Apply decorators to the elements as appropriate. 
 
 See the _Rocket Invaders from Mars_ demo style sheet and the [templating tutorial](tutorials/window_template.html) for more pointers.
 
 #### The 'scrollbar-margin' property
-{:#scrollbar-margin}
+
 
 `scrollbar-margin`
 
@@ -45,9 +45,9 @@ Applies to: | scroll containers
 Inherited: | no
 Percentages: | N/A
 
-As described above, the scrollbar elements (`scrollbarvertical`{:.tag} and `scrollbarhorizontal`{:.tag}) will shorten themselves automatically to avoid a corner intersection. This can lead to scenarios where a scrollbar is popping on and off (during a window resize, for example) and causing the other scrollbar to rapidly change size. To avoid this, and force a scrollbar to always shorten itself for a corner, you can use the numerical `scrollbar-margin` property on a scrollbar element. An element will shorten itself (on the bottom or right side, as appropriate) by the minimum of the appropriate corner dimension and the scrollbar margin.
+As described above, the scrollbar elements (`scrollbarvertical` and `scrollbarhorizontal`) will shorten themselves automatically to avoid a corner intersection. This can lead to scenarios where a scrollbar is popping on and off (during a window resize, for example) and causing the other scrollbar to rapidly change size. To avoid this, and force a scrollbar to always shorten itself for a corner, you can use the numerical `scrollbar-margin` property on a scrollbar element. An element will shorten itself (on the bottom or right side, as appropriate) by the minimum of the appropriate corner dimension and the scrollbar margin.
 
-#### Example RCSS
+#### Example CSS
 
 The following is the section of the style sheet for _Rocket Invaders from Mars_ relevant for scrollbars.
 
@@ -167,14 +167,14 @@ scrollbarvertical sliderarrowinc:active
 
 ### Sliders
 
-Range sliders can be instanced through the RML tag `<input type="range" ... />`{:.tag}. Internally these are very similar to scrollbars, and contain identical child elements, i.e.:
+Range sliders can be instanced through the RML tag `<input type="range" ... />`. Internally these are very similar to scrollbars, and contain identical child elements, i.e.:
 
-* `sliderarrowdec`{:.tag}
-* `sliderarrowinc`{:.tag}
-* `slidertrack`{:.tag}
-* `sliderbar`{:.tag}
+* `sliderarrowdec`
+* `sliderarrowinc`
+* `slidertrack`
+* `sliderbar`
 
-These are styled in the same way you style scrollbars. Note that for input types, the `type`{:.attr} attribute of an `<input>`{:.tag} element is automatically set as a class to ease their specification in a style sheet. So the following rule will apply properties to an input's slider track:
+These are styled in the same way you style scrollbars. Note that for input types, the `type` attribute of an `<input>` element is automatically set as a class to ease their specification in a style sheet. So the following rule will apply properties to an input's slider track:
 
 ```css
 input.range slidertrack
@@ -185,23 +185,23 @@ input.range slidertrack
 
 ### Drop-down selection boxes
 
-Drop-down boxes can be instanced through the RML tag `<select>`{:.tag}, with individual options specified within the selection element with `<option>`{:.tag} tags.
+Drop-down boxes can be instanced through the RML tag `<select>`, with individual options specified within the selection element with `<option>` tags.
 
 #### Generated elements
 
 The select element generates three hidden elements:
 
-* `selectvalue`{:.tag}: The container element for the selected option.
-* `selectarrow`{:.tag}: The button rendered to the right of the value element. 
-* `selectbox`{:.tag}: The box containing the options. The visibility of this element is toggled when the arrow or value elements are clicked on, or when an option is selected.
+* `selectvalue`: The container element for the selected option.
+* `selectarrow`: The button rendered to the right of the value element. 
+* `selectbox`: The box containing the options. The visibility of this element is toggled when the arrow or value elements are clicked on, or when an option is selected.
 
-The pseudo-class `:checked`{:.cls} is set on the select element while the selection box is visible. Additionally, the selected option inside its drop-down list also has the `:checked`{:.cls} pseudo-class set.
+The pseudo-class `:checked` is set on the select element while the selection box is visible. Additionally, the selected option inside its drop-down list also has the `:checked` pseudo-class set.
 
 ![style_guide_2.gif](style_guide_2.gif)
 
-#### Example RCSS
+#### Example CSS
 
-The following are the select element's RCSS rules and properties from the _Rocket Invaders from Mars_ style sheet:
+The following are the select element's CSS rules and properties from the _Rocket Invaders from Mars_ style sheet:
 
 ```css
 @spritesheet theme 
