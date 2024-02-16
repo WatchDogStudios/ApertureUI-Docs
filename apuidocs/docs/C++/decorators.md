@@ -5,7 +5,7 @@ parent: C++
 next: debugger
 ---
 
-Decorators are generic, configurable, reusable objects designed to be attached to elements to add custom rendering effects. Decorators render on top of an element's border and background. For a full description on how decorators are attached to elements and configured through HTML, see the [relevant section in the CSS documentation](../css/decorators.html).
+Decorators are generic, configurable, reusable objects designed to be attached to elements to add custom rendering effects. Decorators render on top of an element's border and background. For a full description on how decorators are attached to elements and configured through HTML, see the [relevant section in the CSS documentation](../CSS/decorators.html).
 
 ### Decorator overview
 

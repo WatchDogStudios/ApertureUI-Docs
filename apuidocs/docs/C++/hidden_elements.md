@@ -61,7 +61,7 @@ Custom elements typically size and position their hidden elements internally whe
 
 #### Sizing
 
-Hidden elements can be sized by calling the `SetBox()` function. `SetBox()` takes a `apui::Box` structure, which contains sizes for a two-dimensional content area and per-edge padding, borders and margin (see the CSS documentation for more information on the [box model]({{"pages/css/box_model.html"|relative_url}})).
+Hidden elements can be sized by calling the `SetBox()` function. `SetBox()` takes a `apui::Box` structure, which contains sizes for a two-dimensional content area and per-edge padding, borders and margin (see the CSS documentation for more information on the [box model]({{"pages/CSS/box_model.html"|relative_url}})).
 
 ```cpp
 // Sets the box describing the size of the element, and removes all others.

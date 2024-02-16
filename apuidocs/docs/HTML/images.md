@@ -7,7 +7,7 @@ next: forms
 
 ### \<img\>
 
-The `<img>` element is used to include images or [sprites](../css/sprite_sheets.html) in the document.
+The `<img>` element is used to include images or [sprites](../CSS/sprite_sheets.html) in the document.
 
 _Attributes_
 

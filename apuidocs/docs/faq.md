@@ -32,13 +32,13 @@ It is possible to set decorators by inline style. However, for performance reaso
 
 ### How do I achieve high DPI support?
 
-APUI has extensive support for making a scalable user interface. In order to get sizes and lengths scaled properly, the [`dp` length unit](css/syntax.html#dp-unit) should be used extensively in CSS. This unit can be scaled relative to `px` units by setting the *dp-ratio* using the function `Context::SetDensityIndependentPixelRatio`.
+APUI has extensive support for making a scalable user interface. In order to get sizes and lengths scaled properly, the [`dp` length unit](CSS/syntax.html#dp-unit) should be used extensively in CSS. This unit can be scaled relative to `px` units by setting the *dp-ratio* using the function `Context::SetDensityIndependentPixelRatio`.
 
 In addition, APUI provides the following features which should make high DPI graphics a breeze:
 
-- [Media queries](css/media_queries.html) support the `resolution` feature to toggle styles and sprites based on the dp-ratio.
-- [Sprite sheets](css/sprite_sheets.html) can specify their desired scaling by using the `resolution` property.
-- Sprites can be overrided by later `@spritesheet` rules, making it easy to define [high DPI versions of sprites](css/sprite_sheets.html#high-dpi).
+- [Media queries](CSS/media_queries.html) support the `resolution` feature to toggle styles and sprites based on the dp-ratio.
+- [Sprite sheets](CSS/sprite_sheets.html) can specify their desired scaling by using the `resolution` property.
+- Sprites can be overrided by later `@spritesheet` rules, making it easy to define [high DPI versions of sprites](CSS/sprite_sheets.html#high-dpi).
 - Decorators and `<img>` elements automatically update when the dp-ratio changes and new sprites are selected.
 - Sprites in decorators and `<img>` elements scale according to the source scaling and targeted dp-ratio.
 

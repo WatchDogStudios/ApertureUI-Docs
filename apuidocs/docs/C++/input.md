@@ -132,7 +132,7 @@ The following can provide a hint on whether or not the mouse cursor is currently
 bool IsMouseInteracting() const;
 ```
 
-Note that interaction is determined irrespective of background and opacity. See the [`pointer-events`](../css/user_interface.html#pointer-events) property to disable interaction for specific elements.
+Note that interaction is determined irrespective of background and opacity. See the [`pointer-events`](../CSS/user_interface.html#pointer-events) property to disable interaction for specific elements.
 
 ### Key input
 

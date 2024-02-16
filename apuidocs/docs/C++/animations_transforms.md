@@ -7,7 +7,7 @@ next: decorators
 
 APUI has rich support for transforms and animations. This guide describes how to control these features from C++ side.
 
-See also the [CSS documentation](../css/animations_transitions_transforms.html) on animations, transitions and transforms for more details and usage of these features from CSS.
+See also the [CSS documentation](../CSS/animations_transitions_transforms.html) on animations, transitions and transforms for more details and usage of these features from CSS.
 
 
 ### Transforms
@@ -34,7 +34,7 @@ A custom transformation matrix can be provided using the `Transforms::Matrix3D` 
 ### Animations
 
 
-Support for animations are mainly described in the [CSS documentation](../css/animations_transitions_transforms.html). From C++, an animation can be started on an element by calling the following function.
+Support for animations are mainly described in the [CSS documentation](../CSS/animations_transitions_transforms.html). From C++, an animation can be started on an element by calling the following function.
 
 ```c++
 // Start an animation of the given property on this element.

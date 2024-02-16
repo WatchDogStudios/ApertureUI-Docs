@@ -21,10 +21,10 @@ Views are automatically updated whenever a variable becomes dirty. This ensures 
 
 See the following detailed sections:
 
-- [Examples](Data Bindings/examples.html)
-- [Data variables and expressions](Data Bindings/expressions.html)
-- [Data model](Data Bindings/model.html)
-- [Data views and controllers](Data Bindings/views_and_controllers.html)
+- [Examples](Data Bindings/examples.md)
+- [Data variables and expressions](Data Bindings/expressions.md)
+- [Data model](Data Bindings/model.md)
+- [Data views and controllers](Data Bindings/views_and_controllers.md)
 
 ---
 

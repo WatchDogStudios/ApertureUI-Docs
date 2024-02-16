@@ -153,10 +153,10 @@ A tweening function in CSS is specified as `<name>-in`, `<name>-out`, or `<name>
 - `sine`
 
 See the animation and transition documentation above for usage examples there. Each tweening function provides a specific mapping between normalized time *t* and used interpolation value *y*, as seen in the following plot.
-
-<div style="text-align: center">
-	<img alt="Tweening functions" src="../../static/assets/images/tweening_functions.svg" style="width: 100%; max-width: 700px"/>
+<div>
+	<img alt="Tweening functions" src="../../static/assets/images/tweening_functions.svg"/>
 </div> 
+
 
 See also the `demo` sample, where users can play with different tweening functions and durations, and see the resulting animation. It is also possible to provide a custom tweening function in the [C++ animation API](../cpp_manual/animations_transforms.html).
 

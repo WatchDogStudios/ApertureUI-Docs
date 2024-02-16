@@ -45,4 +45,4 @@ Deprecated elements:
 - [`<col>`](deprecated.html#col)
 - [`<dataselect>`](deprecated.html#dataselect)
 
-Users are encouraged to replace these elements with [data bindings](../data_bindings.html) possibly combined with [CSS tables](../css/tables.html).
+Users are encouraged to replace these elements with [data bindings](../data_bindings.html) possibly combined with [CSS tables](../CSS/tables.html).

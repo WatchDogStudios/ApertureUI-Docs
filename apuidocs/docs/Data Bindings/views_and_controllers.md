@@ -34,7 +34,7 @@ The following table lists all built-in data views and controllers in APUI, along
 | [Event](#data-event)         | Controller | data-event-[event_type]      | [assignment_expression]                         |       |
 
   [1] `iterator_name` and `index_name` are optional. Defaults to `it` and `it_index`, respectively.  
-  [2] The text view is automatically added whenever double curly brackets {{ }} are encountered in the element's text.  
+  [2] The text view is automatically added whenever double curly brackets { } are encountered in the element's text.  
   [3] These attributes enable two-way bindings, and will attach both a view and controller to the element.  
 
 
@@ -130,10 +130,10 @@ Repeats the element and its children *n* times for each item in the data variabl
 
 ```html
 <div data-for="invader : invaders">
-	<h1>{{ invader.name }}</h1>
-	<p>Invader {{it_index + 1}} of {{ invaders.size }}.</p>
+	<h1>{ invader.name }</h1>
+	<p>Invader {it_index + 1} of { invaders.size }.</p>
 	<img data-attr-sprite="invader.sprite" data-style-image-color="invader.color"/>
-	<p>Scores: <span data-for="invader.scores"> {{it}} </span></p>
+	<p>Scores: <span data-for="invader.scores"> {it} </span></p>
 </div> 
 ```
 
@@ -150,13 +150,13 @@ The `data-for` attribute can use any of the following values, enabling the user 
 The `data-for` loop is expanded by replicating the element with its attributes and its inner HTML, for each entry in the array. Eg.
 
 ```html
-<p data-for="subject, i : subjects" data-class-selected="i == selected_subject">{{i + ': ' + subject}}</p>
+<p data-for="subject, i : subjects" data-class-selected="i == selected_subject">{i + ': ' + subject}</p>
 ```
 with three entries in `subjects` is turned into
 ```html
-<p data-class-selected="i == selected_subject">{{i + ': ' + subject}}</p>
-<p data-class-selected="i == selected_subject">{{i + ': ' + subject}}</p>
-<p data-class-selected="i == selected_subject">{{i + ': ' + subject}}</p>
+<p data-class-selected="i == selected_subject">{i + ': ' + subject}</p>
+<p data-class-selected="i == selected_subject">{i + ': ' + subject}</p>
+<p data-class-selected="i == selected_subject">{i + ': ' + subject}</p>
 <p style="display: none;"/>
 ```
 where `i` and `subject` become aliases to the array index and entry, respectively. Additionally, an element is added after all the entries so that the location of the for loop within the document tree is well defined even when there are no entries. This will become hidden by the `display: none` inline style added by the data view.
@@ -183,11 +183,11 @@ Sets the element's inner HTML to the evaluated expression.
 `N/A`
 
 
-Evaluates any data expression inside double curly brackets {{ }} encountered in the element's text.
+Evaluates any data expression inside double curly brackets { } encountered in the element's text.
 
 ```html
-<span class="position"> x: {{ position.x }}, y: {{ position.y }}</span>
-<span data-for="i : indices"> {{ i * 2 + (i > 10 ? ' wow!' | to_upper : '') }}</span>
+<span class="position"> x: { position.x }, y: { position.y }</span>
+<span data-for="i : indices"> { i * 2 + (i > 10 ? ' wow!' | to_upper : '') }</span>
 ```
 
 This data view is automatically added whenever double curly brackets are encountered in the text and should not be added as an attribute.
@@ -209,7 +209,7 @@ To illustrate, consider the following template.
 <head></head>
 <body>
 	<div class="icon" data-attr-icon="icon"></div>
-	<h1 class="title">{{ title }}</h1>
+	<h1 class="title">{ title }</h1>
 </body>
 </template>
 ```
@@ -286,8 +286,8 @@ The special variable `ev` can be used inside the expressions to retrieve values 
 	data-event-click="add_mouse_pos(); hello_world = 'Hello click!'"
 	data-rml="mouse_detector">
 </div>
-<h1>{{hello_world}}</h1>
-<div data-for="positions">{{it}}</div>
+<h1>{hello_world}</h1>
+<div data-for="positions">{it}</div>
 ```
 
 The referenced `add_mouse_pos` event callback is triggered when the element is clicked, which can be implemented in C++ as follows.

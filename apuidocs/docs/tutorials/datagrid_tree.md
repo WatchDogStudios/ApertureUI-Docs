@@ -10,7 +10,7 @@ This tutorial expects that you've got a solid grounding in C++ and know the basi
 ---
 ***NOTE***
 
-The datagrid and related functionality has been deprecated as of APUI 4.0. Instead, users are encouraged to use [data bindings](../data_bindings.html) possibly combined with [CSS tables](../css/tables.html). Similar functionality as presented in this tutorial, using a tree structure but instead implemented with data bindings, can be seen in the `treeview` sample.
+The datagrid and related functionality has been deprecated as of APUI 4.0. Instead, users are encouraged to use [data bindings](../data_bindings.html) possibly combined with [CSS tables](../CSS/tables.html). Similar functionality as presented in this tutorial, using a tree structure but instead implemented with data bindings, can be seen in the `treeview` sample.
 
 ---
 

@@ -50,7 +50,7 @@ The `LogMessage()` function is called when APUI generates a message. Here, `type
 // Set the mouse cursor.
 virtual void SetMouseCursor(const apui::String& cursor_name);
 ```
-The `SetMouseCursor()` function is called when APUI wants to change the mouse cursor. This behavior is controlled by the [`cursor` property](../../static/css/user_interface.html#cursor), the value of which is directly sent through the interface as the `cursor_name`. The default value for the `cursor` property is an empty string, thus, this can be used to set a default cursor. There are also some [built-in cursor names](../contexts.html#builtin-cursors) that are submitted when the context is in a certain state, such as during autoscrolling.
+The `SetMouseCursor()` function is called when APUI wants to change the mouse cursor. This behavior is controlled by the [`cursor` property](../../static/CSS/user_interface.html#cursor), the value of which is directly sent through the interface as the `cursor_name`. The default value for the `cursor` property is an empty string, thus, this can be used to set a default cursor. There are also some [built-in cursor names](../contexts.html#builtin-cursors) that are submitted when the context is in a certain state, such as during autoscrolling.
 
 The user is responsible for setting the system cursor or otherwise rendering the cursor as desired. It is possible to choose for each context whether it should call this function, see [context cursor](../contexts.html#mouse-cursor) for additional details.
 

@@ -14,7 +14,7 @@ For a detailed description on how DataGrids work with DataSources please see the
 ---
 ***NOTE***
 
-The datagrid and related functionality has been deprecated as of APUI 4.0. Instead, users are encouraged to use [data bindings](../data_bindings.html) possibly combined with [CSS tables](../css/tables.html). The functionality presented in this tutorial is re-implemented as data bindings in the `invader` sample's high score document.
+The datagrid and related functionality has been deprecated as of APUI 4.0. Instead, users are encouraged to use [data bindings](../data_bindings.html) possibly combined with [CSS tables](../CSS/tables.html). The functionality presented in this tutorial is re-implemented as data bindings in the `invader` sample's high score document.
 
 ---
 

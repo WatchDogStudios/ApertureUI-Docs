@@ -7,7 +7,7 @@ status: deprecated
 
 ### \<datagrid\>
 
-> ***Deprecated*** in favor of [data bindings](../data_bindings.html) possibly combined with [CSS tables](../css/tables.html).
+> ***Deprecated*** in favor of [data bindings](../data_bindings.html) possibly combined with [CSS tables](../CSS/tables.html).
 
 `<datagrid>` represents an element capable of fetching, positioning and rendering dynamic tabulated data. For a detailed description see [Data grid]({{"pages/cpp_manual/element_packages/data_grid.html"|relative_url}}) in the C++ Manual.
 
@@ -18,7 +18,7 @@ _Attributes_
 
 #### \<col\>
 
-> ***Deprecated*** in favor of [data bindings](../data_bindings.html) possibly combined with [CSS tables](../css/tables.html).
+> ***Deprecated*** in favor of [data bindings](../data_bindings.html) possibly combined with [CSS tables](../CSS/tables.html).
 
 The `<col>` element represents a column in the datagrid. Each column displays information about each row in the data source in the form of one or more fields.
 
