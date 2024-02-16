@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Tiled Vertical decorator
-parent: css/decorators
-grandparent: css
+parent: CSS/decorators
+grandparent: CSS
 next: tiled_box
 ---
 

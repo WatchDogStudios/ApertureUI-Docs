@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Gradient decorator
-grandparent: css
-parent: css/decorators
+grandparent: CSS
+parent: CSS/decorators
 ---
 
 The `gradient` decorator renders a linear color gradient across the padded area of its element, in a horizontal or vertical direction.

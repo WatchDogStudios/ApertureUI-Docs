@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Syntax
-parent: css
+parent: CSS
 next: selectors
 ---
 
@@ -132,9 +132,9 @@ Specified as `<ratio>` in the property's Values list. A ratio is specified using
 @media (min-aspect-ratio: 16 / 9) { /* ... */ }
 ```
 
-### Referencing CSS from RML
+### Referencing CSS from HTML
 
-A style sheet can be either stored in an external file (usually with the extension .css) and referenced from an RML file, or declared inline inside an RML file. Referencing an external CSS file is done using the `<link>` tag in the following manner:
+A style sheet can be either stored in an external file (usually with the extension .css) and referenced from an HTML file, or declared inline inside an HTML file. Referencing an external CSS file is done using the `<link>` tag in the following manner:
 
 ```html
 <rml>
@@ -163,7 +163,7 @@ Declaring an inline style sheet is done using the `<style>` tag, also within the
 
 Multiple style sheets can be included in a single document and combined with inline style declarations. The ordering of style declarations is important, as they may be used to resolve the precedence conflicting style sheet rules.
 
-Also, style sheet properties can be declared directly on an element. This is done by inserting semi-colon separated style sheet property declarations into the `style` attribute of an element. For example, the following RML fragment:
+Also, style sheet properties can be declared directly on an element. This is done by inserting semi-colon separated style sheet property declarations into the `style` attribute of an element. For example, the following HTML fragment:
 
 ```html
 <div style="width: 25%; min-width: 55px;">

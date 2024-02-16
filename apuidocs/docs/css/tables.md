@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Tables
-parent: css
+parent: CSS
 next: user_interface
 ---
 

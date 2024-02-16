@@ -3,9 +3,9 @@ layout: page
 title: Window Templating Tutorial
 ---
 
-This tutorial will take you step-by-step through the development of the RML and CSS of the window template we used for _Rocket Invaders from Mars_. By the end of this tutorial you'll be able to create complex, flexible templates for your own application.
+This tutorial will take you step-by-step through the development of the HTML and CSS of the window template we used for _Rocket Invaders from Mars_. By the end of this tutorial you'll be able to create complex, flexible templates for your own application.
 
-To go through this tutorial you'll need an understanding of [RML](../rml.html) and [CSS](../css.html).
+To go through this tutorial you'll need an understanding of [HTML](../rml.html) and [CSS](../css.html).
 
 ### Step 1: Taking a look
 
@@ -13,9 +13,9 @@ Compile the template tutorial (at `/Samples/tutorials/template/`) and run the pr
 
 ![window_template_1.gif](window_template_1.gif)
 
-All the the program does is load and show the document defined in `data/tutorial.rml`. The RML itself file references `data/tutorial.css` and `/Samples/assets/invader.tga`. All we're interested in is the RML file and the CSS file; open them both and take a look.
+All the the program does is load and show the document defined in `data/tutorial.rml`. The HTML itself file references `data/tutorial.css` and `/Samples/assets/invader.tga`. All we're interested in is the HTML file and the CSS file; open them both and take a look.
 
-All we've got to start with in the RML is a simple document with no child elements. It has a class of 'window' which, as you'll see in the CSS, is what is giving it the glassy background decorator. The style declared in the document's header tag specifies a fixed width and height for the document (so it has some dimensions), and gives it auto margins to centre it within the context. As for the CSS, we've got nothing more than the a font specification and a tiled-box decorator for drawing the background. And that's it! Simple, but not very useful as a window template yet.
+All we've got to start with in the HTML is a simple document with no child elements. It has a class of 'window' which, as you'll see in the CSS, is what is giving it the glassy background decorator. The style declared in the document's header tag specifies a fixed width and height for the document (so it has some dimensions), and gives it auto margins to centre it within the context. As for the CSS, we've got nothing more than the a font specification and a tiled-box decorator for drawing the background. And that's it! Simple, but not very useful as a window template yet.
 
 ### Step 2: Adding a title bar
 
@@ -169,7 +169,7 @@ div#title-bar
 
 #### Adding a handle
 
-We still need a handle so we can drag the window around. This is easy; APUI ships with a `<handle>` element that can do just that (or resize an element). In the RML, wrap the contents of the `title-bar` element with a `<handle>` element. You can set its move target with the `move_target` attribute; set it to `#document` so it knows to move its parent document when it is dragged. You should end up with this:
+We still need a handle so we can drag the window around. This is easy; APUI ships with a `<handle>` element that can do just that (or resize an element). In the HTML, wrap the contents of the `title-bar` element with a `<handle>` element. You can set its move target with the `move_target` attribute; set it to `#document` so it knows to move its parent document when it is dragged. You should end up with this:
 
 ```html
 <div id="title-bar">
@@ -215,7 +215,7 @@ So we've got a couple of issues already:
 
 #### Using z-index
 
-All elements have a default `z-index` of `0`, so normally they would be rendered in the order they are declared in the document. This means elements declared further down in the RML are usually rendered on top of earlier elements. However, floating and positioned elements jump to the front of the queue and are always rendered after normal elements with a similar `z-index`.
+All elements have a default `z-index` of `0`, so normally they would be rendered in the order they are declared in the document. This means elements declared further down in the HTML are usually rendered on top of earlier elements. However, floating and positioned elements jump to the front of the queue and are always rendered after normal elements with a similar `z-index`.
 
 So to bring the content window above the title bar, create a new rule for the content element and assign it a `z-index` of `1`.
 
@@ -432,7 +432,7 @@ scrollbarvertical sliderbar:hover
 Now we've got a complete window document. But what we really want is a window template, so we can easily create new documents that reuse the layout.
 Creating the template
 
-Make a copy of the RML file and call it `template.rml`. To change it from a document into a template, change the top `<rml>` tag to `<template>`. The `<template>` tag needs a couple of bits of information; the name of the template, set by the `name` attribute, and the ID of the element where the document's content should go, set by the 'content' attribute. The final tag should look like:
+Make a copy of the HTML file and call it `template.rml`. To change it from a document into a template, change the top `<rml>` tag to `<template>`. The `<template>` tag needs a couple of bits of information; the name of the template, set by the `name` attribute, and the ID of the element where the document's content should go, set by the 'content' attribute. The final tag should look like:
 
 ```html
 <template name="window" content="content">
@@ -495,14 +495,14 @@ And we're done. When the document is loaded, it will load the template and injec
 
 We still have one last thing to implement; the title of the document isn't set on the title bar. We'll show you how to do this through the C++ API, but you can also easily do this through a scripting interface.
 
-The document is loaded on line 68 of main.cpp. Before the document is rendered, we want to get the `<span>` element containing the dummy title and set its inner RML content to the title of the document we just loaded. To fetch the element, call the `GetElementById()`. Once you have the element, you can remove all of its children and set new RML content with `SetInnerRML()`. The document itself has the `GetTitle()` function to fetch the title.
+The document is loaded on line 68 of main.cpp. Before the document is rendered, we want to get the `<span>` element containing the dummy title and set its inner HTML content to the title of the document we just loaded. To fetch the element, call the `GetElementById()`. Once you have the element, you can remove all of its children and set new HTML content with `SetInnerHTML()`. The document itself has the `GetTitle()` function to fetch the title.
 
 ```cpp
 	// Load and show the tutorial document.
 	apui::ElementDocument* document = context->LoadDocument("data/tutorial.rml");
 	if (document)
 	{
-		document->GetElementById("title")->SetInnerRML(document->GetTitle());
+		document->GetElementById("title")->SetInnerHTML(document->GetTitle());
 		document->Show();
 	}
 ```

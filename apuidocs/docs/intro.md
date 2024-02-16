@@ -10,7 +10,7 @@ Let's get started with Installing ApertureUI.
 
 Get started by [Installing a Release](https://apertureui.tech/publicdownloads).
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+
 
 ### What you'll need
 

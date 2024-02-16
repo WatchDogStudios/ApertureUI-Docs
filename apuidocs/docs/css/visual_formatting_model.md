@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Visual formatting model
-parent: css
+parent: CSS
 next: visual_formatting_model_details
 ---
 
@@ -37,7 +37,7 @@ Block-level elements are those that are formatted as blocks, flowing visually do
 
 Block-level elements generate exactly one block box that itself contains only block boxes. If any inline elements are inside this block box, an anonymous block box is created (one not representing any specific element) to hold and place the inline content. The anonymous block box is positioned with the original block box just like any other block box.
 
-So, while processing the following RML fragment (assuming `div` and `p` elements are block, and `img` elements are inline):
+So, while processing the following HTML fragment (assuming `div` and `p` elements are block, and `img` elements are inline):
 
 ```html
 <div>

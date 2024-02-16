@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Fonts
-parent: css
+parent: CSS
 next: text
 ---
 

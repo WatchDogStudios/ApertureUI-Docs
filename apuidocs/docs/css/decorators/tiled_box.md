@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Tiled Box decorator
-grandparent: css
-parent: css/decorators
+grandparent: CSS
+parent: CSS/decorators
 next: ninepatch
 ---
 

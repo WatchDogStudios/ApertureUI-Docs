@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Colours, backgrounds, and rounded corners
-parent: css
+parent: CSS
 next: fonts
 ---
 

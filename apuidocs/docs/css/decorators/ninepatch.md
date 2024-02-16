@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Ninepatch decorator
-grandparent: css
-parent: css/decorators
+grandparent: CSS
+parent: CSS/decorators
 next: gradient
 ---
 

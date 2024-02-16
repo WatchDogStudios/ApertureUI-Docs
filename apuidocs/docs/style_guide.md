@@ -167,7 +167,7 @@ scrollbarvertical sliderarrowinc:active
 
 ### Sliders
 
-Range sliders can be instanced through the RML tag `<input type="range" ... />`. Internally these are very similar to scrollbars, and contain identical child elements, i.e.:
+Range sliders can be instanced through the HTML tag `<input type="range" ... />`. Internally these are very similar to scrollbars, and contain identical child elements, i.e.:
 
 * `sliderarrowdec`
 * `sliderarrowinc`
@@ -185,7 +185,7 @@ input.range slidertrack
 
 ### Drop-down selection boxes
 
-Drop-down boxes can be instanced through the RML tag `<select>`, with individual options specified within the selection element with `<option>` tags.
+Drop-down boxes can be instanced through the HTML tag `<select>`, with individual options specified within the selection element with `<option>` tags.
 
 #### Generated elements
 

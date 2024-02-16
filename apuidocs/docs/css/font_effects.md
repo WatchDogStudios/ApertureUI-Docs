@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Font Effects
-parent: css
+parent: CSS
 next: property_index
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Visual formatting model details
-parent: css
+parent: CSS
 next: visual_effects
 ---
 
@@ -276,7 +276,7 @@ super
 ```
 
 ```html
-<!-- Sample RML demonstrating rendering a superscript. -->
+<!-- Sample HTML demonstrating rendering a superscript. -->
 <p>
 	Better than ever before!<super>*</super>
 </p>

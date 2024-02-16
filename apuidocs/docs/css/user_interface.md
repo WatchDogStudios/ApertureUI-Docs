@@ -1,7 +1,7 @@
 ---
 layout: page
 title: User interface
-parent: css
+parent: CSS
 next: animations_transitions_transforms
 ---
 

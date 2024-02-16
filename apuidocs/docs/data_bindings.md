@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Data binding
+title: Data Binding
 ---
 
 
@@ -17,18 +17,18 @@ In the approach taken in APUI, the MVC terms have the following meaning.
 - `View`  Data views are used to present a data variable in the document by different means.
 - `Controller` Data controllers typically respond to user input by setting a new value to a data variable.
 
-Views are automatically updated whenever a variable becomes dirty. This ensures that the document displayed to the user is always synchronized with the application data. Using the MVC appoach, there is no need to handle individual elements, or manually modify the RML.
+Views are automatically updated whenever a variable becomes dirty. This ensures that the document displayed to the user is always synchronized with the application data. Using the MVC appoach, there is no need to handle individual elements, or manually modify the HTML.
 
 See the following detailed sections:
 
-- [Examples](data_bindings/examples.html)
-- [Data variables and expressions](data_bindings/expressions.html)
-- [Data model](data_bindings/model.html)
-- [Data views and controllers](data_bindings/views_and_controllers.html)
+- [Examples](Data Bindings/examples.html)
+- [Data variables and expressions](Data Bindings/expressions.html)
+- [Data model](Data Bindings/model.html)
+- [Data views and controllers](Data Bindings/views_and_controllers.html)
 
 ---
 
-![Schematic of the control flow in APUI's model-view-controller.](data_bindings/model-view-controller.svg)
+![Schematic of the control flow in APUI's model-view-controller.](Data Bindings/model-view-controller.svg)
 
 ---
 
@@ -49,5 +49,5 @@ See the following detailed sections:
 ##### Authoring notes
 
 - Element attributes starting with `data-` are reserved for data bindings in APUI.
-- All use of `{{` and `}}` inside RML documents are reserved for data bindings.
+- All use of `{{` and `}}` inside HTML documents are reserved for data bindings.
 

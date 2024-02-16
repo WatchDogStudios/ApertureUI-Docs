@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Animations, transitions, and transforms
-parent: css
+parent: CSS
 next: media_queries
 ---
 
@@ -80,7 +80,7 @@ Multiple animations can be specified on the same element by using a comma-separa
 #multi-animation { animation: 1s elastic-out my-progress-bar, 2s make-red; }
 ```
 
-Internally, animations apply their properties on the local style of the element. Thus, mixing RML style attributes and animations should be avoided on the same element.
+Internally, animations apply their properties on the local style of the element. Thus, mixing HTML style attributes and animations should be avoided on the same element.
 
 See the `animation` sample for more examples and details.
 

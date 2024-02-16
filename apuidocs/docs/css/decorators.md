@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Decorators
-parent: css
+parent: CSS
 next: font_effects
 ---
 

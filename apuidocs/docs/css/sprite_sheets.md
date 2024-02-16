@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Sprite sheets
-parent: css
+parent: CSS
 next: decorators
 ---
 

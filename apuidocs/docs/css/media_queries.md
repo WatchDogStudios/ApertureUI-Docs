@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Media queries
-parent: css
+parent: CSS
 next: sprite_sheets
 ---
 

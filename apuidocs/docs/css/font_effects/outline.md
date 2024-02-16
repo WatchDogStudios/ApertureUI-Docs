@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Outline Effect
-parent: css/font_effects
-grandparent: css
+parent: CSS/font_effects
+grandparent: CSS
 next: shadow
 ---
 

@@ -2,11 +2,15 @@
 layout: page
 title: Frequently Asked Questions
 ---
+### Can i run this with consoles?
 
+APUI does work on Xbox & Playstation 4/5. you can contact: support@wdstudios.zendesk.com to get access. we will need to verify your access with Microsoft/SIE. 
+
+Nintendo Support is coming soon.
 
 ### I have rendering issues or crashes, how do I solve it?
 
-Take a look at the [troubleshooting](cpp_manual/troubleshooting.html) page in the C++ manual. You are also welcome to join the [APUI's Gitter channel](https://gitter.im/APUI/community) for chatting with other users, or write a post describing your situation in the [main repository]({{page.lib_site}}).
+Take a look at the [troubleshooting](cpp_manual/troubleshooting.html) page in the C++ manual. You can also contact us for free support, or write a post describing your situation in the [main repository]([https](https://github.com/WatchDogStudios/APUI-Public/discussions)).
 
 
 ### How do I set up custom cursors?
@@ -15,6 +19,8 @@ You display custom cursors using your OS cursor facilities. See [here](cpp_manua
 
 
 ### Is APUI thread safe?
+
+As of 1.0, APUI is **NOT** Thread Safe. Work Towards 1.1 is making the library Thread Safe, and Fully Compatible with consoles(Only works on Xbox & Playstation).
 
 No guarantees are provided in terms of thread safety. Any access into the APUI API from multiple threads need to be synchronized such as by using a mutex.
 
@@ -48,7 +54,7 @@ It is always possible to do a full reload of the document.
 ```cpp
 apui::ElementDocument* my_document = context->LoadDocument("main_menu.rml");
 // ...
-// Later, after RML source was changed
+// Later, after HTML source was changed
 my_document->Close();
 my_document = context->LoadDocument("main_menu.rml");
 ```

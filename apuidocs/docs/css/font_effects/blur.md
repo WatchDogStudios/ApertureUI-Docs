@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Blur Effect
-parent: css/font_effects
-grandparent: css
+parent: CSS/font_effects
+grandparent: CSS
 ---
 
 The blur font effect renders a Gaussian blurred copy of the text.

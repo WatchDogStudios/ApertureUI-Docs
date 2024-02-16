@@ -6,7 +6,7 @@ short_title: CSS
 
 This document defines the *CSS Cascading Style Sheets* language. CSS is based on the [CSS2 specification](http://www.w3.org/TR/REC-CSS2/), with certain elements removed or altered to suit the needs of APUI. In some cases, elements have been taken from the [CSS3 working draft](http://www.w3.org/Style/CSS/current-work). This document provides an overview of CSS and the differences between CSS and CSS, and should be read in conjunction with the CSS2 specification.
 
-CSS interacts with RML in an identical fashion to CSS and HTML. Style properties declared in a CSS are attached selectively to elements defined in RML to affect layout, positioning and other style attributes (such as font, color, text decoration, etc).
+CSS interacts with HTML in an identical fashion to CSS and HTML. Style properties declared in a CSS are attached selectively to elements defined in HTML to affect layout, positioning and other style attributes (such as font, color, text decoration, etc).
 
 If you are familiar with CSS, a good place to start is the [property index](css/property_index.html), which outlines the properties and values supported in CSS and the new functionality included. Next, read up on [decorators](css/decorators.html), the new, flexible way to skin elements.
 

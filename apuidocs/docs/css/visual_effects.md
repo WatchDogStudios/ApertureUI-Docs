@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Visual effects
-parent: css
+parent: CSS
 next: colours_backgrounds
 ---
 

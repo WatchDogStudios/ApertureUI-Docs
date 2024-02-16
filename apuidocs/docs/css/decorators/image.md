@@ -1,8 +1,8 @@
 ---
 layout: page
 title: Image decorator
-parent: css/decorators
-grandparent: css
+parent: CSS/decorators
+grandparent: CSS
 next: tiled_horizontal
 ---
 

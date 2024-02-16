@@ -7,7 +7,7 @@ status-desc: datagrid has been deprecated in favor of data bindings
 
 This tutorial will take you through the process of upgrading an existing body of data to be a data source, then creating a datagrid to read from that source.
 
-This tutorial expects that you've got a solid grounding in C++ and know the basics of [RML](../rml.html) and [CSS](../css.html).
+This tutorial expects that you've got a solid grounding in C++ and know the basics of [HTML](../rml.html) and [CSS](../css.html).
 
 For a detailed description on how DataGrids work with DataSources please see the [C++ Manual](../cpp_manual/element_packages/data_grid.html).
 
@@ -181,7 +181,7 @@ Each column has a `fields` attribute - this tells the column which fields it fet
 
 The `width` attribute in `<col>` instructs how much of the width of the datagrid that this column takes up.
 
-Anything in between the `<col>` and `</col>` tags is put in a header row, above all the other rows. Any RML can be put in here, and it can be left empty.
+Anything in between the `<col>` and `</col>` tags is put in a header row, above all the other rows. Any HTML can be put in here, and it can be left empty.
 
 Running the sample with the above code will give us the following output:
 
@@ -191,7 +191,7 @@ Well, at least it's working. Time to pretty it up some:
 
 #### Data formatters
 
-The third part of the datagrid system is the data formatter. A data formatter sits in between the data source and datagrid - it takes the raw field information and processes it into RML. So in this way you can turn the text returned by a column request into an icon, a button, an image with a caption, anything at all. Even another datagrid! To do this, first we go to the declaration of the datagrid in tutorial.rml and add the data formatter attribute to the ship col:
+The third part of the datagrid system is the data formatter. A data formatter sits in between the data source and datagrid - it takes the raw field information and processes it into HTML. So in this way you can turn the text returned by a column request into an icon, a button, an image with a caption, anything at all. Even another datagrid! To do this, first we go to the declaration of the datagrid in tutorial.rml and add the data formatter attribute to the ship col:
 
 ```html
 <col fields="colour" formatter="ship" width="20%">Ship:</col>
@@ -205,7 +205,7 @@ A data formatter inherits from the class apui::DataFormatter. It has one functio
 virtual void FormatData(apui::String& formatted_data, const apui::StringList& raw_data) = 0;
 ```
 
-This function takes a list of strings, which contains the fields from the data query. The string reference is used to return the final RML once the data has been formatted. It also has a constructor that takes a `const char*` (defaulting to `""`) in the same way as `apui::DataSource`. This is the name of the formatter, and is used to uniquely identify it to any datagrid columns that wish to use it.
+This function takes a list of strings, which contains the fields from the data query. The string reference is used to return the final HTML once the data has been formatted. It also has a constructor that takes a `const char*` (defaulting to `""`) in the same way as `apui::DataSource`. This is the name of the formatter, and is used to uniquely identify it to any datagrid columns that wish to use it.
 
 So to make a new formatter, first make a new class - I called mine `HighScoresShipFormatter`. Have it inherit from `apui::DataFormatter` and define the `FormatData()` function. In the .cpp file, call the `apui::DataFormatter` constructor called from the `HighScoresShipFormatter` constructor with the parameter `ship`. This will give it the name that the datagrid column references it by. The next step is to write the FormatData function. Very handily there's a decorator which does exactly what we want, and it's mapped to the `<defender>` tag. The decorator reads the "colour" style applied to the `<defender>` tag and colours itself based on that. So all we have to do is read the raw colour information then construct a `<defender>` tag with a style with that colour. Here's my implementation:
 

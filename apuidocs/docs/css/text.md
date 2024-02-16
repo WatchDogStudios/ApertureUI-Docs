@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Text
-parent: css
+parent: CSS
 next: tables
 ---
 

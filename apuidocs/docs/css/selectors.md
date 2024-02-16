@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Selectors
-parent: css
+parent: CSS
 next: cascade
 ---
 
@@ -10,7 +10,7 @@ Selectors are used to select elements to apply specific rules to. The following 
 Selector            | Matches
 ---                 | ---
 `*`          | Any element.
-`E`          | Any element of type E (i.e., an element declared in an RML document as `<E>`).
+`E`          | Any element of type E (i.e., an element declared in an HTML document as `<E>`).
 `.foo`       | Any element that has been declared with class `foo`.
 `#foo`       | Any element that has been declared with an ID of `foo`.
 `:foo`       | Any element that has the pseudo-class `foo` currently active, or matches a structural selector below.
@@ -79,11 +79,11 @@ div.content > p {}
 div.content + p {}
 div.content ~ p {}
 ```
-For an element to be matched by a selector with multiple compound selectors, it itself must match the last compound selector. And then, each of the preceding compound selectors must match elements in the RML hierarchy according to the rule of their connecting combinator.
+For an element to be matched by a selector with multiple compound selectors, it itself must match the last compound selector. And then, each of the preceding compound selectors must match elements in the HTML hierarchy according to the rule of their connecting combinator.
 
 ##### Descendant combinator
 
-The descendent combinator (whitespace) must have descendants in the RML hierarchy that match the preceding compound selector. So, for example, the selector
+The descendent combinator (whitespace) must have descendants in the HTML hierarchy that match the preceding compound selector. So, for example, the selector
 
 ```css
 div#level_list input.select option:nth-child(even)

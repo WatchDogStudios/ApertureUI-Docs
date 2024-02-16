@@ -1,12 +1,12 @@
 ---
 layout: page
 title: HTML Markup Language
-short_title: HTML (APUI RML)
+short_title: HTML (APUI HTML)
 ---
 
-HTML (or internally known as RML for legacy reasons) is based around the [HTML5 standard](https://html.spec.whatwg.org/multipage/), and in particular uses the [XML syntax](https://html.spec.whatwg.org/multipage/xhtml.html) for document markup. However, element names are (mostly) open-ended in RML and can be used in any way that is logical for your application. All documents follow strict [XML 1.0 specification](https://www.w3.org/TR/xml/) and where possible all APUI elements follow their HTML equivalent.
+HTML (or internally known as HTML for legacy reasons) is based around the [HTML5 standard](https://html.spec.whatwg.org/multipage/), and in particular uses the [XML syntax](https://html.spec.whatwg.org/multipage/xhtml.html) for document markup. However, element names are (mostly) open-ended in HTML and can be used in any way that is logical for your application. All documents follow strict [XML 1.0 specification](https://www.w3.org/TR/xml/) and where possible all APUI elements follow their HTML equivalent.
 
-RML maintains the core components of HTML5, including CSS. It provides a number of basic elements including input fields, radio buttons and check boxes as well as more complex enhancements such as templates and datagrids.
+HTML maintains the core components of HTML5, including CSS. It provides a number of basic elements including input fields, radio buttons and check boxes as well as more complex enhancements such as templates and datagrids.
 
 ### Contents
 
@@ -14,7 +14,7 @@ RML maintains the core components of HTML5, including CSS. It provides a number 
 
 1. [Elements](rml/elements.html) - The basic element and global attributes.
 2. [Documents](rml/documents.html) - The HEAD and BODY of a document.
-3. [Style sheets](rml/style_sheets.html) - Adding style to RML documents.
+3. [Style sheets](rml/style_sheets.html) - Adding style to HTML documents.
 4. [Templates](rml/templates.html) - Making all your windows look consistent.
 5. [Syntax](rml/syntax.html) - Parsing details and character references.
 6. [Events](rml/events.html) - Mouse clicks, movement, key presses, text entry. 

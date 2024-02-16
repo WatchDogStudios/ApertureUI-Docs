@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Property index
-parent: css
+parent: CSS
 comment: Please run '_tools/generate_elements_and_properties_index.py' whenever properties or their URLs are added or changed.
 ---
 

@@ -68,13 +68,13 @@ Animated transforms (entirely in CSS)
 Flexbox layout
 
 
-![Progress bars](cpp_manual/element_packages/progress_bar.gif)\
+![Progress bars](C++/element_packages/progress_bar.gif)\
 Progress bars
 
 
 ![Lottie animation](../static/assets/gallery/lottie.gif)\
-Vector animations with the [Lottie plugin](cpp_manual/lottie.html)
+Vector animations with the [Lottie plugin](C++/lottie.html)
 
 
 ![SVG image](../static/assets/gallery/svg_plugin.png)\
-SVG vector images with the [SVG plugin](cpp_manual/svg.html)
+SVG vector images with the [SVG plugin](C++/svg.html)

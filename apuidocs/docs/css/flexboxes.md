@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Flexible boxes
-parent: css
+parent: CSS
 next: user_interface
 ---
 

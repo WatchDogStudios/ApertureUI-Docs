@@ -5,7 +5,7 @@ status: deprecated
 status-desc: datagrid has been deprecated in favor of data bindings
 ---
 
-This tutorial expects that you've got a solid grounding in C++ and know the basics of [RML](../rml.html) and [CSS](../css.html), and know the basics of datagrids (ie, completed the first [datagrid tutorial](datagrid.html)).
+This tutorial expects that you've got a solid grounding in C++ and know the basics of [HTML](../rml.html) and [CSS](../css.html), and know the basics of datagrids (ie, completed the first [datagrid tutorial](datagrid.html)).
 
 ---
 ***NOTE***
@@ -196,7 +196,7 @@ void ExpandButtonFormatter::FormatData(apui::String& formatted_data, const apui:
 }
 ```
 
-The `<datagridexpand>` element is an element that listens to the `click` events and toggles the visibility of the child rows of its parent row. In the RML there's been styling added to make it look like a +/- button - you'll have to style one yourself just like a button if you plan on using trees in your own application.
+The `<datagridexpand>` element is an element that listens to the `click` events and toggles the visibility of the child rows of its parent row. In the HTML there's been styling added to make it look like a +/- button - you'll have to style one yourself just like a button if you plan on using trees in your own application.
 
 Don't forget to call the formatter the right name, and to instance the formatter in `main.cpp`. Once that's done, fire it up and you'll see the expand buttons beside each row, and be able to expand the child rows:
 

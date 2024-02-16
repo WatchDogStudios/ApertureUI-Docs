@@ -1,11 +1,11 @@
 ---
 layout: page
 title: Box model
-parent: css
+parent: CSS
 next: visual_formatting_model
 ---
 
- The CSS box model describes the boxes that each element in an RML element tree generates during layout. It is identical to the [CSS box model](http://www.w3.org/TR/REC-CSS2/box.html). Please note that CSS implements the CSS2 box model to specification (with one minor exception), and not the old IE box model. Important things to note about the box model are:
+ The CSS box model describes the boxes that each element in an HTML element tree generates during layout. It is identical to the [CSS box model](http://www.w3.org/TR/REC-CSS2/box.html). Please note that CSS implements the CSS2 box model to specification (with one minor exception), and not the old IE box model. Important things to note about the box model are:
 
 * The `width` and `height` properties set the size of the content area. Any borders and padding are in addition to the content area, not part of the content area as in the IE box model.
 * For replaced elements (any element with intrinsic dimensions, such as input fields, images, drop-down lists, etc) borders and padding are calculated as part of the content area; ie, they use the IE box model. This allows for much easier placement of their internal elements. 

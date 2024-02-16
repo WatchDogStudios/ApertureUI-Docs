@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Assigning property values, cascading, and inheritance
-parent: css
+parent: CSS
 next: box_model
 ---
 
