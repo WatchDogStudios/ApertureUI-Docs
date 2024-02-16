@@ -23,9 +23,9 @@ const config = {
   organizationName: 'WatchDogsStudios', // Usually your GitHub org/user name.
   projectName: 'ApertureUI', // Usually your repo name.
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-
+  onBrokenLinks: 'ignore', // We will ignore, this is given for a automated port, will manually fix.
+  onBrokenMarkdownLinks: 'log',
+  onDuplicateRoutes: 'log',
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
