@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Loading fonts
-parent: Lua Guide
+parent: LuaGuide
 next: attaching_to_events
 ---
 

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Lua API Reference
-parent: Lua Guide
+parent: LuaGuide
 ---
 
 Most of the Lua types, properties, and functions listed in this reference correspond directly to their C++ API equivalent, users are encouraged to take a look at the [C++ Manual](../cpp_manual.html) for more detailed descriptions.

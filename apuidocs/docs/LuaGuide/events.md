@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Events
-parent: Lua Guide
+parent: LuaGuide
 ---
 
 ### Interface

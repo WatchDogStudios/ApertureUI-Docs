@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Contexts
-parent: Lua Guide
+parent: LuaGuide
 next: events
 ---
 

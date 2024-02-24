@@ -2,9 +2,12 @@
 layout: page
 title: Lua Manual
 ---
+:::warning obsolete
 Lua is not supported anymore with Aperture UI, as JavaScript/TypeScript is the main scripting language for the Middleware.
 
 Dispite this, The Lua interface to APUI has been designed to resemble Javascript as closely as possible. Due the nature of the language, this is more possible in Lua than C++.
+
+:::
 
 The functionality of APUI is described fully in the [C++ Manual](cpp_manual.html); this manual defines the Lua interface to the aperture ui objects described there. Not all aspects of APUI are accessible from Lua; for example, custom decorators can only be created in C++. However the vast majority is accessible, enabling you to easily and efficiently develop the functionality of your documents.
 
@@ -12,18 +15,18 @@ A good place to get started is the `luainvaders` sample included with the librar
 
 ### Integrating Lua
 
-1. [Getting started](lua_manual/getting_started.html)
-2. [Embedding script](lua_manual/embedding_script.html)
-3. [Loading fonts](lua_manual/fonts.html)
-4. [Attaching to Events](lua_manual/attaching_to_events.html) 
+1. [Getting started](LuaGuide/getting_started.html)
+2. [Embedding script](LuaGuide/embedding_script.html)
+3. [Loading fonts](LuaGuide/fonts.html)
+4. [Attaching to Events](LuaGuide/attaching_to_events.html) 
 
 ### Interfaces
 
-1. [Elements](lua_manual/elements.html)
-2. [Documents](lua_manual/documents.html)
-3. [Contexts](lua_manual/contexts.html)
-4. [Events](lua_manual/events.html)
+1. [Elements](LuaGuide/elements.html)
+2. [Documents](LuaGuide/documents.html)
+3. [Contexts](LuaGuide/contexts.html)
+4. [Events](LuaGuide/events.html)
 
 ### Appendix
 
-1. [API reference](lua_manual/api_reference.html)
+1. [API reference](LuaGuide/api_reference.html)

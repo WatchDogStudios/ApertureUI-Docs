@@ -1,0 +1,154 @@
+---
+layout: page
+title: APUI JavaScript Architecture
+---
+
+# Java Script Design & Architecture
+
+APUI natively supports JavaScript as a Scripting Language to use with HTML/CSS to give users a Web-Like authoring experience, 
+but Since the standards of ECMAScript are massive, and we cant cover completely everything while being performant for real-time applications, there are some trade-offs we made when creating the JSEngine.
+
+## Architecture
+
+To get a quick layout on every JS Module APUI uses, here they are:
+
+- **JSEngine (apertureuijs)**: High-Mid Level of the JSEngine Module, handles sending JavaScript's to the Underlying JSEngines in use, Manages Multithreading, and Updates DOM, Events, and Data from HTML/CSS with JavaScript, allowing users to change HTML/CSS data from code.
+
+- **IScriptEngine (apertureuiiscriptengine)**: Interfaces for Any Scripting Language that is utilized within APUI. It was created to allow users to extend APUI to use other scripting languages like Lua, AngelScript, and more.
+
+- **V8Engine (apertureuiv8)**: Low Level Engine that implements IScriptEngine for JavaScript. this runs all IScriptEngine calls through the V8Engine, and is used on every platform except consoles.
+
+- **JSCEngine (apertureuijsc)**: Low Level Engine that implements IScriptEngine for JavaScript, just like **V8Engine**, but for Apple's JavaScriptCore Engine, and is used on IOS & Consoles.
+### Runtime Example
+
+Now that we know all the Modules, or Parts of the JavaScript Runtime of APUI, lets breakdown on what happens every "frame" that Aperture UI is running:
+
+**1**: JavaScript files are queued up into a Dynamic Array , and sent to the JSEngine to handle. 
+
+**2**: JSEngine sends the array of JS Files to the High-Level Multithreading Manager, which breaks down the massive array of JS Files, and organizes them by priority & dependancy.
+
+**3**: Once the the Multithreading Manager has done its job, then we take the smaller arrays and make a ScriptPump out of them. 
+
+**4**: The Script Pumps are sent over to the Task System, to be executed. 
+
+**5**: After base execution by the Underlying JSEngine (V8, JavaScriptCore), then we update the DOM & CSS, then cleanup, and restart all over again.
+
+## Design Decisions
+
+Aperture UI plans to be compliant with the web in-terms of the HTML/CSS side, but this isnt the case with JavaScript unlike GameFace.
+
+We wanted Scripting to be usable with frameworks like React in the beginning, when APUI was orginally going to be used internally at WD Studios, but when commercialising the middleware, we realized we couldn't do that off the bat, but gradually support frameworks as we develop the middleware.
+### Examples
+Lets take some JSX From React for example:
+
+```JSX
+import React from 'react';
+
+const HelloWorld = () => {
+    const style = {
+        background: 'linear-gradient(to right, red , yellow)',
+        color: 'white',
+        padding: '10px',
+        borderRadius: '5px'
+    };
+
+    return (
+        <div style={style}>
+            Hello World
+        </div>
+    );
+};
+
+export default HelloWorld;
+
+```
+
+Simple, right? It Just displays "Hello World" with a linear-gradient. this is very possible in APUI, since all it does it change the style of a component.
+
+All we would really need to do on the JSEngine side, is take the exported defualt "HelloWorld", and apply & update the DOM & CSS with the HelloWorld object HTML/CSS.
+
+Lets look at something more complex:
+
+```JSX
+import React, { useState } from 'react';
+
+const TodoApp = () => {
+    const [todos, setTodos] = useState([]);
+    const [todo, setTodo] = useState('');
+
+    const addTodo = () => {
+        setTodos([...todos, todo]);
+        setTodo('');
+    };
+
+    const removeTodo = (index) => {
+        const newTodos = [...todos];
+        newTodos.splice(index, 1);
+        setTodos(newTodos);
+    };
+
+    return (
+        <div>
+            <h1>Todo App</h1>
+            <input
+                type="text"
+                value={todo}
+                onChange={(e) => setTodo(e.target.value)}
+            />
+            <button onClick={addTodo}>Add Todo</button>
+            <ul>
+                {todos.map((todo, index) => (
+                    <li key={index}>
+                        {todo}
+                        <button onClick={() => removeTodo(index)}>Remove</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+export default TodoApp;
+
+```
+
+This is also possible in APUI, but can take a while to parse, and send data back and forth through JSEngine to APUI Itself (apertureenginecore). This can work for games that work like the Sims, not really drawing alot on the screen at one time, persay, but for a game like Counter Strike 2, this would be a bit Too Much.
+
+Again, this is very pratical for games that dont need extreme responce times, but JSX like this will take time to parse. Just like Coherent Labs GameFace, it has limitations, and cant be performant in every situation. Unlike Coherent, APUI isnt as mature as GameFace yet, and wouldnt handle code like this as gracefully.
+
+From the start the team knew this, and we had to make a Decision. we decided to take after Valve's Panorama (Source & [CSGO and Strata Source](https://stratasource.org) Based Games GUI System), and go for a more minimal like system for JavaScript, having a decent amount of APUI specific functions. the diffrence here, is that we've made maps to these functions to native web ECMAScript functions.
+
+This is Hardly even Slower, but allows users from the Web to feel at home with JavaScript.
+
+For Users Who want the most performant UI, and dont care about "Web Specifics", lets look at some JavaScript Code that is native to APUI.
+
+
+```JS
+/// Creates a UTF8String (Internally) that contains: "HellowWorldAPUI", and Prints it.
+const HelloWorldAPUI = "HellowWorldAPUI";
+$.GetConsoleHook().print(HellowWorldAPUI);
+```
+Looks alot like Panorama Right?, Why is that? The team has had alot of experience with Panorama and GameFace, so when creating the JavaScript Engine, we wanted users coming from the web, gameface, and possibly panorama, to be able to feel right at home as much as possible.
+
+these are the internal calls that APUI uses and maps to web like functions. 
+
+For Example, here is the "internal code" for console.log:
+
+```JS
+class console
+{
+    function log(datatoprint) {
+        /// Maps to aperture::application::IAPUIConsoleHook::Print();
+        $.GetConsoleHook().print(datatoprint);
+    }
+}
+```
+
+Most of these maps are internally defined, so users dont have to implicitly include this code in JavaScript.
+
+
+
+
+
+
+

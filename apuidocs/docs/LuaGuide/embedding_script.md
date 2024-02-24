@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Embedding Lua script
-parent: Lua Guide
+parent: LuaGuide
 next: fonts
 ---
 

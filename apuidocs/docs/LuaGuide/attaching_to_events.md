@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Attaching To Events
-parent: Lua Guide
+parent: LuaGuide
 next: elements
 ---
 

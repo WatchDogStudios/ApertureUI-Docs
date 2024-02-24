@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Getting started
-parent: Lua Guide
+parent: LuaGuide
 next: embedding_script
 ---
 

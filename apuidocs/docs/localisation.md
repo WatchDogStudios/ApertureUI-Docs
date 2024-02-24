@@ -11,7 +11,7 @@ APUI assumes all data it is given, whether read in from HTML or provided procedu
 
 ### Translation
 
-All raw text that APUI reads while parsing HTML (i.e., everything other than XML tags) is sent through the `TranslateString()` function on the [system interface](cpp_manual/interfaces/system.html). The function is given the raw string as read, and the application can make any modifications necessary before returning the translated string (and the number of substitutions made) back to APUI.
+All raw text that APUI reads while parsing HTML (i.e., everything other than XML tags) is sent through the `TranslateString()` function on the [system interface](C++/interfaces/system.html). The function is given the raw string as read, and the application can make any modifications necessary before returning the translated string (and the number of substitutions made) back to APUI.
 
 A pass-through translator would do the following:
 
@@ -32,7 +32,7 @@ class SampleSystemInterface : public apui::SystemInterface
 The `TranslateString()` method can be used in conjunction with an application's string table to make text substitutions on a document's text. For example, take the pause.rml file in the _Rocket Invaders_ sample:
 
 ```html
-<rml>
+<html>
 	<head>
 		<title>Quit?</title>
 	</head>
@@ -41,13 +41,13 @@ The `TranslateString()` method can be used in conjunction with an application's 
 		<button>Yes</button>
 		<button>No!</button>
 	</body>
-</rml>
+</html>
 ```
 
 If we were to localise _Rocket Invaders_, we'd want to move all of the English strings out from the HTML and into a string table. The raw text in the HTML would then be replaced with the string table tokens:
 
 ```html
-<rml>
+<html>
 	<head>
 		<title>[QUIT_TITLE]</title>
 	</head>
@@ -56,7 +56,7 @@ If we were to localise _Rocket Invaders_, we'd want to move all of the English s
 		<button>[CONFIRM]</button>
 		<button>[DENY]</button>
 	</body>
-</rml>
+</html>
 ```
 
 Assuming the appliation has a `StringTable` class that has loaded the appropriate string table for the language, our sample translator would then become:

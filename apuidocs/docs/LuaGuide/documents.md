@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Documents
-parent: Lua Guide
+parent: LuaGuide
 next: contexts
 ---
 
